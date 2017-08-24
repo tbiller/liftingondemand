@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var LifterSchema = new Schema({
   _id: Schema.Types.ObjectId,
   name: String,
+  yob: Number,
   appearances: [{ type: Schema.Types.ObjectId, ref: 'Appearance' }]
 });
 

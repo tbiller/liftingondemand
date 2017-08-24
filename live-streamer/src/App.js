@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import Menubar from './components/Menubar';
 import Header from './components/Header';
-import Competition from './components/Competition';
+import CompetitionRoute from './components/CompetitionRoute';
+import LifterRoute from './components/LifterRoute';
 import { withRouter, Switch, Redirect } from 'react-router';
 import { Route } from 'react-router-dom';
 
 import './styles/styles.css';
-
-const CompetitionRoute = ({path, ...compProps}) => {
-	return <Route
-				path={path}
-				render={(props) => <Competition {...props} {...compProps} />}
-				/>;
-}
 
 
 class App extends Component {
@@ -135,9 +129,13 @@ class App extends Component {
 			  
 
 				<div className='content' onClick={this.contentClick}>
-					<Route path='/comp/:competitionName' render={(props)=> {
-						return <Competition competitions={this.state.competitions} sendData={this.getData} {...props} />;
+					<Route exact path='/comp/:competitionName' render={(props)=> {
+						return <CompetitionRoute competitions={this.state.competitions} sendData={this.getData} {...props} />;
 					}} /> 
+					<Route exact path='/lifter/:lifterId' render={(props)=> {
+						return <LifterRoute {...props} />;
+					}} /> 
+
 				</div>
 		  	</div>
 		);

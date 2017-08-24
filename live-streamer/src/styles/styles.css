@@ -1,57 +1,607 @@
-/*
-Error: Invalid CSS after "...n-items: center": expected "{", was ";"
-        on line 334 of styles.scss
+html, body {
+  height: 100%; }
 
-329:   }
-330:   .app-title {
-331:     // padding: 60px 7px;
-332:     height: 180px;
-333:     display: flex; arst 
-334:     align-items: center;
-335:     padding-left: 10px;
-336:     background-color: $deepBlack;//$shamrock;
-337:     outline: 1px solid black;
-338:     color: white;
-339:     font-size: 40px;
+a {
+  text-decoration: none; }
+  a:link {
+    color: #00171F; }
+  a:visited {
+    color: #00171F; }
 
-Backtrace:
-styles.scss:334
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/scss/parser.rb:1278:in `expected'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/scss/parser.rb:1208:in `expected'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/scss/parser.rb:1203:in `tok!'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/scss/parser.rb:677:in `block'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/scss/parser.rb:747:in `declaration_or_ruleset'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/scss/parser.rb:697:in `block_child'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/scss/parser.rb:689:in `block_contents'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/scss/parser.rb:678:in `block'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/scss/parser.rb:747:in `declaration_or_ruleset'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/scss/parser.rb:697:in `block_child'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/scss/parser.rb:689:in `block_contents'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/scss/parser.rb:678:in `block'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/scss/parser.rb:670:in `ruleset'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/scss/parser.rb:696:in `block_child'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/scss/parser.rb:689:in `block_contents'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/scss/parser.rb:137:in `stylesheet'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/scss/parser.rb:41:in `parse'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/engine.rb:414:in `_to_tree'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/engine.rb:389:in `_render_with_sourcemap'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/engine.rb:307:in `render_with_sourcemap'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/plugin/compiler.rb:462:in `update_stylesheet'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/plugin/compiler.rb:209:in `each'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/plugin/compiler.rb:443:in `on_file_changed'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-3.5.1/lib/sass/plugin/compiler.rb:320:in `block in watch'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-listen-4.0.0/lib/sass-listen/event/config.rb:23:in `call'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-listen-4.0.0/lib/sass-listen/event/processor.rb:115:in `_process_changes'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-listen-4.0.0/lib/sass-listen/event/processor.rb:19:in `block in loop_for'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-listen-4.0.0/lib/sass-listen/event/processor.rb:15:in `loop'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-listen-4.0.0/lib/sass-listen/event/processor.rb:15:in `loop_for'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-listen-4.0.0/lib/sass-listen/event/loop.rb:84:in `_wait_for_changes'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-listen-4.0.0/lib/sass-listen/event/loop.rb:42:in `block in setup'
-/Users/trevor/.rvm/gems/ruby-2.4.1/gems/sass-listen-4.0.0/lib/sass-listen/internals/thread_pool.rb:6:in `block in add'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Error: Invalid CSS after \"...n-items: center\": expected \"{\", was \";\"\A         on line 334 of styles.scss\A \A 329:   }\A 330:   .app-title {\A 331:     // padding: 60px 7px;\A 332:     height: 180px;\A 333:     display: flex; arst \A 334:     align-items: center;\A 335:     padding-left: 10px;\A 336:     background-color: $deepBlack;//$shamrock;\A 337:     outline: 1px solid black;\A 338:     color: white;\A 339:     font-size: 40px;"; }
+.app {
+  left: 0px;
+  padding: 0px 0px 10px;
+  display: flex;
+  flex-direction: column;
+  width: 960px;
+  min-height: 800px;
+  position: relative;
+  overflow: hidden; }
+
+.hidden {
+  display: none !important; }
+
+.options-pane {
+  padding: 0px 8px;
+  width: 110px; }
+  .options-pane .all-options {
+    display: flex;
+    flex-direction: column;
+    align-items: left; }
+    .options-pane .all-options .options-container {
+      margin: 10px auto;
+      width: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: left; }
+      .options-pane .all-options .options-container .options-title {
+        font-size: 12px;
+        width: 100%;
+        border-bottom: 1px solid black;
+        font-weight: bold;
+        margin: 2px 0px 4px 2px; }
+      .options-pane .all-options .options-container .options {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between; }
+      .options-pane .all-options .options-container .specific-options {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: flex-start;
+        margin-left: 12px; }
+        .options-pane .all-options .options-container .specific-options:first-child {
+          margin-left: 0px; }
+
+.burger-icon {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  justify-content: space-between;
+  width: 16px;
+  height: 15px;
+  margin: 10px;
+  transition: 0.3s; }
+  .burger-icon .bar {
+    height: 3px;
+    background-color: black;
+    border-radius: 3px; }
+  .burger-icon:hover {
+    cursor: pointer; }
+  .burger-icon.rotated {
+    transform: rotate(-90deg);
+    transition: 0.2s; }
+
+.searchbox {
+  margin-left: auto;
+  position: relative;
+  z-index: 999; }
+  .searchbox input {
+    width: 250px;
+    border: 1px solid #dadada;
+    height: 26px;
+    line-height: 25px;
+    font-size: 16px;
+    padding: 1px 6px;
+    transition: 0.2s; }
+    .searchbox input:focus {
+      width: 400px;
+      transition: 0.2s;
+      outline: 2px solid #999; }
+    .searchbox input::placeholder {
+      font-size: 14px;
+      color: #ccc; }
+  .searchbox .searchbox-overlay {
+    display: block;
+    top: 29px;
+    position: absolute;
+    background-color: white;
+    width: 412px;
+    z-index: 10000;
+    border: 1px solid #dadada; }
+    .searchbox .searchbox-overlay .searchbox-title {
+      margin-top: 6px;
+      padding: 2px 6px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: gray; }
+    .searchbox .searchbox-overlay .divider {
+      margin: 0px 6px;
+      border-top: 1px solid #dadada; }
+    .searchbox .searchbox-overlay .searchbox-note {
+      padding: 4px 6px;
+      color: #ccc; }
+    .searchbox .searchbox-overlay .searchbox-option {
+      height: 30px;
+      padding: 4px 6px;
+      font-size: 0.9em;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center; }
+      .searchbox .searchbox-overlay .searchbox-option .sideKey {
+        font-size: 0.9em;
+        color: #999; }
+      .searchbox .searchbox-overlay .searchbox-option:hover {
+        cursor: pointer;
+        background-color: #dadada;
+        transition: 0.2s; }
+
+.left .option {
+  text-align: left; }
+
+.option {
+  width: 94%;
+  padding: 0px 3%;
+  min-width: 28px;
+  font-size: 0.8em;
+  height: 24px;
+  line-height: 24px;
+  margin: 1px 0px;
+  border-radius: 2px;
+  border: 1px solid #dadada;
+  text-align: center; }
+  .option:hover {
+    cursor: pointer;
+    background-color: #dadada; }
+  .option:active {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15) inset, 0 0 6px rgba(0, 0, 0, 0.2) inset; }
+  .option.active {
+    background-color: #66A182;
+    color: white; }
+  .option.leaderboardType {
+    width: 100px;
+    padding: 0px 4px;
+    margin-left: 3px; }
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid #dadada; }
+  .header .app-title {
+    margin-left: 20px;
+    text-transform: upper-alpha;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: "PT Serif", Georgia, "Times New Roman", serif; }
+
+.side-bar {
+  overflow: hidden;
+  background-color: white;
+  transition: 0.3s;
+  position: absolute;
+  z-index: 1000; }
+
+.side-bar.open {
+  transition: 0.2s; }
+
+.side-bar.right {
+  width: 138px;
+  right: -145px; }
+
+.side-bar.right.open {
+  right: 0px; }
+
+.side-bar.left {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: -304px;
+  width: 300px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.98);
+  box-shadow: 2px 1px 2px gray;
+  display: flex;
+  flex-direction: column;
+  padding: 0px; }
+  .side-bar.left.open {
+    left: 0px; }
+  .side-bar.left .app-title {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    background-color: #00171F;
+    outline: 1px solid black;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: "PT Serif", Georgia, "Times New Roman", serif; }
+  .side-bar.left .divider {
+    border-top: 1px solid #eee;
+    margin-bottom: 10px; }
+  .side-bar.left .section {
+    margin-bottom: 30px; }
+  .side-bar.left .section-title {
+    padding-left: 10px;
+    font-weight: bold;
+    margin: 5px 0px;
+    text-transform: uppercase; }
+  .side-bar.left .blog {
+    padding-left: 10px; }
+    .side-bar.left .blog.inactive {
+      font-size: 0.8em;
+      color: #999; }
+  .side-bar.left .section.about {
+    margin-top: auto; }
+  .side-bar.left .section-content {
+    padding-left: 10px; }
+  .side-bar.left .footer {
+    margin-bottom: 10px;
+    color: gray;
+    font-size: 0.8em;
+    padding: 0px 10px; }
+    .side-bar.left .footer > div {
+      margin-top: 3px; }
+
+.competition {
+  height: 60px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 10px; }
+  .competition .date {
+    font-size: 0.75em;
+    color: #999; }
+  .competition:hover {
+    background-color: #dadada;
+    transition: 0.3s; }
+
+.circle-indicator {
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  border-radius: 8px;
+  opacity: 0; }
+  .circle-indicator.active {
+    opacity: 1;
+    background-color: #66A182; }
+
+.youtube-pane {
+  display: flex;
+  background-color: #00171F;
+  position: relative;
+  flex-direction: row;
+  justify-content: center;
+  height: 360px; }
+
+.content {
+  position: relative; }
+
+.competition-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-height: 30px;
+  background-color: #003459;
+  color: white;
+  padding: 2px 4px; }
+  .competition-header .competition-date {
+    position: absolute;
+    left: 10px;
+    font-size: 0.9em;
+    color: #ccc; }
+  .competition-header .competition-title {
+    font-size: 18px; }
+  .competition-header .active-division {
+    position: absolute;
+    color: #ccc;
+    right: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer; }
+    .competition-header .active-division .arrow {
+      width: 25px;
+      height: 25px;
+      transition: 0.2s;
+      transform: rotate(-90deg); }
+      .competition-header .active-division .arrow.rotated {
+        transform: rotate(0deg); }
+
+.currentLifterInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: #00171F;
+  z-index: 2;
+  height: 66px;
+  color: white;
+  align-items: center;
+  padding: 0px 8px;
+  font-size: 22px;
+  box-shadow: 0px 3px 3px black;
+  margin-bottom: 0px; }
+  .currentLifterInfo .current-lifter-name {
+    overflow-wrap: break-word;
+    font-weight: bold;
+    font-size: 30px; }
+  .currentLifterInfo .current-attempts {
+    display: flex;
+    flex-direction: row;
+    margin-left: 50px;
+    align-items: center; }
+    .currentLifterInfo .current-attempts .previous-attempt, .currentLifterInfo .current-attempts .next-attempt {
+      display: flex;
+      justify-content: center; }
+    .currentLifterInfo .current-attempts .current-attempt {
+      display: flex;
+      min-width: 200px;
+      justify-content: space-between;
+      flex-direction: column;
+      margin: -5px 10px;
+      align-items: center;
+      padding: 8px; }
+      .currentLifterInfo .current-attempts .current-attempt .current-attempt-name {
+        margin-right: 5px;
+        font-size: 0.9em; }
+      .currentLifterInfo .current-attempts .current-attempt .current-weight {
+        display: flex;
+        font-weight: bold;
+        flex-direction: row; }
+        .currentLifterInfo .current-attempts .current-attempt .current-weight .kg-weight {
+          font-weight: bold;
+          margin-right: 10px; }
+        .currentLifterInfo .current-attempts .current-attempt .current-weight .lb-weight {
+          font-size: 1em; }
+    .currentLifterInfo .current-attempts .arrow {
+      height: 20px;
+      line-height: 20px;
+      color: white; }
+      .currentLifterInfo .current-attempts .arrow.rotated {
+        transform: rotate(180deg); }
+      .currentLifterInfo .current-attempts .arrow:hover {
+        cursor: pointer; }
+      .currentLifterInfo .current-attempts .arrow.inactive {
+        color: #999; }
+        .currentLifterInfo .current-attempts .arrow.inactive:hover {
+          cursor: default; }
+
+.player-controls {
+  padding: 6px 0px 6px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: #00171F; }
+
+.button {
+  margin: 0px 2px;
+  padding: 4px 6px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.8);
+  background-color: #E6E6E6;
+  border: 1px solid #dadada;
+  display: flex;
+  align-items: center;
+  border-radius: 2px; }
+  .button.seek-button {
+    width: 60px; }
+  .button.lift-button {
+    width: 100px; }
+  .button:hover {
+    cursor: pointer;
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0.1)); }
+  .button:active {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15) inset, 0 0 6px rgba(0, 0, 0, 0.2) inset; }
+  .button.right {
+    justify-content: flex-end;
+    text-align: right; }
+
+.autoplay-buttons {
+  display: flex;
+  flex-direction: row; }
+
+.leaderboard {
+  position: relative;
+  padding: 3px;
+  margin-top: 5px;
+  overflow: auto; }
+  .leaderboard .leaderboard-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 0px 3px 0px; }
+    .leaderboard .leaderboard-header .leaderboard-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-right: 50px; }
+    .leaderboard .leaderboard-header .legend {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: 0.8em; }
+      .leaderboard .leaderboard-header .legend .legend-entries {
+        padding: 1px 2px;
+        margin: 0px 10px;
+        display: flex;
+        border: 1px solid #dadada; }
+        .leaderboard .leaderboard-header .legend .legend-entries span {
+          display: inline-block;
+          margin: 0px 10px; }
+          .leaderboard .leaderboard-header .legend .legend-entries span:first-child {
+            margin-left: 2px; }
+          .leaderboard .leaderboard-header .legend .legend-entries span:last-child {
+            margin-right: 2px; }
+    .leaderboard .leaderboard-header .options {
+      display: flex;
+      flex-direction: row; }
+  .leaderboard .ReactTable {
+    border: none; }
+  .leaderboard .rt-table {
+    overflow: auto;
+    min-height: max-content;
+    font-size: 12px;
+    border: none; }
+    .leaderboard .rt-table .rt-thead .rt-th.border-left, .leaderboard .rt-table .rt-tbody .rt-td.border-left {
+      border-left: 1px solid black; }
+    .leaderboard .rt-table .rt-thead .rt-th.border-right, .leaderboard .rt-table .rt-tbody .rt-td.border-right {
+      border-right: 1px solid black; }
+    .leaderboard .rt-table .rt-thead {
+      box-shadow: none;
+      -webkit-box-shadow: none;
+      background-color: #e6e6e6; }
+    .leaderboard .rt-table .rt-th {
+      font-weight: bold; }
+    .leaderboard .rt-table .rt-td {
+      position: relative;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 4px 5px;
+      overflow: visible; }
+      .leaderboard .rt-table .rt-td .auto-playing {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        font-size: 10px;
+        background-color: black;
+        color: white;
+        padding: 1px 2px; }
+      .leaderboard .rt-table .rt-td .records {
+        position: absolute;
+        width: 14px;
+        text-align: center;
+        top: 0px;
+        right: 0px;
+        background-color: seagreen;
+        color: white;
+        padding: 0px 2px;
+        font-size: 8px; }
+    .leaderboard .rt-table .-headerGroups {
+      border: none;
+      color: white;
+      font-size: 1.2em; }
+      .leaderboard .rt-table .-headerGroups .rt-th:first-child, .leaderboard .rt-table .-headerGroups .rt-th:last-child {
+        background-color: white;
+        border-width: 0px 1px 1px 1px; }
+    .leaderboard .rt-table .rt-tr-group {
+      border-bottom: none; }
+    .leaderboard .rt-table .squat {
+      background-color: #00A8E8;
+      color: white; }
+    .leaderboard .rt-table .bench {
+      background-color: #007EA7; }
+    .leaderboard .rt-table .deadlift {
+      background-color: #003459; }
+    .leaderboard .rt-table .rt-tbody .rt-tr:hover {
+      background-color: #dadada;
+      transition: 0.2s; }
+    .leaderboard .rt-table .rt-td.lift.has-frame:hover {
+      cursor: pointer;
+      background-color: #eee; }
+      .leaderboard .rt-table .rt-td.lift.has-frame:hover span {
+        color: black; }
+    .leaderboard .rt-table .rt-tr.current-lifter {
+      border: 1px solid black;
+      border-width: 1px 0px;
+      background-color: #003459;
+      color: white; }
+      .leaderboard .rt-table .rt-tr.current-lifter .rt-td span {
+        color: white; }
+      .leaderboard .rt-table .rt-tr.current-lifter .rt-td.current-lift {
+        background-color: white; }
+        .leaderboard .rt-table .rt-tr.current-lifter .rt-td.current-lift span {
+          color: black;
+          text-decoration: none;
+          font-weight: bold; }
+      .leaderboard .rt-table .rt-tr.current-lifter:hover {
+        background-color: #00171F;
+        transition: 0.2s; }
+    .leaderboard .rt-table span.weight-cell, .leaderboard .rt-table span.total {
+      display: block;
+      width: 100%;
+      text-align: center; }
+      .leaderboard .rt-table span.weight-cell.total, .leaderboard .rt-table span.total.total {
+        color: black; }
+
+.good-lift {
+  color: #66A182; }
+
+.no-lift {
+  color: #92140C;
+  text-decoration: line-through; }
+
+.uncompleted {
+  color: #555;
+  text-decoration: none; }
+
+.no-frame {
+  color: #ccc; }
+
+.lights {
+  display: none;
+  clear: both;
+  width: 100%;
+  position: relative; }
+
+.lights.small {
+  display: none;
+  height: 5px;
+  position: absolute;
+  bottom: 0px;
+  left: 25%;
+  width: 50%;
+  /*margin: 0 ;*/ }
+
+.lightAndReasonContainer {
+  margin: 5px;
+  height: 100%;
+  float: left;
+  position: relative; }
+
+.lightAndReasonContainer.small {
+  margin: 0px;
+  width: 31%;
+  margin: 0px 1%; }
+
+.light.round {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid gray; }
+
+.light.small {
+  width: 100%;
+  height: 100%;
+  float: left;
+  position: absolute;
+  bottom: 10px; }
+
+.lightReason.small {
+  width: 100%;
+  height: 100%;
+  float: left;
+  position: absolute;
+  bottom: 0px; }
+
+.lightReason {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #dadada; }
+
+.lightReason.white {
+  border: none;
+  background-color: rgba(0, 0, 0, 0); }
+
+.white {
+  background-color: white; }
+
+.red {
+  background-color: red; }
+
+.yellow {
+  background-color: yellow; }
+
+.blue {
+  background-color: blue; }
+
+/*# sourceMappingURL=styles.css.map */

@@ -14,6 +14,7 @@ import queryString from 'query-string';
 import Appearance from '../models/Appearance';
 import { capitalize } from '../utils/general';
 
+
 // import '../styles/styles.css';
 
 class Competition extends Component {
@@ -107,7 +108,7 @@ class Competition extends Component {
 		fetch('/appearances?' + queryString.stringify(params))
 			.then(res => res.json())
 			.then(json => {
-				const lifterAppearances = this.convertToModels(json);
+				const lifterAppearances = json.map((appearanceJson) => new Appearance(appearanceJson));
 				this.sortedAttemptData = this.sortAttempts(lifterAppearances);
 				this.addFlightsToAttempts(this.sortedAttemptData);
 				this.setState({ lifterAppearances, loading: false});
@@ -135,43 +136,6 @@ class Competition extends Component {
 			this.selectFirstLifter();
 		}
 	}
-
-	convertToModels = (appearances) => {
-		const lifterAppearances = [];
-		appearances.forEach((appearance) => {
-			lifterAppearances.push(new Appearance(appearance))
-		});
-		return lifterAppearances;
-	}
-
-	// checkForWcOrDivChange(prevState, nextState) {
-	// 	let prevWcDiv, nextWcDiv;
-	// 	if (prevState) {
-	// 		prevWcDiv = this.wcDivKey(prevState.weightClass, prevState.division);
-	// 	}
-	// 	nextWcDiv = this.wcDivKey(nextState.weightClass, nextState.division);
-	// 	if (nextWcDiv && prevWcDiv !== nextWcDiv) {
-	// 		this.getCompData(this.props.competition,  nextState.division, nextState.weightClass);
-	// 		this.updateUrlParams({'weightClass': this.state.weightClass, 'division': this.state.division}, false);
-	// 		return true;
-	// 	}
-	// 	return false;
-	// }
-
-	wcDivKey = (weightClass, division) => {
-		if (!weightClass) { weightClass = this.state.weightClass; }
-		if (!division) { division = this.state.division; }
-		return (weightClass + '_' + division).toLowerCase();
-	}
-
-	// currentLifters = (weightClass, division) => {
-	// 	// const key = this.wcDivKey(weightClass, division);
-	// 	// if (this.compData.hasOwnProperty(key)) {
-	// 	// 	return this.compData[key];
-	// 	// } else {
-	// 	// 	return null;
-	// 	// }
-	// }
 
 	// called every second (or so) when the youtube player checks the current time of the player
 	timeChange = (time) => {
@@ -346,37 +310,6 @@ class Competition extends Component {
 		return lastLiftAttempt;
 	}
 
-	updateCurrentAttempt = (attempt) => {
-		this.setState({
-			currentAttempt: attempt,
-			currentVideoId: attempt ? attempt._appearance.videoId : this.state.currentVideoId
-		});
-
-		if (attempt) {
-			this.updateUrlParams({'lifter': attempt._lifter.name ? attempt._lifter.name : '', 'attempt': attempt.attemptName || ''}, false);
-		} else {
-			this.updateUrlParams({'lifter': null, 'attempt': null}, null);
-		}
- 	}
-
-	selectLiftAttempt = ({attempt, watchContinuous, boolStopVideo=false}) => {
-		// debugger;
-		// const attempt = lifter.attempts[attemptName];
-
-		if (!attempt) return false;
-		if (!attempt.hasFrame()) return false;
-
-		this.setState({
-			attemptToBeSelected: attempt,
-			boolStopVideo: boolStopVideo
-		})
-		this.updateCurrentAttempt(attempt);
-
-		// window.clearTimeout(this.watchContinuousTimeout);
-		// window.clearTimeout(this.watchCurrentLiftAttemptTimeout);
-		console.log('selecting lifter!!');
-	}
-
 	lifterClick = (lifter) => {
 		// return false;
 		const lifterIdx = this.state.watchContinuousLifters.indexOf(lifter);
@@ -422,6 +355,19 @@ class Competition extends Component {
 		this.incrementLifter(0, autoPlayLifters);
 	}
 
+	optionClick = (optType, val) => {
+		this.setState({
+			[optType]: val
+		});
+
+		if (optType !== 'leaderboardType') this.updateUrlParams({[optType]: val}, true);
+		// const timeout = optType === 'weightClass' ? 2000 : 750; // give more time in case user wants to select division
+		const timeout = 300;
+		window.clearTimeout(this.optionCloseTimeout);
+		this.optionCloseTimeout = window.setTimeout(this.closeOptions, timeout);
+		// this.props.toggleMenu(false);
+	}
+
 	nextLiftAttemptName = (liftAttemptName, increment=1) => {
 		const currentAttemptIndex = this.liftsInOrder.indexOf(liftAttemptName);
 		let newAttemptIndex = currentAttemptIndex + increment;
@@ -436,11 +382,74 @@ class Competition extends Component {
 		return this.liftsInOrder[newAttemptIndex];
 	}
 
-	advanceBySeconds = (seconds=5) => {
-		this.setState({
-			secondsToAdvance: seconds
-		});
+
+	selectFirstLifter = () => {
+		console.log('selecting first lifter');
+		if (!this.sortedAttemptData)  return false;
+
+		// find first lifter in last flight
+		let firstAttempt = null;
+		let flight = '';
+		for (let videoId in this.sortedAttemptData) {
+			if (this.sortedAttemptData.hasOwnProperty(videoId)) {
+				let attemptData = this.sortedAttemptData[videoId];
+				if (attemptData.length) {
+					if (!flight || attemptData[0]._appearance.flight > flight) {
+						firstAttempt = attemptData[0];
+						flight = firstAttempt._appearance.flight;
+					}
+				}
+			}
+		}
+		// this.setState({currentVideoId: firstAttempt._appearance.videoId})
+		this.selectLiftAttempt({attempt: firstAttempt, boolStopVideo: true});
 	}
+
+	toggleOptions = (boolOpen) => {
+		let open = false;
+		if (boolOpen !== undefined) {
+			open = boolOpen;
+		} else {
+			open = !this.state.optionsShown;
+		}
+		this.setState({optionsShown: open});
+	}
+
+	closeOptions = () => {
+		this.toggleOptions(false);
+	}
+
+
+
+
+	//////////////////////////////////////////
+	// Shared between competition route and lifter route
+	//////////////////////////////////////////
+
+	updateCurrentAttempt = (attempt) => {
+		this.setState({
+			currentAttempt: attempt,
+			currentVideoId: attempt ? attempt._appearance.videoId : this.state.currentVideoId
+		});
+
+		if (attempt) {
+			this.updateUrlParams({'lifter': attempt._lifter.name ? attempt._lifter.name : '', 'attempt': attempt.attemptName || ''}, false);
+		} else {
+			this.updateUrlParams({'lifter': null, 'attempt': null}, null);
+		}
+ 	}
+
+	selectLiftAttempt = ({attempt, watchContinuous, boolStopVideo=false}) => {
+		if (!attempt) return false;
+		if (!attempt.hasFrame()) return false;
+
+		this.setState({
+			attemptToBeSelected: attempt,
+			boolStopVideo: boolStopVideo
+		})
+		this.updateCurrentAttempt(attempt);
+	}
+
 
 	incrementLiftersLift = (numLiftsToMove, lifterAppearance, currentAttemptName) => {
 		lifterAppearance = lifterAppearance || this.state.currentAttempt._appearance;
@@ -451,17 +460,11 @@ class Competition extends Component {
 		this.selectLiftAttempt({attempt: newAttempt});
 	}
 
-	optionClick = (optType, val) => {
-		this.setState({
-			[optType]: val
-		});
 
-		if (optType !== 'leaderboardType') this.updateUrlParams({[optType]: val}, true);
-		// const timeout = optType === 'weightClass' ? 2000 : 750; // give more time in case user wants to select division
-		const timeout = 300;
-		window.clearTimeout(this.optionCloseTimeout);
-		this.optionCloseTimeout = window.setTimeout(this.closeOptions, timeout);
-		// this.props.toggleMenu(false);
+	advanceBySeconds = (seconds=5) => {
+		this.setState({
+			secondsToAdvance: seconds
+		});
 	}
 
 	deserializeParams = (params) => {
@@ -513,19 +516,10 @@ class Competition extends Component {
 		return serializedParams;
 	}
 	updateUrlParams = (newParams, addToHistory=true) => {
-		// debugger;
-
-
 		const serializedParams = this.serializeParams(newParams);
-		
-
 		const params = queryString.parse(this.props.location.search);
 		const combinedParams = Object.assign({}, params, serializedParams);
-		// if (val) {
-		// 	params[key] = val.split(' ').join('_');
-		// } else {
-		// 	delete params[key];
-		// }
+
 		if (addToHistory) {
 			this.props.history.push({search: '?' + queryString.stringify(combinedParams)});
 		} else {
@@ -533,61 +527,20 @@ class Competition extends Component {
 		}
 	}
 
-	getVideoIdForActiveDivision = (lifters) => {
-		let videoId = null;
-		for (let lifterName in lifters) {
-			if (lifters.hasOwnProperty(lifterName)) {
-				if (+lifters[lifterName].place === 1) {
-					return lifters[lifterName].videoId;
-				}
-			}
-		}
-	}	
-
-	selectFirstLifter = () => {
-		console.log('selecting first lifter');
-		if (!this.sortedAttemptData)  return false;
-
-		// find first lifter in last flight
-		let firstAttempt = null;
-		let flight = '';
-		for (let videoId in this.sortedAttemptData) {
-			if (this.sortedAttemptData.hasOwnProperty(videoId)) {
-				let attemptData = this.sortedAttemptData[videoId];
-				if (attemptData.length) {
-					if (!flight || attemptData[0]._appearance.flight > flight) {
-						firstAttempt = attemptData[0];
-						flight = firstAttempt._appearance.flight;
-					}
-				}
-			}
-		}
-		// this.setState({currentVideoId: firstAttempt._appearance.videoId})
-		this.selectLiftAttempt({attempt: firstAttempt, boolStopVideo: true});
-	}
-
-	toggleOptions = (boolOpen) => {
-		let open = false;
-		if (boolOpen !== undefined) {
-			open = boolOpen;
-		} else {
-			open = !this.state.optionsShown;
-		}
-		this.setState({optionsShown: open});
-	}
-
-	closeOptions = () => {
-		this.toggleOptions(false);
-	}
 
 	framerate() {
-		// TODO: should be video	based
-		switch (this.wcDivKey()) {
-			case '66_open':
-			case '57_open':
-				return 25;
-			case '83_open':
-				return 29.88;
+		if (!competition) return 30;
+
+		switch (this.state.competition.name) {
+			case 'IPF Classic Worlds 2017':
+				switch (this.state.weightClass + '_' + this.state.division) {
+					case '66_open':
+					case '57_open':
+						return 25;
+					case '83_open':
+						return 29.88;
+				}
+				break;
 			default:
 				return 30;
 		}
@@ -613,7 +566,6 @@ class Competition extends Component {
 					competition={this.state.competition} 
 					division={this.state.division}
 					weightClass={this.state.weightClass}
-					weightClassSuffix={weightClassSuffix}
 					boolShowOptions={true} 
 					toggleOptions={this.toggleOptions}
 					optionsShown={this.state.optionsShown}
@@ -636,6 +588,7 @@ class Competition extends Component {
 				        />
 				    </div>
 				</Sidebar>
+
 		    	<CurrentLifterInfo 
 		    		currentAttempt={this.state.currentAttempt}
 		    		selectLiftAttempt={this.selectLiftAttempt} 

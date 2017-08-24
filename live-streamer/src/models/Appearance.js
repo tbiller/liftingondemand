@@ -4,8 +4,8 @@ const liftsInOrder = ['Squat 1', 'Squat 2', 'Squat 3', 'Bench 1', 'Bench 2', 'Be
 			'Deadlift 1', 'Deadlift 2', 'Deadlift 3'];		
 
 class Appearance {
-	constructor(appearanceJson) {
-		this._lifter = appearanceJson._lifter;
+	constructor(appearanceJson, lifter) {
+		this._lifter = lifter || appearanceJson._lifter;
 		this.bodyweight = appearanceJson.bodyweight;
 		this.place = appearanceJson.place;
 		this.team = appearanceJson.team;
@@ -14,6 +14,9 @@ class Appearance {
 		this.total = appearanceJson.total;
 		this.place = appearanceJson.place;
 		this.lot = appearanceJson.lot;
+		this.division = appearanceJson.division;
+		this.weightClass = appearanceJson.weightClass;
+		this._competition = appearanceJson._competition;
 		// this.total.lifterObj = this;
 		this.attempts = {} // TODO: change to attempts
 		for (let attemptName in appearanceJson.lifts) {

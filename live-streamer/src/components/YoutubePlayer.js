@@ -20,6 +20,10 @@ export default class YoutubePlayer extends Component {
 		this.respondToProps(nextProps);
 	}
 
+	componentWillUnmount() {
+		window.clearTimeout(this.recordCurrentTimeTimeout);
+	}
+
 	respondToProps(props) {
 		console.log('responding to props');
 		if (props.attemptToBeSelected || props.secondsToAdvance) {

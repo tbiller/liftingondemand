@@ -6,6 +6,6 @@ module.exports = function(app) {
   app.route('/lifters')
     .get(lifter.get_all_lifters)
 
-  // app.route('/competitions/:competitionId')
-  //   .get(competition.get_a_competition)
+  app.route('/lifter/:lifterId')
+    .get(lifter.get_a_lifter)
 };
