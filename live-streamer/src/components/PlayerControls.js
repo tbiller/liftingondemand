@@ -17,14 +17,14 @@ export default function({
 
 	return (
 		<div className='player-controls'>
-				{ currentAttempt && 
+				{ (currentAttempt && incrementLifter) && 
 					<div className='button lift-button left' onClick={() => incrementLifter(-1)}>
 						&lt;&lt; Prev Lifter
 					</div>
 				}
 				<div className='button seek-button left' onClick={() => advanceBySeconds(-10)}>&lt;&lt; 10 secs</div>
 				<div className='button seek-button right' onClick={() => advanceBySeconds(10)}>10 secs &gt;&gt;</div>
-				{ currentAttempt && 
+				{ (currentAttempt && incrementLifter) && 
 					<div className='button lift-button right' onClick={() => incrementLifter(1)}>
 						Next Lifter &gt;&gt;
 					</div>

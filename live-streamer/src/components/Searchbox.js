@@ -111,7 +111,7 @@ class Searchbox extends Component {
 
 	handleBlur = (e) => {
 		// console.log('blurred');
-		// this.setState({'value': ''})
+		window.setTimeout(() => {this.setState({'value': ''})}, 400);
 	}
 
 	render() {

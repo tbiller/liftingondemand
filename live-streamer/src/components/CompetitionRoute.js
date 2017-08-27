@@ -9,6 +9,7 @@ import YoutubePlayer from './YoutubePlayer';
 import CurrentLifterInfo from './CurrentLifterInfo';
 import Leaderboard from './Leaderboard';
 import Sidebar from './Sidebar';
+import Serializer from '../utils/serializer';
 import { withRouter } from 'react-router';
 import queryString from 'query-string';
 import Appearance from '../models/Appearance';
@@ -31,7 +32,7 @@ class Competition extends Component {
 			secondsToAdvance: null,
 			currentAttempt: null,
 			currentVideoId: null,
-			leaderboardType: null,
+			leaderboardType: 'final',
 			watchContinuousLifters: [],
 			loading: false
 		};
@@ -54,7 +55,8 @@ class Competition extends Component {
 			prevState.division !== this.state.division || 
 			prevState.weightClass !== this.state.weightClass) {
 			this.getCompData(this.state.competition, this.state.division, this.state.weightClass);
-		 	this.updateUrlParams({weightClass: this.state.weightClass, division: this.state.division});
+		 	Serializer.updateUrlParams(this.props.history, this.props.location,
+		 		{weightClass: this.state.weightClass, division: this.state.division});
 		}
 	} 
 
@@ -80,7 +82,7 @@ class Competition extends Component {
 			var { division, weightClass } = newlyActiveCompetition.options['default'];
 		} else {
 			// no change in competition, or new competition but no previous one (page refresh)
-			var { division, weightClass } = this.deserializeParams(queryString.parse(props.location.search));
+			var { division, weightClass } = Serializer.deserializeParams(queryString.parse(props.location.search));
 			//TODO check if these params are valid for this competition
 			if (newlyActiveCompetition && (!division || !weightClass)) {
 				division = newlyActiveCompetition.options.default.division;
@@ -118,7 +120,7 @@ class Competition extends Component {
 	}
 
 	receivedNewData = (appearances) => {
-		const urlparams = this.deserializeParams(queryString.parse(this.props.location.search));
+		const urlparams = Serializer.deserializeParams(queryString.parse(this.props.location.search));
 		const lifterName = urlparams.lifter;
 		const attemptName = urlparams.attempt || 'Squat 1';
 
@@ -282,7 +284,7 @@ class Competition extends Component {
 
 		console.log(this.sortedAttemptData);
 		console.log(this.state.currentVideoId);
-		if (!this.sortedAttemptData[this.state.currentVideoId]) {
+		if (!this.sortedAttemptData[this.state.currentVideoId] || !this.sortedAttemptData[this.state.currentVideoId].length) {
 			console.log('no sortedAttemptData');
 			return null;
 		}
@@ -290,6 +292,7 @@ class Competition extends Component {
 		const attemptData = this.sortedAttemptData[this.state.currentVideoId];  
 		const frame = this.frameFromSeconds(seconds + 4);
 		for (let i = 1; i < attemptData.length; i++) {
+			// debugger;
 			let attempt = attemptData[i];
 			if (attempt.firstNameFrame > frame) {
 				if (attempt.frameWhenClickedOn() <= frame) {
@@ -310,9 +313,11 @@ class Competition extends Component {
 		return lastLiftAttempt;
 	}
 
-	lifterClick = (lifter) => {
+	lifterClick = (appearance) => {
+		// console.log(lifter);
+		Serializer.navigateTo(this.props.history, '/lifter/' + appearance._lifter._id);
 		// return false;
-		const lifterIdx = this.state.watchContinuousLifters.indexOf(lifter);
+		const lifterIdx = this.state.watchContinuousLifters.indexOf(appearance);
 		let newWatchContinuousLifters;
 		if (lifterIdx !== -1) {
 			// deselect lifter
@@ -323,7 +328,7 @@ class Competition extends Component {
 			});
 			this.incrementLifter(0, newWatchContinuousLifters);
 		} else {
-			newWatchContinuousLifters = this.state.watchContinuousLifters.concat([lifter]);
+			newWatchContinuousLifters = this.state.watchContinuousLifters.concat([appearance]);
 			if (this.state.watchContinuousLifters.indexOf(this.state.currentAttempt._appearance) === -1) {
 				this.incrementLifter(0, newWatchContinuousLifters);
 			}
@@ -360,7 +365,7 @@ class Competition extends Component {
 			[optType]: val
 		});
 
-		if (optType !== 'leaderboardType') this.updateUrlParams({[optType]: val}, true);
+		// if (optType !== 'leaderboardType') this.updateUrlParams({[optType]: val}, true);
 		// const timeout = optType === 'weightClass' ? 2000 : 750; // give more time in case user wants to select division
 		const timeout = 300;
 		window.clearTimeout(this.optionCloseTimeout);
@@ -432,10 +437,12 @@ class Competition extends Component {
 			currentVideoId: attempt ? attempt._appearance.videoId : this.state.currentVideoId
 		});
 
+		const { history, location } = this.props;
+
 		if (attempt) {
-			this.updateUrlParams({'lifter': attempt._lifter.name ? attempt._lifter.name : '', 'attempt': attempt.attemptName || ''}, false);
+			Serializer.updateUrlParams(history, location, {'lifter': attempt._lifter.name ? attempt._lifter.name : '', 'attempt': attempt.attemptName || ''}, false);
 		} else {
-			this.updateUrlParams({'lifter': null, 'attempt': null}, null);
+			Serializer.updateUrlParams(history, location, {'lifter': null, 'attempt': null}, null);
 		}
  	}
 
@@ -467,69 +474,9 @@ class Competition extends Component {
 		});
 	}
 
-	deserializeParams = (params) => {
-		const deserializedParams = {};
-		for (let key in params) {
-			let newKey = key;
-			let newVal = params[key];
-			switch (key) {
-				case 'att':
-					newKey = 'attempt';
-					newVal = params[key] ? params[key].split('_').join(' ') : null;
-					break;
-				case 'wc':
-					newKey = 'weightClass';
-					break;
-				case 'lifter':
-					newVal = params[key] ? params[key].split('_').join(' ') : null;
-					break;
-				case 'div':
-					newKey = 'division';
-					break;
-			}
-			deserializedParams[newKey] = newVal;
-		}
-		return deserializedParams;
-	}
-	serializeParams = (params) => {
-		const serializedParams = {};
-		for (let key in params) {
-			let newKey = key;
-			let newVal = params[key];
-			switch (key) {
-				case 'attempt':
-					newKey = 'att';
-					newVal = params[key] ? params[key].split(' ').join('_') : null;
-					break;
-				case 'weightClass':
-					newKey = 'wc';
-					break;
-				case 'lifter':
-					newVal = params[key] ? params[key].split(' ').join('_') : null;
-					break;
-				case 'division':
-					newKey = 'div';
-					break;
-			}
-			serializedParams[newKey] = newVal;
-		}
-		return serializedParams;
-	}
-	updateUrlParams = (newParams, addToHistory=true) => {
-		const serializedParams = this.serializeParams(newParams);
-		const params = queryString.parse(this.props.location.search);
-		const combinedParams = Object.assign({}, params, serializedParams);
-
-		if (addToHistory) {
-			this.props.history.push({search: '?' + queryString.stringify(combinedParams)});
-		} else {
-			this.props.history.replace({search: '?' + queryString.stringify(combinedParams)});
-		}
-	}
-
 
 	framerate() {
-		if (!competition) return 30;
+		if (!this.state.competition) return 30;
 
 		switch (this.state.competition.name) {
 			case 'IPF Classic Worlds 2017':
@@ -539,8 +486,9 @@ class Competition extends Component {
 						return 25;
 					case '83_open':
 						return 29.88;
+					default: 
+						return 30;
 				}
-				break;
 			default:
 				return 30;
 		}
@@ -605,6 +553,7 @@ class Competition extends Component {
 			        	playerUpdated={this.playerUpdated}
 			        	recordTime={this.timeChange}
 			        	framerate={this.framerate()}
+			        	boolStopVideo={this.state.boolStopVideo}
 			        />
 			    </div>
 			    <PlayerControls 

@@ -49,6 +49,10 @@ a {
   display: none !important;
 }
 
+.rt-tr-group {
+  border: none !important;
+}
+
 .options-pane {
   padding: 0px 8px;
   width: 110px;
@@ -144,7 +148,7 @@ a {
 }
 
 .searchbox {
-  // margin-right: 20px;
+  margin-right: 2px;
   margin-left: auto;
   // height:100%;
   // top: 0px;
@@ -155,17 +159,20 @@ a {
     // position: absolute;
     // top: 0px;
     width: 250px;
-    border: 1px solid #dadada;
+    border: none;
+    outline: 1px solid #dadada;
+    // outline: 1px solid #dadada;
     height: 26px;
-    line-height: 25px;
+    line-height: 26px;
     font-size: 16px;
     padding: 1px 6px;
     transition: 0.2s;
 
     &:focus {
-      width: 400px;
+      width: 350px;
       transition: 0.2s;
-      outline: 2px solid #999;
+      outline: 1px solid #999;
+      outline-offset: 0px;
     }
 
     &::placeholder {
@@ -179,7 +186,7 @@ a {
     top: 29px;
     position: absolute;
     background-color: white;
-    width: 400px + 2 * 6px;
+    width: 350px + 2 * 6px;
     // height: 400px;
     z-index: 10000;
 
@@ -274,9 +281,10 @@ a {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  // height: px;
+  height: 32px;
   align-items: center;
-  border-bottom: 1px solid #dadada;
+  // background-color: #efefef;
+  // border-bottom: 1px solid #dadada;
   // margin-top: 5px;
   // background-color: $blue1;
   .app-title {
@@ -329,14 +337,14 @@ a {
   }
   .app-title {
     // padding: 60px 7px;
-    height: 180px;
+    height: 140px;
     display: flex;
     align-items: center;
     padding-left: 10px;
-    background-color: $deepBlack;//$shamrock;
+    background-color: black;//$shamrock;
     outline: 1px solid black;
     color: white;
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
     font-family: "PT Serif", Georgia, "Times New Roman", serif;
     // border-bottom: 1px solid #dadada;
@@ -426,7 +434,7 @@ a {
 
 .youtube-pane {
   display: flex;
-  background-color: $deepBlack;
+  background-color: black;
   position: relative;
   flex-direction: row;
   justify-content: center;
@@ -453,30 +461,45 @@ a {
   //   flex-direction: row;
   //   justify-content: space-between;
 
+.route-indicator {
+  margin: 0 auto;
+  width: 300px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: -12px;
+  margin-bottom: -6px;
+  font-size: 0.8em;
+  color: $blue1;
+}
 .competition-header {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  min-height: 30px;
-  background-color: $blue3;
-  color: white;
-  padding: 2px 4px;
+  min-height: 35px;
+  // background-color: $blue3;
+  // color: white;
+    
+    // background-color: $blue1;
+  color: #333;
+  padding: 4px 4px;
+  // border-bottom: 1px solid white;
   .competition-date {
     position: absolute;
     left: 10px;
     font-size: 0.9em;
-    color: #ccc;
+    color: #999;
 
   }
   .competition-title {
     // margin-left: 55px;
-    font-size: 18px;
+    font-weight: bold;
+    font-size: 30px;
   }
 
   .active-division {
     position: absolute;
-    color: #ccc;
+    color: #999;
 
     right: 10px;
     display: flex;
@@ -506,25 +529,52 @@ a {
   }
 }
 
+.lifter-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-height: 30px;
+  background-color: white;
+  color: #333;
+  padding: 2px 4px;
+  border-bottom: 1px solid white;
+  .lifter-name {
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .yob {
+    position: absolute;
+    right: 10px;
+     margin-left: auto;
+  }
+
+}
+
     .currentLifterInfo {
       display: flex;
       flex-direction: row;
       justify-content: center;
-      background-color: $deepBlack;
+      background-color: black;
       z-index: 2;
-      height: 66px;
+      // height: 66px;
       // border-bottom: 1px solid white;
       color: white;
       align-items: center;
       padding: 0px 8px;
-      font-size: 22px;
-      box-shadow: 0px 3px 3px black;
-      margin-bottom: 0px;
+      font-size: 18px;
+      // box-shadow: 0px 3px 3px black;
+      // margin-bottom: 2px;
 
-      .current-lifter-name {
+      .current-lifter-name, .current-competition-name {
         overflow-wrap: break-word;
-        font-weight: bold;
-        font-size: 30px;
+        // font-weight: bold;
+        color: white;
+        font-size: 1.3em;
+        &:hover {
+          // font-weight: bold;
+          color: $blue1;
+        }
       }
 
 
@@ -619,7 +669,7 @@ a {
       display: flex;
       flex-direction: row;
       justify-content: center;
-      background-color: $deepBlack;
+      background-color: black;
 
       // .control-group {
       //   display: flex;
@@ -681,15 +731,14 @@ a {
   // min-height: 800px;
   // padding-top: 5px;
   // border-to`p: 1px dashed #dadada;
-  padding: 3px;
-  margin-top: 5px;
+  padding: 0px 3px;
   overflow: auto;
   .leaderboard-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 0px 0px 3px 0px;
+    margin: 3px 0px;
     .leaderboard-title {
       font-size: 18px;
       font-weight: bold;
@@ -730,150 +779,163 @@ a {
   }
 
 
-    .ReactTable {
-      border: none;
+    
+}
+
+.ReactTable {
+  border: none;
+}
+
+.rt-table {
+  overflow: auto;
+  min-height: max-content;
+  font-size: 12px;
+  border: none;
+
+
+
+  .rt-thead .rt-th, .rt-tbody .rt-td {
+    &.border-left {
+      border-left: 1px solid black;
     }
-    .rt-table {
-      overflow: auto;
-      min-height: max-content;
-      font-size: 12px;
-      border: none;
+    &.border-right {
+      border-right: 1px solid black;
+    }
+  }
+
+  .rt-thead {
+    box-shadow: none;
+    -webkit-box-shadow:none;
+    background-color: #e6e6e6;
+  }
+
+  .rt-th {
+    font-weight: bold;
+  }
+
+  .rt-td {
+    position: relative;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding: 4px 5px;
+    overflow: visible;
+
+    .auto-playing {
+      position:absolute;
+      right: 0px;
+      top: 0px;
+      font-size: 10px;
+      background-color: black;
+      color: white;
+      padding: 1px 2px;
+    }
 
 
+    .records {
+      position:absolute;
+      width: 14px;
+      text-align: center;
+      top: 0px;
+      right: 0px;
+      background-color: seagreen;
+      color: white;
+      padding: 0px 2px;
+      font-size: 8px;
+    }
 
-      .rt-thead .rt-th, .rt-tbody .rt-td {
-        &.border-left {
-          border-left: 1px solid black;
-        }
-        &.border-right {
-          border-right: 1px solid black;
-        }
-      }
+    &.lift.has-frame {
+      // background-color: $clickable;
+    }
 
-      .rt-thead {
-        box-shadow: none;
-        -webkit-box-shadow:none;
-        background-color: #e6e6e6;
-      }
+  }
 
-      .rt-th {
+  .-headerGroups {
+    border: none;
+    color: white;
+    font-size: 1.2em;
+
+    .rt-th:first-child, .rt-th:last-child {
+      background-color: white;
+      border-width: 0px 1px 1px 1px
+    }
+  }
+
+  .rt-tr-group {
+    border-bottom: none;
+  }
+
+  // .squat {
+  //   background-color: $blue1;
+  //   color: white;
+  // }
+  // .bench {
+  //   background-color: $blue2;
+  // }
+  // .deadlift {
+  //   background-color: $blue3;
+  // }
+
+  .rt-tbody .rt-tr:hover {
+    background-color: #dadada;
+    transition:0.2s;
+  }
+
+  .rt-td.lift.has-frame:hover{ //, .rt-td.lifter-name:hover {
+    cursor: pointer;
+    background-color: #eee;
+
+    span {
+      color:black;
+    }
+
+  }
+
+
+  .rt-tr.current-lifter {
+    border: 1px solid black;
+    border-width: 1px 0px;
+    background-color: $blue3;
+    color: white;
+
+    .rt-td span{
+      color: white;
+    }
+
+    .rt-td.current-lift {
+      background-color: white;
+      span {
+        color: black;
+        text-decoration:none;
         font-weight: bold;
       }
-
-      .rt-td {
-        position: relative;
-        border-bottom: 1px solid rgba(0,0,0,0.1);
-        padding: 4px 5px;
-        overflow: visible;
-
-        .auto-playing {
-          position:absolute;
-          right: 0px;
-          top: 0px;
-          font-size: 10px;
-          background-color: black;
-          color: white;
-          padding: 1px 2px;
-        }
-
-
-        .records {
-          position:absolute;
-          width: 14px;
-          text-align: center;
-          top: 0px;
-          right: 0px;
-          background-color: seagreen;
-          color: white;
-          padding: 0px 2px;
-          font-size: 8px;
-        }
-
-        &.lift.has-frame {
-          // background-color: $clickable;
-        }
-      }
-
-      .-headerGroups {
-        border: none;
-        color: white;
-        font-size: 1.2em;
-
-        .rt-th:first-child, .rt-th:last-child {
-          background-color: white;
-          border-width: 0px 1px 1px 1px
-        }
-      }
-
-      .rt-tr-group {
-        border-bottom: none;
-      }
-
-      .squat {
-        background-color: $blue1;
-        color: white;
-      }
-      .bench {
-        background-color: $blue2;
-      }
-      .deadlift {
-        background-color: $blue3;
-      }
-
-      .rt-tbody .rt-tr:hover {
-        background-color: #dadada;
-        transition:0.2s;
-      }
-
-      .rt-td.lift.has-frame:hover{ //, .rt-td.lifter-name:hover {
-        cursor: pointer;
-        background-color: #eee;
-
-        span {
-          color:black;
-        }
-
-      }
-
-      .rt-tr.current-lifter {
-        border: 1px solid black;
-        border-width: 1px 0px;
-        background-color: $blue3;
-        color: white;
-
-        .rt-td span{
-          color: white;
-        }
-
-        .rt-td.current-lift {
-          background-color: white;
-          span {
-            color: black;
-            text-decoration:none;
-            font-weight: bold;
-          }
-        }
-
-        &:hover {
-          background-color: $deepBlack;
-          transition:0.2s;
-
-        }
-      }
-
-      
-
-
-      span.weight-cell, span.total {
-        display: block;
-        width: 100%;
-        text-align: center;
-        &.total {
-          color: black;
-        }
-      }
     }
+
+    &:hover {
+      background-color: $deepBlack;
+      transition:0.2s;
+
+    }
+  }
+
+.rt-td.lifter-name:hover, .rt-td.comp-name:hover {
+  cursor: pointer;
+  background-color: #eee;
+  color:black;
+  div span, div {
+    color: black;
+ } 
 }
+
+span.weight-cell, span.total {
+    display: block;
+    width: 100%;
+    text-align: center;
+    &.total {
+      color: black;
+    }
+  }
+}
+
+
 
 .good-lift {
   color: $shamrock;

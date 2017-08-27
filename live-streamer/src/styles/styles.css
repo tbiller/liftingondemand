@@ -21,6 +21,9 @@ a {
 .hidden {
   display: none !important; }
 
+.rt-tr-group {
+  border: none !important; }
+
 .options-pane {
   padding: 0px 8px;
   width: 110px; }
@@ -74,21 +77,24 @@ a {
     transition: 0.2s; }
 
 .searchbox {
+  margin-right: 2px;
   margin-left: auto;
   position: relative;
   z-index: 999; }
   .searchbox input {
     width: 250px;
-    border: 1px solid #dadada;
+    border: none;
+    outline: 1px solid #dadada;
     height: 26px;
-    line-height: 25px;
+    line-height: 26px;
     font-size: 16px;
     padding: 1px 6px;
     transition: 0.2s; }
     .searchbox input:focus {
-      width: 400px;
+      width: 350px;
       transition: 0.2s;
-      outline: 2px solid #999; }
+      outline: 1px solid #999;
+      outline-offset: 0px; }
     .searchbox input::placeholder {
       font-size: 14px;
       color: #ccc; }
@@ -97,7 +103,7 @@ a {
     top: 29px;
     position: absolute;
     background-color: white;
-    width: 412px;
+    width: 362px;
     z-index: 10000;
     border: 1px solid #dadada; }
     .searchbox .searchbox-overlay .searchbox-title {
@@ -159,8 +165,8 @@ a {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
-  border-bottom: 1px solid #dadada; }
+  height: 32px;
+  align-items: center; }
   .header .app-title {
     margin-left: 20px;
     text-transform: upper-alpha;
@@ -200,14 +206,14 @@ a {
   .side-bar.left.open {
     left: 0px; }
   .side-bar.left .app-title {
-    height: 180px;
+    height: 140px;
     display: flex;
     align-items: center;
     padding-left: 10px;
-    background-color: #00171F;
+    background-color: black;
     outline: 1px solid black;
     color: white;
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
     font-family: "PT Serif", Georgia, "Times New Roman", serif; }
   .side-bar.left .divider {
@@ -264,7 +270,7 @@ a {
 
 .youtube-pane {
   display: flex;
-  background-color: #00171F;
+  background-color: black;
   position: relative;
   flex-direction: row;
   justify-content: center;
@@ -273,25 +279,35 @@ a {
 .content {
   position: relative; }
 
+.route-indicator {
+  margin: 0 auto;
+  width: 300px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: -12px;
+  margin-bottom: -6px;
+  font-size: 0.8em;
+  color: #00A8E8; }
+
 .competition-header {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  min-height: 30px;
-  background-color: #003459;
-  color: white;
-  padding: 2px 4px; }
+  min-height: 35px;
+  color: #333;
+  padding: 4px 4px; }
   .competition-header .competition-date {
     position: absolute;
     left: 10px;
     font-size: 0.9em;
-    color: #ccc; }
+    color: #999; }
   .competition-header .competition-title {
-    font-size: 18px; }
+    font-weight: bold;
+    font-size: 30px; }
   .competition-header .active-division {
     position: absolute;
-    color: #ccc;
+    color: #999;
     right: 10px;
     display: flex;
     flex-direction: row;
@@ -306,23 +322,40 @@ a {
       .competition-header .active-division .arrow.rotated {
         transform: rotate(0deg); }
 
+.lifter-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-height: 30px;
+  background-color: white;
+  color: #333;
+  padding: 2px 4px;
+  border-bottom: 1px solid white; }
+  .lifter-header .lifter-name {
+    font-size: 30px;
+    font-weight: bold; }
+  .lifter-header .yob {
+    position: absolute;
+    right: 10px;
+    margin-left: auto; }
+
 .currentLifterInfo {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: #00171F;
+  background-color: black;
   z-index: 2;
-  height: 66px;
   color: white;
   align-items: center;
   padding: 0px 8px;
-  font-size: 22px;
-  box-shadow: 0px 3px 3px black;
-  margin-bottom: 0px; }
-  .currentLifterInfo .current-lifter-name {
+  font-size: 18px; }
+  .currentLifterInfo .current-lifter-name, .currentLifterInfo .current-competition-name {
     overflow-wrap: break-word;
-    font-weight: bold;
-    font-size: 30px; }
+    color: white;
+    font-size: 1.3em; }
+    .currentLifterInfo .current-lifter-name:hover, .currentLifterInfo .current-competition-name:hover {
+      color: #00A8E8; }
   .currentLifterInfo .current-attempts {
     display: flex;
     flex-direction: row;
@@ -369,7 +402,7 @@ a {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: #00171F; }
+  background-color: black; }
 
 .button {
   margin: 0px 2px;
@@ -400,15 +433,14 @@ a {
 
 .leaderboard {
   position: relative;
-  padding: 3px;
-  margin-top: 5px;
+  padding: 0px 3px;
   overflow: auto; }
   .leaderboard .leaderboard-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 0px 0px 3px 0px; }
+    margin: 3px 0px; }
     .leaderboard .leaderboard-header .leaderboard-title {
       font-size: 18px;
       font-weight: bold;
@@ -433,92 +465,93 @@ a {
     .leaderboard .leaderboard-header .options {
       display: flex;
       flex-direction: row; }
-  .leaderboard .ReactTable {
-    border: none; }
-  .leaderboard .rt-table {
-    overflow: auto;
-    min-height: max-content;
-    font-size: 12px;
-    border: none; }
-    .leaderboard .rt-table .rt-thead .rt-th.border-left, .leaderboard .rt-table .rt-tbody .rt-td.border-left {
-      border-left: 1px solid black; }
-    .leaderboard .rt-table .rt-thead .rt-th.border-right, .leaderboard .rt-table .rt-tbody .rt-td.border-right {
-      border-right: 1px solid black; }
-    .leaderboard .rt-table .rt-thead {
-      box-shadow: none;
-      -webkit-box-shadow: none;
-      background-color: #e6e6e6; }
-    .leaderboard .rt-table .rt-th {
-      font-weight: bold; }
-    .leaderboard .rt-table .rt-td {
-      position: relative;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      padding: 4px 5px;
-      overflow: visible; }
-      .leaderboard .rt-table .rt-td .auto-playing {
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        font-size: 10px;
-        background-color: black;
-        color: white;
-        padding: 1px 2px; }
-      .leaderboard .rt-table .rt-td .records {
-        position: absolute;
-        width: 14px;
-        text-align: center;
-        top: 0px;
-        right: 0px;
-        background-color: seagreen;
-        color: white;
-        padding: 0px 2px;
-        font-size: 8px; }
-    .leaderboard .rt-table .-headerGroups {
-      border: none;
+
+.ReactTable {
+  border: none; }
+
+.rt-table {
+  overflow: auto;
+  min-height: max-content;
+  font-size: 12px;
+  border: none; }
+  .rt-table .rt-thead .rt-th.border-left, .rt-table .rt-tbody .rt-td.border-left {
+    border-left: 1px solid black; }
+  .rt-table .rt-thead .rt-th.border-right, .rt-table .rt-tbody .rt-td.border-right {
+    border-right: 1px solid black; }
+  .rt-table .rt-thead {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    background-color: #e6e6e6; }
+  .rt-table .rt-th {
+    font-weight: bold; }
+  .rt-table .rt-td {
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 4px 5px;
+    overflow: visible; }
+    .rt-table .rt-td .auto-playing {
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      font-size: 10px;
+      background-color: black;
       color: white;
-      font-size: 1.2em; }
-      .leaderboard .rt-table .-headerGroups .rt-th:first-child, .leaderboard .rt-table .-headerGroups .rt-th:last-child {
-        background-color: white;
-        border-width: 0px 1px 1px 1px; }
-    .leaderboard .rt-table .rt-tr-group {
-      border-bottom: none; }
-    .leaderboard .rt-table .squat {
-      background-color: #00A8E8;
+      padding: 1px 2px; }
+    .rt-table .rt-td .records {
+      position: absolute;
+      width: 14px;
+      text-align: center;
+      top: 0px;
+      right: 0px;
+      background-color: seagreen;
+      color: white;
+      padding: 0px 2px;
+      font-size: 8px; }
+  .rt-table .-headerGroups {
+    border: none;
+    color: white;
+    font-size: 1.2em; }
+    .rt-table .-headerGroups .rt-th:first-child, .rt-table .-headerGroups .rt-th:last-child {
+      background-color: white;
+      border-width: 0px 1px 1px 1px; }
+  .rt-table .rt-tr-group {
+    border-bottom: none; }
+  .rt-table .rt-tbody .rt-tr:hover {
+    background-color: #dadada;
+    transition: 0.2s; }
+  .rt-table .rt-td.lift.has-frame:hover {
+    cursor: pointer;
+    background-color: #eee; }
+    .rt-table .rt-td.lift.has-frame:hover span {
+      color: black; }
+  .rt-table .rt-tr.current-lifter {
+    border: 1px solid black;
+    border-width: 1px 0px;
+    background-color: #003459;
+    color: white; }
+    .rt-table .rt-tr.current-lifter .rt-td span {
       color: white; }
-    .leaderboard .rt-table .bench {
-      background-color: #007EA7; }
-    .leaderboard .rt-table .deadlift {
-      background-color: #003459; }
-    .leaderboard .rt-table .rt-tbody .rt-tr:hover {
-      background-color: #dadada;
+    .rt-table .rt-tr.current-lifter .rt-td.current-lift {
+      background-color: white; }
+      .rt-table .rt-tr.current-lifter .rt-td.current-lift span {
+        color: black;
+        text-decoration: none;
+        font-weight: bold; }
+    .rt-table .rt-tr.current-lifter:hover {
+      background-color: #00171F;
       transition: 0.2s; }
-    .leaderboard .rt-table .rt-td.lift.has-frame:hover {
-      cursor: pointer;
-      background-color: #eee; }
-      .leaderboard .rt-table .rt-td.lift.has-frame:hover span {
-        color: black; }
-    .leaderboard .rt-table .rt-tr.current-lifter {
-      border: 1px solid black;
-      border-width: 1px 0px;
-      background-color: #003459;
-      color: white; }
-      .leaderboard .rt-table .rt-tr.current-lifter .rt-td span {
-        color: white; }
-      .leaderboard .rt-table .rt-tr.current-lifter .rt-td.current-lift {
-        background-color: white; }
-        .leaderboard .rt-table .rt-tr.current-lifter .rt-td.current-lift span {
-          color: black;
-          text-decoration: none;
-          font-weight: bold; }
-      .leaderboard .rt-table .rt-tr.current-lifter:hover {
-        background-color: #00171F;
-        transition: 0.2s; }
-    .leaderboard .rt-table span.weight-cell, .leaderboard .rt-table span.total {
-      display: block;
-      width: 100%;
-      text-align: center; }
-      .leaderboard .rt-table span.weight-cell.total, .leaderboard .rt-table span.total.total {
-        color: black; }
+  .rt-table .rt-td.lifter-name:hover, .rt-table .rt-td.comp-name:hover {
+    cursor: pointer;
+    background-color: #eee;
+    color: black; }
+    .rt-table .rt-td.lifter-name:hover div span, .rt-table .rt-td.lifter-name:hover div, .rt-table .rt-td.comp-name:hover div span, .rt-table .rt-td.comp-name:hover div {
+      color: black; }
+  .rt-table span.weight-cell, .rt-table span.total {
+    display: block;
+    width: 100%;
+    text-align: center; }
+    .rt-table span.weight-cell.total, .rt-table span.total.total {
+      color: black; }
 
 .good-lift {
   color: #66A182; }

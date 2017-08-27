@@ -133,7 +133,8 @@ class App extends Component {
 						return <CompetitionRoute competitions={this.state.competitions} sendData={this.getData} {...props} />;
 					}} /> 
 					<Route exact path='/lifter/:lifterId' render={(props)=> {
-						return <LifterRoute {...props} />;
+						
+						return <LifterRoute {...props} sendData={this.getData}/>;
 					}} /> 
 
 				</div>

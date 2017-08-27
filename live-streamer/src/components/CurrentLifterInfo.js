@@ -1,37 +1,38 @@
 import React, { Component } from 'react';
 import { capitalize } from '../utils/general';
+import { Link } from 'react-router-dom';
 import Light from './Light';
 import Lights from './Lights';
+import CurrentAttempt from './CurrentAttempt';
 
 export default function({ 
 	currentAttempt,
 	selectLiftAttempt,
 	activeWeightClass,
 	activeDivision,
-	weightClassSuffix
+	weightClassSuffix,
+	showCompetitionName
 }) {
 
 	let DOM;
 
 	if (currentAttempt) {
-		const LBS_IN_KILO = 2.20462;
-		// const c = currentLifter.attempts[currentAttemptName];
 		const currentLifterAppearance = currentAttempt._appearance;
 		const nextAttempt = currentLifterAppearance.nextAttemptWithFrameData(currentAttempt.attemptName, 1);
 		const prevAttempt = currentLifterAppearance.nextAttemptWithFrameData(currentAttempt.attemptName, -1);
-
-		// console.log(currentLiftAttempt);
-
-		const hasLights = currentAttempt ? !!currentAttempt.lights : false;
-		const weight = currentAttempt ? currentAttempt.weight : '';
-		const weightInPounds = weight ? weight * LBS_IN_KILO : '';
-
-		const kgWeightString = weight ? weight + ' kg' : '';
-		const lbWeightString = weight ? Math.round(weightInPounds * 10) / 10 + ' lb' : '';
+		
 
 		DOM = (
 			<div className='currentLifterInfo'>
-			    <div className='current-lifter-name'>{currentAttempt._lifter.name}</div>
+				{ showCompetitionName ? 
+					<Link to={'/comp/' + currentAttempt._appearance._competition.name}>
+				    	<div className='current-competition-name'>{currentAttempt._appearance._competition.name}</div>
+				    </Link>
+				: 
+					<Link to={'/lifter/' + currentAttempt._lifter._id}>
+				    	<div className='current-lifter-name'>{currentAttempt._lifter.name}</div>
+				    </Link>
+				}
 				<div className='current-attempts'>
 				    {prevAttempt ?
 						<div 
@@ -46,16 +47,8 @@ export default function({
 						<div className='arrow inactive'>&lt;&lt;</div>
 
 					}
-				    <div className='current-attempt'>
-					    <div className='current-attempt-name'>{currentAttempt.attemptName}</div>
-					    <div className='current-weight'>
-					    	{kgWeightString} ({lbWeightString})
-					    
-				        </div>
-				        { hasLights && 
-				        	<Lights lights={currentAttempt.lights} className='round' />
-						}
-					</div>
+					<CurrentAttempt attempt={currentAttempt} />
+				    
 					{nextAttempt ?
 						<div 
 							onClick={() => {

@@ -22,7 +22,7 @@ export default function({
 				<div className='bar' />
 			</div>
 			<div onClick={menuClick} className="app-title">
-				Lifting on Demand
+				Lifting On Demand
 			</div>
 			<Searchbox 
 				lifters={lifters} 

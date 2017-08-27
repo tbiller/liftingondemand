@@ -23,45 +23,21 @@ export default function({
 	// 	var currentAttempt = currentLifter.attempts[currentAttemptName];
 	// }
 	const columns = [
-		{
-			Header: 'Pl.', 
-			id: 'place', 
-			accessor: (d) => d.place === '-' ? '-' : +d.place,
-			minWidth: 25,
-			show: !live
-		},
+		{Header: 'Pl.', id: 'place', accessor: (d) => d.place === '-' ? '-' : +d.place, minWidth: 25, show: !live},
 		{Header: 'Flt.', accessor: 'flight', sortMethod: sortStrings, minWidth: 25, show: false},
 		{Header: 'Lot', accessor: 'lot', sortMethod: sortStrings, minWidth: 25, show:false},
 		{Header: 'Lifter', accessor: '_lifter.name', id: 'name', sortMethod: sortStrings, minWidth: 150, Cell:nameCell},
 		{Header: 'Team', accessor: 'team', sortMethod: sortStrings, minWidth: 40},
-		{Header: 'Bwt.', accessor: 'bodyweight', minWidth: 40},
-		// {
-		// 	Header: 'Squat', 
-		// 	headerClassName: 'border-left squat',
-		// 	columns: [
-				{Header: 'SQ #1', className: 'border-left', headerClassName: 'border-left', accessor: 'attempts.Squat 1', minWidth: minAttemptWidth, Cell: attemptCell},
-				{Header: 'SQ #2', accessor: 'attempts.Squat 2', minWidth: minAttemptWidth, Cell: attemptCell}, 
-				{Header: 'SQ #3', accessor: 'attempts.Squat 3', minWidth: minAttemptWidth, Cell: attemptCell}, 
-		// 	]
-		// },	
-		// {
-		// 	Header: 'Bench', 
-		// 	headerClassName: 'border-left bench',
-		// 	columns: [
-				{Header: 'BP #1', className: 'border-left', headerClassName: 'border-left', accessor: 'attempts.Bench 1', minWidth: minAttemptWidth, Cell: attemptCell},
-				{Header: 'BP #2', accessor: 'attempts.Bench 2', minWidth: minAttemptWidth, Cell: attemptCell}, 
-				{Header: 'BP #3', accessor: 'attempts.Bench 3', minWidth: minAttemptWidth, Cell: attemptCell}, 
-		// 	]
-		// },	
-		// {
-		// 	Header: 'Deadlift', 
-		// 	headerClassName: 'border-left  border-right deadlift',
-		// 	columns: [
-				{Header: 'DL #1', className: 'border-left', headerClassName: 'border-left', accessor: 'attempts.Deadlift 1', minWidth: minAttemptWidth, Cell: attemptCell},
-				{Header: 'DL #2', accessor: 'attempts.Deadlift 2', minWidth: minAttemptWidth, Cell: attemptCell}, 
-				{Header: 'DL #3', headerClassName: 'border-right', className: 'border-right', accessor: 'attempts.Deadlift 3', minWidth: minAttemptWidth, Cell: attemptCell}, 
-		// 	]
-		// },
+		{Header: 'Bwt.', id:'bodyweight', accessor: (d) => (+d.bodyweight).toFixed(2), minWidth: 40},
+		{Header: 'SQ #1', className: 'border-left', headerClassName: 'border-left', accessor: 'attempts.Squat 1', minWidth: minAttemptWidth, Cell: attemptCell},
+		{Header: 'SQ #2', accessor: 'attempts.Squat 2', minWidth: minAttemptWidth, Cell: attemptCell}, 
+		{Header: 'SQ #3', accessor: 'attempts.Squat 3', minWidth: minAttemptWidth, Cell: attemptCell}, 
+		{Header: 'BP #1', className: 'border-left', headerClassName: 'border-left', accessor: 'attempts.Bench 1', minWidth: minAttemptWidth, Cell: attemptCell},
+		{Header: 'BP #2', accessor: 'attempts.Bench 2', minWidth: minAttemptWidth, Cell: attemptCell}, 
+		{Header: 'BP #3', accessor: 'attempts.Bench 3', minWidth: minAttemptWidth, Cell: attemptCell}, 
+		{Header: 'DL #1', className: 'border-left', headerClassName: 'border-left', accessor: 'attempts.Deadlift 1', minWidth: minAttemptWidth, Cell: attemptCell},
+		{Header: 'DL #2', accessor: 'attempts.Deadlift 2', minWidth: minAttemptWidth, Cell: attemptCell}, 
+		{Header: 'DL #3', headerClassName: 'border-right', className: 'border-right', accessor: 'attempts.Deadlift 3', minWidth: minAttemptWidth, Cell: attemptCell}, 
 		{Header: live ? 'Current' : 'Total', id: 'total', accessor: '', minWidth: minAttemptWidth, Cell: totalCell},
 		{Header: 'Proj.', accessor: '', id: 'projected', minWidth: minAttemptWidth, Cell:  projectedTotalCell, show:live}
 	];

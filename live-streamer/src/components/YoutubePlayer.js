@@ -8,15 +8,18 @@ export default class YoutubePlayer extends Component {
 		this.recordTimeFrequency = 2000;
 
 		this.state = {
+			showPlayer: true,
 			playerOpts: {
 				height: '360',
 				width: '640',
 			},
 		}
-		if (this.player) this.respondToProps(props);
 	}
 
-	componentWillUpdate(nextProps) {
+	componentWillMount() {
+		this.respondToProps(this.props);
+	}
+	componentWillReceiveProps(nextProps) {
 		this.respondToProps(nextProps);
 	}
 
@@ -26,15 +29,23 @@ export default class YoutubePlayer extends Component {
 
 	respondToProps(props) {
 		console.log('responding to props');
-		if (props.attemptToBeSelected || props.secondsToAdvance) {
-			if (props.attemptToBeSelected) {
-				this.selectLiftAttempt(props.attemptToBeSelected, props.boolStopVideo);
+		console.log(props);
+		// if (this.player) {
+			if (props.attemptToBeSelected || props.secondsToAdvance) {
+				// if (props.resetPlayer) {
+				// 	console.log('canceling');
+				// 	this.player = null;
+				// }
+				if (props.attemptToBeSelected) {
+					this.selectLiftAttempt(props.attemptToBeSelected, props.boolStopVideo);
+				}
+				if (props.secondsToAdvance) {
+					this.advanceBySeconds(props.secondsToAdvance, props.boolStopVideo);
+				}
+				console.log('done with update');
+				if (this.player) props.playerUpdated();
 			}
-			if (props.secondsToAdvance) {
-				this.advanceBySeconds(props.secondsToAdvance, props.boolStopVideo);
-			}
-			this.props.playerUpdated();
-		}
+		// }
 	}
 
 	advanceBySeconds = (seconds) => {
@@ -43,13 +54,19 @@ export default class YoutubePlayer extends Component {
 		this.skipToSecond(this.player.getCurrentTime() + seconds);
 	}
 
-	ensureVideoIsPlaying = (videoId) => {
+	ensureVideoIsPlaying = (videoId, boolStopVideo, startSeconds) => {
 		if (!this.player) { return false; }
+		console.log(this.player.getVideoUrl());
 		if (videoId && videoId !== this.state.currentVideoId) {
 			console.log('changing video to ' + videoId);
 			this.setState({'currentVideoId': videoId});
-			this.player.loadVideoById(videoId);
-			this.player.playVideo();
+			if (boolStopVideo) {
+				this.player.cueVideoById(videoId, startSeconds)
+			} else {
+				this.player.loadVideoById(videoId);
+				this.player.playVideo();
+			}
+			
 		}
 	}
 
@@ -57,21 +74,26 @@ export default class YoutubePlayer extends Component {
 		window.clearTimeout(this.recordCurrentTimeTimeout);
 		console.log('yt selecting attempt!!!');
 		console.log(attempt);
-		let frame, offsetSeconds = 0;
+		let seconds, offsetSeconds = 0;
 
 		const videoId = attempt._appearance.videoId;
 
-		frame = attempt.frameWhenClickedOn()
+		let frame = attempt.frameWhenClickedOn()
+		seconds = this.secondsFromFrame(frame) + offsetSeconds;
+
 
 		if (!!frame) {
-			this.ensureVideoIsPlaying(videoId);
-			this.skipToFrame(frame, offsetSeconds);
-			if (boolStopVideo === true) {
-				if (this.player) this.player.stopVideo();
-			} else {
-				if (this.player) this.player.playVideo();
+			this.ensureVideoIsPlaying(videoId, boolStopVideo, seconds);
+			// debugger;
+			if (!boolStopVideo) {
+				this.skipTo(seconds);
 			}
-			this.recordCurrentTime();
+			// if (boolStopVideo === true) {
+			// 	if (this.player) this.player.stopVideo();
+			// } else {
+			// 	if (this.player) this.player.playVideo();
+			// }
+			// this.recordCurrentTime();
 			return true;
 		} 
 		this.recordCurrentTime();
@@ -93,6 +115,7 @@ export default class YoutubePlayer extends Component {
 	}	
 
 	onPlayerReady = (ev) => {
+		console.log('player ready');
 		this.player = ev.target;
 		// if (this.state.skipToFrameOnPlayerReady) {
 		// 	console.log('skip to frame blahblah');
@@ -113,6 +136,7 @@ export default class YoutubePlayer extends Component {
 		 //  		this.setState({
 			// 		initializeWatchContinousOnNextRender: false
 			// 	});
+
 		 //  	}
 		  	this.recordCurrentTime(true, this.recordTimeFrequency);
 		} else {
@@ -120,15 +144,20 @@ export default class YoutubePlayer extends Component {
 		}
     }
 
-	skipToFrame(frame, offsetSeconds=0) {
+    onError = (ev) => {
+    	console.log('error');
+    	console.log(ev);
+    }
+
+	skipTo(seconds) {
 		if (!this.player) {
 			// this.setState({skipToFrameOnPlayerReady: frame});
 			// console.log('player not readyssssssssssssssss');
 			return false;
 		}
-
+// 
 		console.log('seeking to frame');
-		this.player.seekTo(this.secondsFromFrame(frame) + offsetSeconds, true);
+		this.player.seekTo(seconds, true);
 		this.player.playVideo();
 		// this.player.stopVideo();
 		// debugger;
@@ -144,14 +173,17 @@ export default class YoutubePlayer extends Component {
 	}
 
 
-	render() {
+	render = () => {
 		console.log('in ytplayer render');
+		console.log(this.props.resetPlayer);
+		// if (this.props.resetPlayer) { return null; }
 		return (
 				<YouTube
 					className='youtube-player'
 					opts={this.state.playerOpts}
 					onReady={this.onPlayerReady}
 					onStateChange={this.onPlayerStateChange}
+					onError={this.onError}
 				/>
 		);
 	}

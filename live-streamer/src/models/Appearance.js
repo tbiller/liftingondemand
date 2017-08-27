@@ -17,6 +17,7 @@ class Appearance {
 		this.division = appearanceJson.division;
 		this.weightClass = appearanceJson.weightClass;
 		this._competition = appearanceJson._competition;
+		this._id = appearanceJson._id;
 		// this.total.lifterObj = this;
 		this.attempts = {} // TODO: change to attempts
 		for (let attemptName in appearanceJson.lifts) {

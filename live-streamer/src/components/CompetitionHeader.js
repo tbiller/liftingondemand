@@ -15,7 +15,11 @@ export default function({
 
 	const path = competition ? '/comp/' + competition.name + '?' + queryString.stringify({division, weightClass}) : '';
 	return (
-		<Link to={path}>
+		// <Link to={path}>
+			<div>
+			<div className='route-indicator'>
+				Competition
+			</div>
 			<div className='competition-header'>
 	    		<div className='competition-date'>
 		    		{competition ? competition.dates : ''}
@@ -35,6 +39,7 @@ export default function({
 					</div>
 				}
 			</div>
-		</Link>
+			</div>
+		// </Link>
 	);
 }
