@@ -14,7 +14,7 @@ var competitionRoutes = require('./api/routes/CompetitionRoutes');
 var lifterRoutes = require('./api/routes/LifterRoutes');
 var appearanceRoutes = require('./api/routes/AppearanceRoutes'); 
 
-app.use(express.static(path.join(__dirname, '../live-streamer/build')))
+app.use(express.static(path.join(__dirname, './client/build')))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -26,8 +26,8 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/powerlifting', { useMongoClient: true }); 
 
 app.use((req, res) => {
-	console.log(path.join(__dirname, '../live-streamer/build/index.html'));
-	res.sendFile(path.join(__dirname, '../live-streamer/build/index.html'));
+	console.log(path.join(__dirname, './client/build/index.html'));
+	res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 
 app.use(function(req, res) {
