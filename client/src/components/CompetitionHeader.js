@@ -12,21 +12,20 @@ export default function({
 	optionsShown
 }) {
 	const weightClassSuffix = competition ? competition.options.weightClassSuffix : 'kg';
-
 	const path = competition ? '/comp/' + competition.name + '?' + queryString.stringify({division, weightClass}) : '';
+	
 	return (
-		// <Link to={path}>
-			<div>
-			<div className='route-indicator'>
-				Competition
-			</div>
+		<div>
 			<div className='competition-header'>
 	    		<div className='competition-date'>
 		    		{competition ? competition.dates : ''}
 	    		</div>
-		    	<div className='competition-title'>
-		    		{competition ? competition.name : ''}
-		    	</div>
+	    		<div className='title-and-indicator'>
+	    			<div className='route-indicator'>Competition</div>
+			    	<div className='competition-title'>
+			    		{competition ? competition.name : ''}
+			    	</div>
+			    </div>
 		    	{weightClass && 
 					<div onClick={(e)=> {
 						e.stopPropagation();
@@ -39,7 +38,6 @@ export default function({
 					</div>
 				}
 			</div>
-			</div>
-		// </Link>
+		</div>
 	);
 }

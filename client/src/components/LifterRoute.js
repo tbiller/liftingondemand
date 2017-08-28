@@ -215,9 +215,7 @@ class LifterRoute extends Component {
 	render() {
 		return (
 			<div>
-			<div className='route-indicator'>
-				Lifter
-			</div>
+			
 			<div>
 				<LifterHeader lifter={this.state.lifter} />
 				<CurrentLifterInfo 

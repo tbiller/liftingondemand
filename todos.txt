@@ -1,0 +1,3 @@
+- Manual timing fix
+- World games placing
+- World games lifter du TOIT

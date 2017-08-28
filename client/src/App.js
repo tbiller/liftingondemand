@@ -31,9 +31,6 @@ class App extends Component {
 					competitions: json, 
 					loadingCompetitions: false
 				});
-				// if (!this.state.competition_id) {
-				// 	this.competitionClick(json[0]);
-				// }
 			});
 		fetch('/lifters')
 			.then(res => res.json())
@@ -45,10 +42,6 @@ class App extends Component {
 			});
 	}
 
-	// componentDidUpdate() {
-	// 	this.updateActiveCompetition();
-	// }
-	
 	toggleMenu = (boolOpen) => {
 		let open = false;
 		if (boolOpen !== undefined) {
@@ -80,25 +73,6 @@ class App extends Component {
 		window.setTimeout(this.closeMenu, 400);
 	}
 
-	// updateActiveCompetition = () => {
-	// 	if (!this.state.competitionName) return false;
-	// 	if (!this.state.competitions) return false;
-	// 	if (this.state.activeCompetition && this.state.activeCompetition.name === this.state.competitionName) {
-	// 		return this.state.activeCompetition;
-	// 	}		
-
-	// 	for (let i = 0; i < this.state.competitions.length; i++) {
-	// 		let competition = this.state.competitions[i];
-	// 		if (competition.name === this.state.competitionName) {
-	// 			this.setState({
-	// 				activeCompetition: competition,
-	// 				competitionName: competition.name
-	// 			});
-	// 		}
-	// 	}
-	// 	return false;
-	// }
-
 	getData = (data) => {
 		this.setState(data);
 	}
@@ -115,28 +89,20 @@ class App extends Component {
 				<Header 
 			    	menuClick={this.toggleMenu} 
 			    	optionsClick={this.toggleOptions} 
-			    	// activeCompetition={this.state.activeCompetition}
-			    	// weightClass={this.state.weightClass}
-			    	// division={this.state.division}
-			    	// optionsIsOpen={this.state.optionsShown}
 			    	menuIsOpen={this.state.menuOpen}
 			    	lifters={this.state.lifters}
 			    	competitions={this.state.competitions}
-			    	// competitionClick={this.competitionClick}
-			    	// lifterClick={this.lifterClick}
 			    />
-
-			  
-
 				<div className='content' onClick={this.contentClick}>
-					<Route exact path='/comp/:competitionName' render={(props)=> {
-						return <CompetitionRoute competitions={this.state.competitions} sendData={this.getData} {...props} />;
-					}} /> 
-					<Route exact path='/lifter/:lifterId' render={(props)=> {
-						
-						return <LifterRoute {...props} sendData={this.getData}/>;
-					}} /> 
-
+					<Switch>
+						<Route exact path='/comp/:competitionName' render={(props)=> {
+							return <CompetitionRoute competitions={this.state.competitions} sendData={this.getData} {...props} />;
+						}} /> 
+						<Route exact path='/lifter/:lifterId' render={(props)=> {
+							return <LifterRoute {...props} sendData={this.getData}/>;
+						}} /> 
+						<Redirect to='/comp/IPF Classic Worlds 2017' />
+					</Switch>
 				</div>
 		  	</div>
 		);
@@ -144,9 +110,9 @@ class App extends Component {
 }
 
 
-export default withRouter(App);
+export default App;
 
 
   // <Route exact path='/' render={() =>
-			    // 	<Redirect to='/competition/IPF_Classic_Worlds_2017' />
+			    // 	<erect to='/competition/IPF_Classic_Worlds_2017' />
 			    // }/>

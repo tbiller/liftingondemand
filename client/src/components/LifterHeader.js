@@ -12,9 +12,15 @@ export default function({
 	return (
 		// <Link to={path}>
 			<div className='lifter-header'>
-		    	<div className='lifter-name'>
-		    		{lifter ? lifter.name : ''}
-		    	</div>
+				<div className='title-and-indicator'>
+					<div className='route-indicator'>
+						Lifter
+					</div>
+					<div className='lifter-name'>
+			    		{lifter ? lifter.name : ''}
+			    	</div>
+				</div>
+		    	
 		    	<div className='yob'>
 		    		{lifter ? 'YoB: ' + lifter.yob : ''}
 		    	</div>

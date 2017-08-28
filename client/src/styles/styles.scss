@@ -11,7 +11,7 @@ $clickable: #FFFFFF;
 
 $menuOpenTime: 0.2s;
 $menuCloseTime: 0.3s;
-$menuWidth: 300px;
+$menuWidth: 240px;
 
 html, body {
   // background-color: #dadada;
@@ -289,10 +289,10 @@ a {
   // background-color: $blue1;
   .app-title {
     margin-left: 20px;
-    text-transform: upper-alpha;
+    // text-transform: uppercase;
     font-weight: bold;
     font-size: 20px;
-    font-family: "PT Serif", Georgia, "Times New Roman", serif;
+    // font-family: "PT Serif", Georgia, "Times New Roman", serif;
   }
   
 }
@@ -330,6 +330,7 @@ a {
   background-color: rgba(255,255,255,0.98);
   box-shadow: 2px 1px 2px gray;
   display: flex;
+  font-size: 0.8em;
   flex-direction: column;
   padding: $padding;
   &.open {
@@ -353,10 +354,10 @@ a {
   }
   .divider {
     border-top: 1px solid #eee;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
   }
   .section {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
   .section-title {
     padding-left: 10px;
@@ -382,7 +383,7 @@ a {
   }
   .footer {
     // margin-top: auto;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
     color: gray;
     font-size: 0.8em;
     padding: 0px 10px;
@@ -393,7 +394,7 @@ a {
 }
 
 .competition {
-  height: 60px;
+  height: 45px;
   // border-bottom: 1px solid #eee;
   cursor: pointer;
   display: flex;
@@ -461,13 +462,19 @@ a {
   //   flex-direction: row;
   //   justify-content: space-between;
 
+
+.title-and-indicator {
+  display: flex;
+  flex-direction: column;
+
+}
 .route-indicator {
   margin: 0 auto;
   width: 300px;
   text-align: center;
   text-transform: uppercase;
-  margin-top: -12px;
-  margin-bottom: -6px;
+  // margin-top: -2px;
+  margin-bottom: -4px;
   font-size: 0.8em;
   color: $blue1;
 }
@@ -542,6 +549,7 @@ a {
   .lifter-name {
     font-size: 30px;
     font-weight: bold;
+    text-align: center;
   }
   .yob {
     position: absolute;
@@ -791,10 +799,17 @@ a {
   min-height: max-content;
   font-size: 12px;
   border: none;
-
+  .rt-thead {
+    background-color: #efefef;
+    box-shadow: none;
+    &.-header {
+      box-shadow: none;
+    }
+  }
 
 
   .rt-thead .rt-th, .rt-tbody .rt-td {
+    // background-color: #efefef;
     &.border-left {
       border-left: 1px solid black;
     }
@@ -891,37 +906,38 @@ a {
 
 
   .rt-tr.current-lifter {
-    border: 1px solid black;
-    border-width: 1px 0px;
-    background-color: $blue3;
-    color: white;
+    border: 2px solid black;
+    border-width: 2px 0px;
+    // background-color: ;
+    // color: white;
+    font-weight: bold;
 
     .rt-td span{
-      color: white;
+      // color: white;
     }
 
     .rt-td.current-lift {
-      background-color: white;
+      background-color: black;
       span {
-        color: black;
-        text-decoration:none;
+        color: white;
+        // text-decoration:none;
         font-weight: bold;
       }
     }
 
     &:hover {
-      background-color: $deepBlack;
-      transition:0.2s;
+      // background-color: $deepBlack;
+      // transition:0.2s;
 
     }
   }
 
 .rt-td.lifter-name:hover, .rt-td.comp-name:hover {
   cursor: pointer;
-  background-color: #eee;
-  color:black;
+  background-color: #efefef;
+  color: $blue1;
   div span, div {
-    color: black;
+    // color: black;
  } 
 }
 
