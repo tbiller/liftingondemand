@@ -23,7 +23,9 @@ lifterRoutes(app);
 appearanceRoutes(app);
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/powerlifting', { useMongoClient: true }); 
+
+// mongoose.connect('mongodb://localhost/powerlifting', { useMongoClient: true }); 
+mongoose.connect('mongodb://admintb:EKTtesDH9Eyx@ds161443.mlab.com:61443/powerlifting', { useMongoClient: true }); 
 
 app.use((req, res) => {
 	console.log(path.join(__dirname, './client/build/index.html'));
