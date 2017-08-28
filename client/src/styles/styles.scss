@@ -53,6 +53,15 @@ a {
   border: none !important;
 }
 
+.editTools {
+  display: flex;
+  flex-direction: row;
+  z-index: 99999;
+  background-color:black;
+  height: 30px;
+  justify-content: center;
+}
+
 .options-pane {
   padding: 0px 8px;
   width: 110px;

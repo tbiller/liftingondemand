@@ -15,10 +15,7 @@ import queryString from 'query-string';
 import Appearance from '../models/Appearance';
 import { capitalize } from '../utils/general';
 
-
-// import '../styles/styles.css';
-
-class Competition extends Component {
+class CompetitionRoute extends Component {
 	constructor(props) {
 		super(props);
 
@@ -39,6 +36,7 @@ class Competition extends Component {
 
 		this.liftsInOrder = ['Squat 1', 'Squat 2', 'Squat 3', 'Bench 1', 'Bench 2', 'Bench 3',
 			'Deadlift 1', 'Deadlift 2', 'Deadlift 3'];
+		this.edits = [];
 	}
 
 
@@ -62,7 +60,9 @@ class Competition extends Component {
 
 	updateBasedOnNewProps = (props) => {
 		const competitionName = props.match.params.competitionName;
+		const queryParams = Serializer.deserializeParams(queryString.parse(props.location.search));
 		let newlyActiveCompetition;
+
 		// let division, weightClass;
 
 		for (let i = 0; i < props.competitions.length; i++) {
@@ -82,7 +82,7 @@ class Competition extends Component {
 			var { division, weightClass } = newlyActiveCompetition.options['default'];
 		} else {
 			// no change in competition, or new competition but no previous one (page refresh)
-			var { division, weightClass } = Serializer.deserializeParams(queryString.parse(props.location.search));
+			var { division, weightClass } = queryParams;
 			//TODO check if these params are valid for this competition
 			if (newlyActiveCompetition && (!division || !weightClass)) {
 				division = newlyActiveCompetition.options.default.division;
@@ -92,6 +92,7 @@ class Competition extends Component {
 
 		if (division !== this.state.division) this.setState({division});
 		if (weightClass !== this.state.weightClass) this.setState({weightClass});
+		this.setState({editMode: queryParams.editMode === 'true'});
 	}
 
 	getCompData = (competition, division, weightClass) => {
@@ -365,12 +366,9 @@ class Competition extends Component {
 			[optType]: val
 		});
 
-		// if (optType !== 'leaderboardType') this.updateUrlParams({[optType]: val}, true);
-		// const timeout = optType === 'weightClass' ? 2000 : 750; // give more time in case user wants to select division
 		const timeout = 300;
 		window.clearTimeout(this.optionCloseTimeout);
 		this.optionCloseTimeout = window.setTimeout(this.closeOptions, timeout);
-		// this.props.toggleMenu(false);
 	}
 
 	nextLiftAttemptName = (liftAttemptName, increment=1) => {
@@ -545,6 +543,8 @@ class Competition extends Component {
 		    		weightClassSuffix={weightClassSuffix}
 		    	/>
 
+
+
 				<div className='youtube-pane'>
 			        <YoutubePlayer
 			        	attemptToBeSelected={this.state.attemptToBeSelected}
@@ -554,6 +554,8 @@ class Competition extends Component {
 			        	recordTime={this.timeChange}
 			        	framerate={this.framerate()}
 			        	boolStopVideo={this.state.boolStopVideo}
+			        	editMode={this.state.editMode}
+			        	recordEdit={this.recordEdit}
 			        />
 			    </div>
 			    <PlayerControls 
@@ -583,6 +585,6 @@ class Competition extends Component {
 	}
 }
 
-export default Competition;
+export default CompetitionRoute;
 
   	// 
