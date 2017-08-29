@@ -46,7 +46,6 @@ class LifterRoute extends Component {
 
 	updateBasedOnNewProps = (props) => {
 		const lifterId = props.match.params.lifterId;
-		console.log(this.state.lifter);
 		if (!this.state.lifter || this.state.lifter._id !== lifterId) {
 			this.getLifter(lifterId);
 		}
@@ -109,6 +108,7 @@ class LifterRoute extends Component {
 	// }
 
 	attemptClick = (attempt) => {
+		console.log(attempt);
 		this.selectLiftAttempt({attempt})
 	}
 
@@ -169,13 +169,19 @@ class LifterRoute extends Component {
 	}
 
 	framerate() {
-		if (!this.state.competition) return 30;
+		if (!this.state.currentAttempt) return 30;
+		const appearance = this.state.currentAttempt._appearance;
+		const {weightClass, division} = appearance;
+		const compName = appearance._competition.name;
+		// console.log(this.state.currentAttempt._appearance._competition.name);
+		switch (compName) {
+			// console.log(thist.)
 
-		switch (this.state.competition.name) {
 			case 'IPF Classic Worlds 2017':
-				switch (this.state.weightClass + '_' + this.state.division) {
+				switch (weightClass + '_' + division) {
 					case '66_open':
 					case '57_open':
+
 						return 25;
 					case '83_open':
 						return 29.88;

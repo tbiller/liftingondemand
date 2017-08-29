@@ -1,11 +1,12 @@
 import Attempt from './Attempt';
+import Lifter from './Lifter';
 
 const liftsInOrder = ['Squat 1', 'Squat 2', 'Squat 3', 'Bench 1', 'Bench 2', 'Bench 3',
 			'Deadlift 1', 'Deadlift 2', 'Deadlift 3'];		
 
 class Appearance {
 	constructor(appearanceJson, lifter) {
-		this._lifter = lifter || appearanceJson._lifter;
+		this._lifter = lifter || new Lifter(appearanceJson._lifter);
 		this.bodyweight = appearanceJson.bodyweight;
 		this.place = appearanceJson.place;
 		this.team = appearanceJson.team;

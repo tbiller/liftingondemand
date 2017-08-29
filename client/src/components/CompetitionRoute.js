@@ -152,7 +152,7 @@ class CompetitionRoute extends Component {
 		console.log('scrolling!');
 		let scrollTop = event.srcElement.body.scrollTop;
         // let itemTranslate = Math.min(0, scrollTop/3 - 60);
-        if (scrollTop >= 95) {
+        if (scrollTop >= 90) {
         	this.setState({dummyContainerHeight: this.refs.pinOnScroll.clientHeight});
         	this.refs.pinOnScroll.className = 'pinOnScroll pinned';
         	// this.refs.dummyContainer.clientHeight = this.dummyContainerHeight;
@@ -259,11 +259,10 @@ class CompetitionRoute extends Component {
 		}
 	}
 
-	incrementLifter = (numLiftsToMove, autoPlayingLifters) => {
+	nextAttempt = (numLiftsToMove, autoPlayingLifters) => {
+		if (!this.state.currentVideoId) return null;
 		const attemptData = this.sortedAttemptData[this.state.currentVideoId];
-		if (!attemptData) {
-			return false;
-		}
+		if (!attemptData) return null;
 
 		if (!autoPlayingLifters) {
 			autoPlayingLifters = this.state.watchContinuousLifters;
@@ -273,9 +272,7 @@ class CompetitionRoute extends Component {
 		const currentIdx = attemptData.indexOf(this.state.currentAttempt);
 		const direction = numLiftsToMove >= 0 ? 1 : -1;
 
-		if (currentIdx === -1) {
-			return false;
-		}
+		if (currentIdx === -1) return null;
 		
 		let newIdx = currentIdx + numLiftsToMove;
 
@@ -289,20 +286,18 @@ class CompetitionRoute extends Component {
 			}
 		}
 
-		if (newIdx < 0) {
-			newIdx = 0;
-		}
+		if (newIdx < 0) return null;
 
-		if (newIdx >= attemptData.length) {
-			// no more lifters
-			this.setState({
-				leaderboardType: 'final'
-			});
-			return false;
-		}
+		if (newIdx >= attemptData.length) return null;
+		// 	// no more lifters
+		// 	this.setState({
+		// 		leaderboardType: 'final'
+		// 	});
+		// 	return null;
+		// }
 
 		const newLiftAttempt = attemptData[newIdx];
-		this.selectLiftAttempt({attempt: newLiftAttempt});
+		return newLiftAttempt;
 	}
 
 	getAttemptAtTime = (seconds) => {
@@ -595,7 +590,9 @@ class CompetitionRoute extends Component {
 			    		sortedAttemptData={this.state.sortedAttemptData}
 			    		selectLiftAttempt={this.selectLiftAttempt}
 						incrementLiftersLift={this.incrementLiftersLift}
-						incrementLifter={this.incrementLifter}
+						// incrementLifter={this.incrementLifter}
+						nextAttempt={this.nextAttempt(1)}
+						previousAttempt={this.nextAttempt(-1)}
 						advanceBySeconds={this.advanceBySeconds}
 						editMode={this.state.editMode}
 						>

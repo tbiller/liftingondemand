@@ -3,9 +3,12 @@ import React, { Component } from 'react';
 export default function({ 
 	currentAttempt,
 	incrementLiftersLift,
-	incrementLifter,
+	// incrementLifter,
 	advanceBySeconds,
+	selectLiftAttempt,
 	editMode,
+	previousAttempt,
+	nextAttempt,
 	children
 }) {
 
@@ -16,19 +19,29 @@ export default function({
 	// const names = currentLifter.name.split(' ');
 	// const lastName = names[0];
 	// const lastNameShortened = lastName.substr(0, 15);
-
+	function attemptClick(attempt) {
+		if (attempt) {
+			selectLiftAttempt({attempt});
+		}
+	}
 	return (
 		<div className='controls-and-player'>
 			<div className='controls left'>
-				{ (currentAttempt && incrementLifter) && 
-					<div className='lift-button left' onClick={() => incrementLifter(-1)}>
-						&lt;&lt; Prev Lifter
-					</div>
-				}
+				<div 
+					className={['lift-button left', previousAttempt ? 'clickable' : ''].join(' ')}
+					onClick={()=>attemptClick(previousAttempt)}>
+					{ previousAttempt && 
+							<div>
+								<img className='arrow left' src= {require('../images/arrow-right.png')} />
+								<div className='lifter-name'>{previousAttempt._lifter.shortName()}</div>
+								<div className='attempt'>{previousAttempt.attemptName}: {previousAttempt.weight} kg</div>
+							</div>
+					}
+				</div>
 				{editMode && 
 					<div>
-						<div className='seek-button left' onClick={() => advanceBySeconds(-60)}>&lt;&lt; 60 secs</div>
-						<div className='seek-button left' onClick={() => advanceBySeconds(-30)}>&lt;&lt; 30 secs</div>
+						<div className='seek-button left clickable' onClick={() => advanceBySeconds(-60)}>&lt;&lt; 60 secs</div>
+						<div className='seek-button left clickable' onClick={() => advanceBySeconds(-30)}>&lt;&lt; 30 secs</div>
 					</div>
 				}
 				<div className='seek-button left' onClick={() => advanceBySeconds(-10)}>&lt;&lt; 10 secs</div>
@@ -36,19 +49,24 @@ export default function({
 			{children}
 			<div className='controls right'>
 				
-				{ (currentAttempt && incrementLifter) && 
-					<div className='lift-button right' onClick={() => incrementLifter(1)}>
-						Next Lifter &gt;&gt;
-					</div>
-				}
-				<div className='seek-button right' onClick={() => advanceBySeconds(10)}>10 secs &gt;&gt;</div>
-
+				<div
+					className={['lift-button right', nextAttempt ? 'clickable' : ''].join(' ')}
+					onClick={()=>attemptClick(nextAttempt)}>
+					{ nextAttempt && 
+							<div>
+								<img className='arrow right' src= {require('../images/arrow-right.png')} />
+								<div className='lifter-name'>{nextAttempt._lifter.shortName()}</div>
+								<div className='attempt'>{nextAttempt.attemptName}: {nextAttempt.weight} kg</div>
+							</div>
+					}
+				</div>
 				{editMode && 
 					<div>
-						<div className='seek-button right' onClick={() => advanceBySeconds(30)}>30 secs &gt;&gt;</div>
-						<div className='seek-button right' onClick={() => advanceBySeconds(60)}>60 secs &gt;&gt;</div>	
+						<div className='seek-button right clickable' onClick={() => advanceBySeconds(30)}>30 secs &gt;&gt;</div>
+						<div className='seek-button right clickable' onClick={() => advanceBySeconds(60)}>60 secs &gt;&gt;</div>	
 					</div>
 				}
+				<div className='seek-button right clickable' onClick={() => advanceBySeconds(-10)}>10 secs &gt;&gt;</div>
 			</div>
 	   	</div>
     );

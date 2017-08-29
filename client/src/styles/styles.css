@@ -416,24 +416,39 @@ a {
   flex-direction: row;
   justify-content: center;
   background-color: black;
-  height: 360px; }
+  height: 360px;
+  text-align: center; }
   .controls-and-player .controls {
     display: flex;
     flex-direction: column;
-    flex: 1; }
+    flex: 1;
+    color: rgba(255, 255, 255, 0.6); }
+    .controls-and-player .controls .lifter-name {
+      font-size: 1em; }
+    .controls-and-player .controls .attempt {
+      margin-top: 4px;
+      font-size: 0.9em; }
+    .controls-and-player .controls .arrow {
+      width: 40px;
+      margin: 10px 0px; }
+      .controls-and-player .controls .arrow.left {
+        transform: rotate(180deg); }
   .controls-and-player .lift-button, .controls-and-player .seek-button {
     background-color: rgba(0, 0, 0, 0);
     border-top: 1px solid #dadada;
-    color: #dadada;
     flex: 1;
     display: flex;
     flex-direction: column;
+    padding: 0px 9px;
     justify-content: center; }
-    .controls-and-player .lift-button:hover, .controls-and-player .seek-button:hover {
+    .controls-and-player .lift-button.clickable:hover, .controls-and-player .seek-button.clickable:hover {
       cursor: pointer;
       background-color: rgba(255, 255, 255, 0.2); }
   .controls-and-player .lift-button {
-    flex: 4; }
+    flex: 5;
+    border-top: none; }
+  .controls-and-player .seek-button {
+    font-size: 0.8em; }
 
 .button {
   margin: 0px 2px;

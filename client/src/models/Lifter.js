@@ -10,6 +10,18 @@ class Lifter {
 			return new Appearance(appearanceJson, this);
 		});
 	}
+
+	lastName() {
+		return this.name.split(' ')[0];
+	}
+
+	shortName(maxChars=14) {
+		let name = this.name.substr(0, maxChars);
+		if (this.name.length > maxChars && this.name.substr(maxChars-1, 1) !== ' ') {
+			name += '.';
+		}
+		return name;
+	}
 }
 
 export default Lifter;
