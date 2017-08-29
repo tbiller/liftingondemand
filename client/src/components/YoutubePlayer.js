@@ -179,14 +179,7 @@ export default class YoutubePlayer extends Component {
 		// if (this.props.resetPlayer) { return null; }
 		return (
 				<div>
-					<YouTube
-						className='youtube-player'
-						opts={this.state.playerOpts}
-						onReady={this.onPlayerReady}
-						onStateChange={this.onPlayerStateChange}
-						onError={this.onError}
-					/>
-					{this.props.editMode &&
+				{this.props.editMode &&
 						<div className='editTools'>
 			    			<div className='button' onClick={()=>this.props.recordEdit('firstNameFrame', this.player.getCurrentTime())}>
 			    				firstNameFrame
@@ -199,6 +192,14 @@ export default class YoutubePlayer extends Component {
 			    			</div>
 			    		</div>
 			    	}
+					<YouTube
+						className='youtube-player'
+						opts={this.state.playerOpts}
+						onReady={this.onPlayerReady}
+						onStateChange={this.onPlayerStateChange}
+						onError={this.onError}
+					/>
+					
 			    </div>
 		);
 	}

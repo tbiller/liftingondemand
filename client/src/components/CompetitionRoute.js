@@ -15,6 +15,7 @@ import queryString from 'query-string';
 import Appearance from '../models/Appearance';
 import { capitalize } from '../utils/general';
 
+
 class CompetitionRoute extends Component {
 	constructor(props) {
 		super(props);
@@ -36,12 +37,14 @@ class CompetitionRoute extends Component {
 
 		this.liftsInOrder = ['Squat 1', 'Squat 2', 'Squat 3', 'Bench 1', 'Bench 2', 'Bench 3',
 			'Deadlift 1', 'Deadlift 2', 'Deadlift 3'];
-		this.edits = [];
+		this.edits = {};
 	}
 
 
 	componentDidMount = () => {
 		this.updateBasedOnNewProps(this.props);
+		
+		window.addEventListener('scroll', this.handleScroll);
 	}
 
 	componentWillReceiveProps = (nextProps) => {
@@ -57,6 +60,10 @@ class CompetitionRoute extends Component {
 		 		{weightClass: this.state.weightClass, division: this.state.division});
 		}
 	} 
+
+	componentWillUnmount() {
+	  window.removeEventListener('scroll', this.handleScroll);
+	}
 
 	updateBasedOnNewProps = (props) => {
 		const competitionName = props.match.params.competitionName;
@@ -140,8 +147,27 @@ class CompetitionRoute extends Component {
 		}
 	}
 
+
+	handleScroll = (event) => {
+		console.log('scrolling!');
+		let scrollTop = event.srcElement.body.scrollTop;
+        // let itemTranslate = Math.min(0, scrollTop/3 - 60);
+        if (scrollTop >= 95) {
+        	this.setState({dummyContainerHeight: this.refs.pinOnScroll.clientHeight});
+        	this.refs.pinOnScroll.className = 'pinOnScroll pinned';
+        	// this.refs.dummyContainer.clientHeight = this.dummyContainerHeight;
+        } else {
+        	this.setState({dummyContainerHeight: 0});
+        	this.refs.pinOnScroll.className = 'pinOnScroll';
+        }
+        console.log(scrollTop);
+        // console.log(this.dummyContainerHeight);
+	}
+
+
 	// called every second (or so) when the youtube player checks the current time of the player
 	timeChange = (time) => {
+		if (this.state.editMode) return;
 		const currentAttempt = this.getAttemptAtTime(time);
 
 		if (currentAttempt) {
@@ -283,8 +309,8 @@ class CompetitionRoute extends Component {
 		if (!seconds) return null;
 		if (!this.state.currentVideoId) return null;
 
-		console.log(this.sortedAttemptData);
-		console.log(this.state.currentVideoId);
+		// console.log(this.sortedAttemptData);
+		// console.log(this.state.currentVideoId);
 		if (!this.sortedAttemptData[this.state.currentVideoId] || !this.sortedAttemptData[this.state.currentVideoId].length) {
 			console.log('no sortedAttemptData');
 			return null;
@@ -422,6 +448,26 @@ class CompetitionRoute extends Component {
 		this.toggleOptions(false);
 	}
 
+	recordEdit = (frameType, seconds) => {
+		const currentLifter = this.state.currentAttempt._lifter;
+		const key = currentLifter.name + '_' + this.state.weightClass + '_' + this.state.division;
+		const attemptName = this.state.currentAttempt.attemptName;
+	
+		if (!this.edits.hasOwnProperty(key)) {
+			this.edits[key] = {};
+		}
+
+		if (!this.edits[key].hasOwnProperty(attemptName)) {
+			this.edits[key][attemptName] = {};
+		}
+
+		this.edits[key][attemptName][frameType] = +(seconds * this.framerate()).toFixed(0);
+		if (frameType === 'firstNameFrame' && !this.edits[key][attemptName]['lastNameFrame']) {
+			this.edits[key][attemptName]['lastNameFrame'] = +(seconds * this.framerate()).toFixed(0);
+		}
+
+		console.log(JSON.stringify(this.edits));
+	}
 
 
 
@@ -446,7 +492,7 @@ class CompetitionRoute extends Component {
 
 	selectLiftAttempt = ({attempt, watchContinuous, boolStopVideo=false}) => {
 		if (!attempt) return false;
-		if (!attempt.hasFrame()) return false;
+		if (!attempt.hasFrame() && !this.state.editMode) return false;
 
 		this.setState({
 			attemptToBeSelected: attempt,
@@ -534,52 +580,54 @@ class CompetitionRoute extends Component {
 				        />
 				    </div>
 				</Sidebar>
-
-		    	<CurrentLifterInfo 
-		    		currentAttempt={this.state.currentAttempt}
-		    		selectLiftAttempt={this.selectLiftAttempt} 
-		    		activeDivision={this.state.division}
-		    		activeWeightClass={this.state.weightClass}
-		    		weightClassSuffix={weightClassSuffix}
-		    	/>
-
-
-
-				<div className='youtube-pane'>
-			        <YoutubePlayer
-			        	attemptToBeSelected={this.state.attemptToBeSelected}
-			        	secondsToAdvance={this.state.secondsToAdvance}
-			        	boolStopVideo={this.state.boolStopVideo}
-			        	playerUpdated={this.playerUpdated}
-			        	recordTime={this.timeChange}
-			        	framerate={this.framerate()}
-			        	boolStopVideo={this.state.boolStopVideo}
-			        	editMode={this.state.editMode}
-			        	recordEdit={this.recordEdit}
-			        />
-			    </div>
-			    <PlayerControls 
-					currentAttempt={this.state.currentAttempt}
-		    		sortedAttemptData={this.state.sortedAttemptData}
-		    		selectLiftAttempt={this.selectLiftAttempt}
-					incrementLiftersLift={this.incrementLiftersLift}
-					incrementLifter={this.incrementLifter}
-					advanceBySeconds={this.advanceBySeconds}
-				/>
-		     	<Leaderboard 
-		     		loading={this.state.loading}
-		     		player={this.player}
-		     		liftsInOrder={this.liftsInOrder}
-		     		leaderboardType={this.state.leaderboardType}
-		     		results={this.state.lifterAppearances}
-		     		tdClick={this.selectLiftAttempt}
-		     		lifterClick={this.lifterClick}
-		     		optionClick={this.optionClick}
-		     		currentAttempt={this.state.currentAttempt}
-		     		autoPlayingLifters={this.state.watchContinuousLifters}
-		     		clearAutoPlayingLifters={this.clearAutoPlayingLifters}
-		     		autoPlayTopLifters={this.autoPlayTopLifters}
-		 		/>
+				<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
+				</div>
+				<div className='pinOnScroll' ref='pinOnScroll'>
+			    	<CurrentLifterInfo 
+			    		currentAttempt={this.state.currentAttempt}
+			    		selectLiftAttempt={this.selectLiftAttempt} 
+			    		activeDivision={this.state.division}
+			    		activeWeightClass={this.state.weightClass}
+			    		weightClassSuffix={weightClassSuffix}
+			    	/>
+				    <PlayerControls 
+						currentAttempt={this.state.currentAttempt}
+			    		sortedAttemptData={this.state.sortedAttemptData}
+			    		selectLiftAttempt={this.selectLiftAttempt}
+						incrementLiftersLift={this.incrementLiftersLift}
+						incrementLifter={this.incrementLifter}
+						advanceBySeconds={this.advanceBySeconds}
+						editMode={this.state.editMode}
+						>
+						<YoutubePlayer
+							attemptToBeSelected={this.state.attemptToBeSelected}
+							secondsToAdvance={this.state.secondsToAdvance}
+							boolStopVideo={this.state.boolStopVideo}
+							playerUpdated={this.playerUpdated}
+							recordTime={this.timeChange}
+							framerate={this.framerate()}
+							boolStopVideo={this.state.boolStopVideo}
+							editMode={this.state.editMode}
+							recordEdit={this.recordEdit}
+						/>
+				    </PlayerControls>
+				</div>
+				<div ref='continueToScroll'>
+			     	<Leaderboard 
+			     		loading={this.state.loading}
+			     		player={this.player}
+			     		liftsInOrder={this.liftsInOrder}
+			     		leaderboardType={this.state.leaderboardType}
+			     		results={this.state.lifterAppearances}
+			     		tdClick={this.selectLiftAttempt}
+			     		lifterClick={this.lifterClick}
+			     		optionClick={this.optionClick}
+			     		currentAttempt={this.state.currentAttempt}
+			     		autoPlayingLifters={this.state.watchContinuousLifters}
+			     		clearAutoPlayingLifters={this.clearAutoPlayingLifters}
+			     		autoPlayTopLifters={this.autoPlayTopLifters}
+			 		/>
+			 	</div>
 			</div>
 	    );
 	}

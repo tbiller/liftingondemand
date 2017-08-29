@@ -8,7 +8,7 @@ $minWidthForSideOptions: 0px;
 $carminePink: #EF6F6C;
 $independence: #465775;
 $clickable: #FFFFFF;
-
+$appWidth: 960px;
 $menuOpenTime: 0.2s;
 $menuCloseTime: 0.3s;
 $menuWidth: 240px;
@@ -36,9 +36,9 @@ a {
   display: flex;
   flex-direction: column;
   // margin: 0 auto;
-  width: 960px;
+  width: $appWidth;
   min-height: 800px;
-    position: relative;
+  position: relative;
   overflow: hidden;
 
   // @media (min-width: $minWidthForSideOptions) {
@@ -58,7 +58,8 @@ a {
   flex-direction: row;
   z-index: 99999;
   background-color:black;
-  height: 30px;
+  height: 25px;
+  margin-top: -10px;
   justify-content: center;
 }
 
@@ -155,6 +156,21 @@ a {
     transition: $menuOpenTime;
   }
 }
+
+.pinOnScroll {
+  z-index: 999;
+  transition: 0.4s;
+  &.pinned {
+    position:fixed;
+    top: 0px;
+    width: $appWidth;
+  transition: 0.4s;
+
+  }
+}
+.dummyContainer {
+}
+
 
 .searchbox {
   margin-right: 2px;
@@ -292,7 +308,7 @@ a {
   justify-content: flex-start;
   height: 32px;
   align-items: center;
-  // background-color: #efefef;
+  // background-color: $shamrock;
   // border-bottom: 1px solid #dadada;
   // margin-top: 5px;
   // background-color: $blue1;
@@ -442,14 +458,7 @@ a {
 
 
 
-.youtube-pane {
-  display: flex;
-  background-color: black;
-  position: relative;
-  flex-direction: row;
-  justify-content: center;
-  height: 360px;
-}
+
 
 .content {
   position: relative;
@@ -568,6 +577,7 @@ a {
 
 }
 
+
     .currentLifterInfo {
       display: flex;
       flex-direction: row;
@@ -576,6 +586,7 @@ a {
       z-index: 2;
       // height: 66px;
       // border-bottom: 1px solid white;
+      height: 52px;
       color: white;
       align-items: center;
       padding: 0px 8px;
@@ -681,13 +692,13 @@ a {
       // }
     }
 
-    .player-controls {
-      padding: 6px 0px 6px 0px;
+    .controls-and-player {
+      padding: 0px 0px 0px 0px;
       display: flex;
       flex-direction: row;
       justify-content: center;
       background-color: black;
-
+      height: 360px;
       // .control-group {
       //   display: flex;
       //   flex-direction: row;
@@ -702,6 +713,34 @@ a {
 
         
       // }
+      .controls {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+
+      .lift-button, .seek-button {
+        background-color: rgba(0,0,0,0);
+        border-top: 1px solid #dadada;
+        color: #dadada;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        &:hover {
+          cursor: pointer;
+          // color: $blue1;
+          background-color: rgba(255,255,255,0.2);
+        }
+
+      }
+      .lift-button {
+        flex: 4;
+      }
+
+
+
+
     }
 
 
@@ -906,11 +945,6 @@ a {
   .rt-td.lift.has-frame:hover{ //, .rt-td.lifter-name:hover {
     cursor: pointer;
     background-color: #eee;
-
-    span {
-      color:black;
-    }
-
   }
 
 

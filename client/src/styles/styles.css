@@ -29,7 +29,8 @@ a {
   flex-direction: row;
   z-index: 99999;
   background-color: black;
-  height: 30px;
+  height: 25px;
+  margin-top: -10px;
   justify-content: center; }
 
 .options-pane {
@@ -83,6 +84,15 @@ a {
   .burger-icon.rotated {
     transform: rotate(-90deg);
     transition: 0.2s; }
+
+.pinOnScroll {
+  z-index: 999;
+  transition: 0.4s; }
+  .pinOnScroll.pinned {
+    position: fixed;
+    top: 0px;
+    width: 960px;
+    transition: 0.4s; }
 
 .searchbox {
   margin-right: 2px;
@@ -275,14 +285,6 @@ a {
     opacity: 1;
     background-color: #66A182; }
 
-.youtube-pane {
-  display: flex;
-  background-color: black;
-  position: relative;
-  flex-direction: row;
-  justify-content: center;
-  height: 360px; }
-
 .content {
   position: relative; }
 
@@ -357,6 +359,7 @@ a {
   justify-content: center;
   background-color: black;
   z-index: 2;
+  height: 52px;
   color: white;
   align-items: center;
   padding: 0px 8px;
@@ -408,12 +411,30 @@ a {
         .currentLifterInfo .current-attempts .arrow.inactive:hover {
           cursor: default; }
 
-.player-controls {
-  padding: 6px 0px 6px 0px;
+.controls-and-player {
+  padding: 0px 0px 0px 0px;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: black; }
+  background-color: black;
+  height: 360px; }
+  .controls-and-player .controls {
+    display: flex;
+    flex-direction: column;
+    flex: 1; }
+  .controls-and-player .lift-button, .controls-and-player .seek-button {
+    background-color: rgba(0, 0, 0, 0);
+    border-top: 1px solid #dadada;
+    color: #dadada;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; }
+    .controls-and-player .lift-button:hover, .controls-and-player .seek-button:hover {
+      cursor: pointer;
+      background-color: rgba(255, 255, 255, 0.2); }
+  .controls-and-player .lift-button {
+    flex: 4; }
 
 .button {
   margin: 0px 2px;
@@ -538,8 +559,6 @@ a {
   .rt-table .rt-td.lift.has-frame:hover {
     cursor: pointer;
     background-color: #eee; }
-    .rt-table .rt-td.lift.has-frame:hover span {
-      color: black; }
   .rt-table .rt-tr.current-lifter {
     border: 2px solid black;
     border-width: 2px 0px;
