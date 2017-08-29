@@ -14,7 +14,6 @@ a {
   display: flex;
   flex-direction: column;
   width: 960px;
-  min-height: 800px;
   position: relative;
   overflow: hidden; }
 

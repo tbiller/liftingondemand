@@ -25,6 +25,7 @@ class LifterRoute extends Component {
 	componentDidMount = () => {
 		this.updateBasedOnNewProps(this.props);
 		this.props.sendData({'activeCompetitionId': null});
+		window.addEventListener('scroll', this.handleScroll);
 	}
 
 	componentWillReceiveProps = (nextProps) => {
@@ -39,6 +40,9 @@ class LifterRoute extends Component {
 		//  	this.updateUrlParams({weightClass: this.state.weightClass, division: this.state.division});
 		// }
 	} 
+	componentWillUnmount() {
+		window.removeEventListener('scroll', this.handleScroll);
+	}
 
 	updateBasedOnNewProps = (props) => {
 		const lifterId = props.match.params.lifterId;
@@ -212,34 +216,54 @@ class LifterRoute extends Component {
 		// }
 	}
 
+	handleScroll = (event) => {
+		console.log('scrolling!');
+		let scrollTop = event.srcElement.body.scrollTop;
+        // let itemTranslate = Math.min(0, scrollTop/3 - 60);
+        if (scrollTop >= 95) {
+        	this.setState({dummyContainerHeight: this.refs.pinOnScroll.clientHeight});
+        	this.refs.pinOnScroll.className = 'pinOnScroll pinned';
+        	// this.refs.dummyContainer.clientHeight = this.dummyContainerHeight;
+        } else {
+        	this.setState({dummyContainerHeight: 0});
+        	this.refs.pinOnScroll.className = 'pinOnScroll';
+        }
+        console.log(scrollTop);
+        // console.log(this.dummyContainerHeight);
+	}
+
 	render() {
 		return (
 			<div>
 			
 			<div>
 				<LifterHeader lifter={this.state.lifter} />
-				<CurrentLifterInfo 
-					currentAttempt={this.state.currentAttempt}
-					showCompetitionName={true}
-					selectLiftAttempt={this.selectLiftAttempt}
-				/>
-				<div className='youtube-pane'>
-			        <YoutubePlayer
-			        	attemptToBeSelected={this.state.attemptToBeSelected}
-			        	secondsToAdvance={this.state.secondsToAdvance}
-			        	playerUpdated={this.playerUpdated}
-			        	recordTime={this.timeChange}
-			        	resetPlayer={this.state.resetPlayer}
-			        	framerate={this.framerate()}
-			        	boolStopVideo={this.state.boolStopVideo}
-			        />
-			    </div>
-			    <PlayerControls 
-					currentAttempt={this.state.currentAttempt}
-		    		sortedAttemptData={this.state.sortedAttemptData}
-					incrementLifter={this.incrementLifter}
-					advanceBySeconds={this.advanceBySeconds}
-				/>
+				<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
+				</div>
+				<div className='pinOnScroll' ref='pinOnScroll'>
+					<CurrentLifterInfo 
+						currentAttempt={this.state.currentAttempt}
+						showCompetitionName={true}
+						selectLiftAttempt={this.selectLiftAttempt}
+					/>
+ 					<PlayerControls 
+						currentAttempt={this.state.currentAttempt}
+			    		sortedAttemptData={this.state.sortedAttemptData}
+						incrementLifter={this.incrementLifter}
+						advanceBySeconds={this.advanceBySeconds}
+						>				        
+						<YoutubePlayer
+				        	attemptToBeSelected={this.state.attemptToBeSelected}
+				        	secondsToAdvance={this.state.secondsToAdvance}
+				        	playerUpdated={this.playerUpdated}
+				        	recordTime={this.timeChange}
+				        	resetPlayer={this.state.resetPlayer}
+				        	framerate={this.framerate()}
+				        	boolStopVideo={this.state.boolStopVideo}
+				        />
+				    </PlayerControls>
+				   
+				</div>
 				<LifterTable 
 					appearances={this.state.lifter ? this.state.lifter.appearances : []}
 					tdClick={this.attemptClick}
