@@ -17,6 +17,12 @@ a {
   position: relative;
   overflow: hidden; }
 
+.header-and-content {
+  z-index: 1; }
+
+.side-bar.left {
+  z-index: 2; }
+
 .hidden {
   display: none !important; }
 
@@ -287,70 +293,54 @@ a {
 .content {
   position: relative; }
 
-.title-and-indicator {
-  display: flex;
-  flex-direction: column; }
-
-.route-indicator {
-  margin: 0 auto;
-  width: 300px;
-  text-align: center;
-  text-transform: uppercase;
-  margin-bottom: -4px;
-  font-size: 0.8em;
-  color: #00A8E8; }
-
-.competition-header {
+.competition-header, .lifter-header {
+  position: relative;
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
-  min-height: 35px;
+  justify-content: center;
+  min-height: 38px;
   color: #333;
   padding: 4px 4px; }
-  .competition-header .competition-date {
+  .competition-header .competition-date, .lifter-header .competition-date {
     position: absolute;
     left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
     font-size: 0.9em;
     color: #999; }
-  .competition-header .competition-title {
-    font-weight: bold;
-    font-size: 30px; }
-  .competition-header .active-division {
+  .competition-header .title-and-indicator, .lifter-header .title-and-indicator {
+    display: flex;
+    flex-direction: column; }
+    .competition-header .title-and-indicator .route-indicator, .lifter-header .title-and-indicator .route-indicator {
+      text-align: center;
+      text-transform: uppercase;
+      margin-bottom: -6px;
+      font-size: 0.8em;
+      color: #00A8E8; }
+    .competition-header .title-and-indicator .competition-title, .competition-header .title-and-indicator .lifter-name, .lifter-header .title-and-indicator .competition-title, .lifter-header .title-and-indicator .lifter-name {
+      font-weight: bold;
+      font-size: 30px; }
+  .competition-header .active-division, .competition-header .yob, .lifter-header .active-division, .lifter-header .yob {
     position: absolute;
-    color: #999;
+    top: 50%;
+    transform: translateY(-50%);
     right: 10px;
+    color: #999;
+    font-size: 0.9em;
     display: flex;
     flex-direction: row;
+    line-height: 100%;
+    justify-content: flex-end;
     align-items: center;
-    font-size: 16px;
     cursor: pointer; }
-    .competition-header .active-division .arrow {
+    .competition-header .active-division .arrow, .competition-header .yob .arrow, .lifter-header .active-division .arrow, .lifter-header .yob .arrow {
       width: 25px;
       height: 25px;
       transition: 0.2s;
       transform: rotate(-90deg); }
-      .competition-header .active-division .arrow.rotated {
+      .competition-header .active-division .arrow.rotated, .competition-header .yob .arrow.rotated, .lifter-header .active-division .arrow.rotated, .lifter-header .yob .arrow.rotated {
         transform: rotate(0deg); }
-
-.lifter-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  min-height: 30px;
-  background-color: white;
-  color: #333;
-  padding: 2px 4px;
-  border-bottom: 1px solid white; }
-  .lifter-header .lifter-name {
-    font-size: 30px;
-    font-weight: bold;
-    text-align: center; }
-  .lifter-header .yob {
-    position: absolute;
-    right: 10px;
-    margin-left: auto; }
 
 .currentLifterInfo {
   display: flex;
@@ -418,6 +408,21 @@ a {
   background-color: black;
   height: 360px;
   text-align: center; }
+  .controls-and-player .youtube-pane {
+    width: 640px;
+    position: relative; }
+    .controls-and-player .youtube-pane .no-data {
+      color: white;
+      font-weight: normal;
+      text-decoration: italic;
+      font-size: 0.8em; }
+      .controls-and-player .youtube-pane .no-data.overlay {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 10; }
   .controls-and-player .controls {
     display: flex;
     flex-direction: column;
@@ -513,7 +518,14 @@ a {
       flex-direction: row; }
 
 .ReactTable {
-  border: none; }
+  border: none;
+  overflow: visible; }
+  .ReactTable .rt-noData {
+    padding: 3px 6px;
+    top: 50px;
+    font-size: 0.8em; }
+  .ReactTable .-loading {
+    font-size: 0.9em; }
 
 .rt-table {
   overflow: auto;

@@ -14,7 +14,8 @@ export default function({
 	shouldShowResult,
 	autoPlayingLifters,
 	leaderboardType,
-	currentTotalForLifter
+	currentTotalForLifter,
+	loading
 }) {
 	const minAttemptWidth = 50;
 	const live = (leaderboardType === 'live');
@@ -192,6 +193,8 @@ export default function({
 			minWidth={20}
 			minRows={0}
 			defaultPageSize={100}
+			loading={loading}
+			noDataText='No data found.'
 			// defaultSortMethod={sortWeights}
 			getTdProps={getTdProps}
 			getTrProps={getTrProps}

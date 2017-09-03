@@ -1,4 +1,5 @@
 import { withRouter } from 'react-router';
+import { capitalize, title } from './general';
 import queryString from 'query-string';
 
 const serializeParams = (params) => {
@@ -13,12 +14,14 @@ const serializeParams = (params) => {
 				break;
 			case 'weightClass':
 				newKey = 'wc';
+				// newVal = title(params[key])
 				break;
 			case 'lifter':
 				newVal = params[key] ? params[key].split(' ').join('_') : null;
 				break;
 			case 'division':
 				newKey = 'div';
+				// newVal = title(params[key])
 				break;
 		}
 		serializedParams[newKey] = newVal;
@@ -38,12 +41,14 @@ const deserializeParams = (params) => {
 				break;
 			case 'wc':
 				newKey = 'weightClass';
+				// newVal = title(params[key])
 				break;
 			case 'lifter':
 				newVal = params[key] ? params[key].split('_').join(' ') : null;
 				break;
 			case 'div':
 				newKey = 'division';
+				// newVal = title(params[key])
 				break;
 		}
 		deserializedParams[newKey] = newVal;
@@ -64,11 +69,12 @@ const updateUrlParams = (history, location, newParams, addToHistory=true) => {
 }
 
 const navigateTo = (history, pathname, params, addToHistory=true) => {
-	const search = params ? '?' + queryString.stringify(params) : '';
+	const search = params ? '?' + queryString.stringify(serializeParams(params)) : '';
+	console.log(search);
 	if (addToHistory) {
-		history.push(pathname, search);
+		history.push({pathname, search});
 	} else {
-		history.push(pathname, search);
+		history.replace({pathname, search});
 	}
 }
 

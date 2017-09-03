@@ -42,9 +42,8 @@ export default function({
 	function weightToRankBy(lifterAppearance) {
 		// if lifter has not completed current lift, rank based on current lift
 		// if lifter has already completed curent lift, rank based on next lift
-		currentAttemptName = currentAttemptName || 'Squat 1';
-
-		const liftAttempt = lifterAppearance.attempts[currentAttemptName];
+		const attemptName =  currentAttemptName || 'Squat 1';
+		const liftAttempt = lifterAppearance.attempts[attemptName];
 		const currentAttemptIdx = liftAttempt.attemptIdx();
 
 		const lifterHasCompletedCurrentLift = currentAttempt ? 
@@ -64,7 +63,8 @@ export default function({
 			if (currentAttemptIdx < liftsInOrder.length - 1) {
 				weightToReturn = +lifterAppearance.attempts[liftsInOrder[currentAttemptIdx + 1]].weight;
 			} else {
-				weightToReturn = -1 * lifterAppearance.totalAsOf(currentAttempt).total;
+				// last lift - order by place
+				weightToReturn = lifterAppearance.place;
 			}
 
 			if (isNaN(weightToReturn)) {

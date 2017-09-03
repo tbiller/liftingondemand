@@ -19,6 +19,7 @@ class Searchbox extends Component {
 	performRegex = (arr, key, regs) => {
 		return arr.filter((el) => {
 			if (!el[key]) return false;
+			if (el[key] === 'IPF Open Worlds 2016') debugger;
 			for (let i = 0; i < regs.length; i++) {
 				if (!regs[i].test(el[key])) {
 					return false;
@@ -34,13 +35,14 @@ class Searchbox extends Component {
 		const strParts = str.split(' ');
 
 		for (let i = 0; i < strParts.length; i++) {
-			regs.push(new RegExp('(?:^| )(' + strParts[i] + ')', 'gi'));
+			regs.push(new RegExp('(?:^| )(' + strParts[i] + ')', 'i'));
 		}
 		
-
+		console.log(this.props.competitions);
 		if (this.props.lifters) matchingLifters = this.performRegex(this.props.lifters, 'name', regs);
 		if (this.props.competitions) matchingCompetitions = this.performRegex(this.props.competitions, 'name', regs);
-			
+		
+		console.log(matchingCompetitions)
 
 		return {
 			matchingLifters,

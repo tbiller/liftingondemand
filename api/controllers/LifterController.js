@@ -5,7 +5,11 @@ var mongoose = require('mongoose'),
 
 exports.get_all_lifters = function(req, res) {
   lifter.find({}).exec(function(err, lifters) {
-    if (err) res.send(err);
+    if (err)  {
+    	console.log(err);
+    	res.send(err);
+    	return;
+    }
     res.json(lifters);
   });
 };
@@ -28,6 +32,17 @@ exports.get_a_lifter = function(req, res) {
 	  	});
 };
 
+exports.get_a_lifter_by_name_and_yob = function(req, res) {
+	lifter.find({'yob': req.query.yob}).findByName(req.query.name)
+		.exec(function(err, lifters) {
+			if (err) {
+				console.log(err);
+				res.send(err);
+				return;
+			}
+			res.json(lifters);
+	  	});
+};
 // exports.get_a_competition = function(req, res) {
 //   competition.findById(req.params.competitionId, function(err, competition) {
 //     if (err)

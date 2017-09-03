@@ -8,4 +8,7 @@ module.exports = function(app) {
 
   app.route('/lifter/:lifterId')
     .get(lifter.get_a_lifter)
+
+  app.route('/lifterByParams')
+  	.get(lifter.get_a_lifter_by_name_and_yob)
 };

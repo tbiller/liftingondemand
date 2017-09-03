@@ -44,7 +44,13 @@ a {
   // @media (min-width: $minWidthForSideOptions) {
   //   flex-direction: row;
 }
+.header-and-content {
+  z-index: 1;
+}
 
+.side-bar.left {
+  z-index: 2;
+}
 .hidden {
   display: none !important;
 }
@@ -481,60 +487,63 @@ a {
   //   justify-content: space-between;
 
 
-.title-and-indicator {
-  display: flex;
-  flex-direction: column;
-
-}
-.route-indicator {
-  margin: 0 auto;
-  width: 300px;
-  text-align: center;
-  text-transform: uppercase;
-  // margin-top: -2px;
-  margin-bottom: -4px;
-  font-size: 0.8em;
-  color: $blue1;
-}
-.competition-header {
+.competition-header, .lifter-header {
+  position: relative;
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
-  min-height: 35px;
-  // background-color: $blue3;
-  // color: white;
-    
-    // background-color: $blue1;
+  justify-content: center;
+  min-height: 38px;
   color: #333;
   padding: 4px 4px;
-  // border-bottom: 1px solid white;
+
   .competition-date {
     position: absolute;
     left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
     font-size: 0.9em;
     color: #999;
-
   }
-  .competition-title {
-    // margin-left: 55px;
-    font-weight: bold;
-    font-size: 30px;
-  }
+  .title-and-indicator {
+    display: flex;
+    flex-direction: column;
 
-  .active-division {
+    // position: absolute;
+    // left: 50%;
+    // 
+    .route-indicator {
+      // margin: 0 auto;
+      // width: 300px;
+      text-align: center;
+      text-transform: uppercase;
+      // margin-top: -2px;
+      margin-bottom: -6px;
+      font-size: 0.8em;
+      color: $blue1;
+    }
+    .competition-title, .lifter-name {
+      font-weight: bold;
+      font-size: 30px;
+    }
+  }
+  
+  .active-division, .yob {
     position: absolute;
-    color: #999;
-
+    top: 50%;
+    transform: translateY(-50%);
     right: 10px;
+    color: #999;
+    font-size: 0.9em;
     display: flex;
     flex-direction: row;
+    line-height: 100%;
+    justify-content: flex-end;
     align-items: center;
     // margin-left: auto;
     // position: absolute;
     // top: 0px;
     // right: 0px;
-    font-size: 16px;
     cursor: pointer;
     // margin-right: 100px;
     .arrow {
@@ -554,28 +563,28 @@ a {
   }
 }
 
-.lifter-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  min-height: 30px;
-  background-color: white;
-  color: #333;
-  padding: 2px 4px;
-  border-bottom: 1px solid white;
-  .lifter-name {
-    font-size: 30px;
-    font-weight: bold;
-    text-align: center;
-  }
-  .yob {
-    position: absolute;
-    right: 10px;
-     margin-left: auto;
-  }
+// .lifter-header {
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: center;
+//   align-items: center;
+//   min-height: 30px;
+//   background-color: white;
+//   color: #333;
+//   padding: 2px 4px;
+//   border-bottom: 1px solid white;
+//   .lifter-name {
+//     font-size: 30px;
+//     font-weight: bold;
+//     text-align: center;
+//   }
+//   .yob {
+//     position: absolute;
+//     right: 10px;
+//      margin-left: auto;
+//   }
 
-}
+// }
 
 
     .currentLifterInfo {
@@ -700,7 +709,25 @@ a {
       background-color: black;
       height: 360px;
       text-align: center;
+      .youtube-pane {
+        width: 640px;
+        position:relative;
 
+        .no-data {
+          color: white;
+          font-weight: normal;
+          text-decoration: italic;
+          font-size: 0.8em;
+          &.overlay {
+            position: absolute;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 10;
+          }
+        }
+      }
       .controls {
         display: flex;
         flex-direction: column;
@@ -848,7 +875,19 @@ a {
 
 .ReactTable {
   border: none;
+  overflow: visible;
+  .rt-noData {
+    padding: 3px 6px;
+    top: 50px;
+    font-size: 0.8em;
+  }
+
+  .-loading {
+    font-size: 0.9em;
+  }
+
 }
+
 
 .rt-table {
   overflow: auto;
@@ -862,6 +901,8 @@ a {
       box-shadow: none;
     }
   }
+
+
 
 
   .rt-thead .rt-th, .rt-tbody .rt-td {

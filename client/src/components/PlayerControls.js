@@ -44,7 +44,7 @@ export default function({
 						<div className='seek-button left clickable' onClick={() => advanceBySeconds(-30)}>&lt;&lt; 30 secs</div>
 					</div>
 				}
-				<div className='seek-button left' onClick={() => advanceBySeconds(-10)}>&lt;&lt; 10 secs</div>
+				<div className='seek-button left clickable' onClick={() => advanceBySeconds(-10)}>&lt;&lt; 10 secs</div>
 			</div>
 			{children}
 			<div className='controls right'>
@@ -66,7 +66,7 @@ export default function({
 						<div className='seek-button right clickable' onClick={() => advanceBySeconds(60)}>60 secs &gt;&gt;</div>	
 					</div>
 				}
-				<div className='seek-button right clickable' onClick={() => advanceBySeconds(-10)}>10 secs &gt;&gt;</div>
+				<div className='seek-button right clickable' onClick={() => advanceBySeconds(10)}>10 secs &gt;&gt;</div>
 			</div>
 	   	</div>
     );

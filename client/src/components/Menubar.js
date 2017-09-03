@@ -4,7 +4,7 @@ import CompetitionOption from './CompetitionOption';
 
 function MenuBar({isOpen, closeMenu, competitions, activeCompetitionId}) {
 	const competitionOptions = [];
-	if (competitions) {
+	if (competitions.length) {
 		competitions.sort((a,b) => {
 			return new Date(b.dateForSorting) -  new Date(a.dateForSorting);
 		})

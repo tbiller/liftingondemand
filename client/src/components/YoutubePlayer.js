@@ -8,7 +8,6 @@ export default class YoutubePlayer extends Component {
 		this.recordTimeFrequency = 2000;
 
 		this.state = {
-			showPlayer: true,
 			playerOpts: {
 				height: '360',
 				width: '640',
@@ -16,9 +15,9 @@ export default class YoutubePlayer extends Component {
 		}
 	}
 
-	componentWillMount() {
-		this.respondToProps(this.props);
-	}
+	// componentWillMount() {
+	// 	this.respondToProps(this.props);
+	// }
 	componentWillReceiveProps(nextProps) {
 		this.respondToProps(nextProps);
 	}
@@ -31,20 +30,24 @@ export default class YoutubePlayer extends Component {
 		console.log('responding to props');
 		console.log(props);
 		// if (this.player) {
-			if (props.attemptToBeSelected || props.secondsToAdvance) {
-				// if (props.resetPlayer) {
-				// 	console.log('canceling');
-				// 	this.player = null;
-				// }
-				if (props.attemptToBeSelected) {
-					this.selectLiftAttempt(props.attemptToBeSelected, props.boolStopVideo);
-				}
-				if (props.secondsToAdvance) {
-					this.advanceBySeconds(props.secondsToAdvance, props.boolStopVideo);
-				}
-				console.log('done with update');
-				if (this.player) props.playerUpdated();
+		if (props.resetPlayer === true) {
+			if (this.player) this.player.loadVideoById('');
+			this.setState({'currentVideoId': null})
+		}
+		if (props.attemptToBeSelected || props.secondsToAdvance) {
+			// if (props.resetPlayer) {
+			// 	console.log('canceling');
+			// 	this.player = null;
+			// }
+			if (props.attemptToBeSelected) {
+				this.selectLiftAttempt(props.attemptToBeSelected, props.boolStopVideo);
 			}
+			if (props.secondsToAdvance) {
+				this.advanceBySeconds(props.secondsToAdvance, props.boolStopVideo);
+			}
+			console.log('done with update');
+			if (this.player) props.playerUpdated();
+		}
 		// }
 	}
 
@@ -60,14 +63,15 @@ export default class YoutubePlayer extends Component {
 		if (videoId && videoId !== this.state.currentVideoId) {
 			console.log('changing video to ' + videoId);
 			this.setState({'currentVideoId': videoId});
-			if (boolStopVideo) {
-				this.player.cueVideoById(videoId, startSeconds)
-			} else {
-				this.player.loadVideoById(videoId);
-				this.player.playVideo();
-			}
-			
 		}
+
+		if (boolStopVideo) {
+			this.player.cueVideoById(videoId, startSeconds)
+		} else {
+			this.player.loadVideoById(videoId);
+			this.player.playVideo();
+		}
+			
 	}
 
 	selectLiftAttempt = (attempt, boolStopVideo) => {
@@ -178,7 +182,7 @@ export default class YoutubePlayer extends Component {
 		console.log(this.props.resetPlayer);
 		// if (this.props.resetPlayer) { return null; }
 		return (
-				<div>
+				<div className='youtube-pane'>
 				{this.props.editMode &&
 						<div className='editTools'>
 			    			<div className='button' onClick={()=>this.props.recordEdit('firstNameFrame', this.player.getCurrentTime())}>
@@ -191,6 +195,9 @@ export default class YoutubePlayer extends Component {
 			    				lightsFrame
 			    			</div>
 			    		</div>
+			    	}
+			    	{!this.state.currentVideoId &&
+			    		<div className='no-data overlay'>No video data found</div>
 			    	}
 					<YouTube
 						className='youtube-player'

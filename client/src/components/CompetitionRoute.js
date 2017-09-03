@@ -43,7 +43,6 @@ class CompetitionRoute extends Component {
 
 	componentDidMount = () => {
 		this.updateBasedOnNewProps(this.props);
-		
 		window.addEventListener('scroll', this.handleScroll);
 	}
 
@@ -113,11 +112,15 @@ class CompetitionRoute extends Component {
 			weightClass: weightClass
 		};
 
-		this.setState({loading: true});
+		console.log(params);
+
+		// this.setState({loading: true});
 
 		fetch('/appearances?' + queryString.stringify(params))
 			.then(res => res.json())
 			.then(json => {
+				console.log("yooo");
+				console.log(json)
 				const lifterAppearances = json.map((appearanceJson) => new Appearance(appearanceJson));
 				this.sortedAttemptData = this.sortAttempts(lifterAppearances);
 				this.addFlightsToAttempts(this.sortedAttemptData);
@@ -338,7 +341,7 @@ class CompetitionRoute extends Component {
 	lifterClick = (appearance) => {
 		// console.log(lifter);
 		Serializer.navigateTo(this.props.history, '/lifter/' + appearance._lifter._id);
-		// return false;
+		return false;
 		const lifterIdx = this.state.watchContinuousLifters.indexOf(appearance);
 		let newWatchContinuousLifters;
 		if (lifterIdx !== -1) {
@@ -409,7 +412,6 @@ class CompetitionRoute extends Component {
 
 	selectFirstLifter = () => {
 		console.log('selecting first lifter');
-		if (!this.sortedAttemptData)  return false;
 
 		// find first lifter in last flight
 		let firstAttempt = null;
@@ -426,6 +428,9 @@ class CompetitionRoute extends Component {
 			}
 		}
 		// this.setState({currentVideoId: firstAttempt._appearance.videoId})
+		if (firstAttempt == null) {
+			this.setState({resetPlayer: true});
+		}
 		this.selectLiftAttempt({attempt: firstAttempt, boolStopVideo: true});
 	}
 
@@ -486,14 +491,21 @@ class CompetitionRoute extends Component {
  	}
 
 	selectLiftAttempt = ({attempt, watchContinuous, boolStopVideo=false}) => {
-		if (!attempt) return false;
+		
+		if (!attempt) {
+			this.updateCurrentAttempt(attempt);
+			return false;
+		}
+		
 		if (!attempt.hasFrame() && !this.state.editMode) return false;
 
 		this.setState({
 			attemptToBeSelected: attempt,
+			resetPlayer: false,
 			boolStopVideo: boolStopVideo
-		})
+		});
 		this.updateCurrentAttempt(attempt);
+
 	}
 
 
@@ -504,6 +516,10 @@ class CompetitionRoute extends Component {
 		const newAttemptName = this.nextLiftAttemptName(currentAttemptName, numLiftsToMove);
 		const newAttempt = lifterAppearance.attempts[newAttemptName];
 		this.selectLiftAttempt({attempt: newAttempt});
+	}
+
+	incrementLifter = (numLiftsToMove, watchContinuousLifters) => {
+		this.selectLiftAttempt(numLiftsToMove, watchContinuousLifters);
 	}
 
 
@@ -606,6 +622,7 @@ class CompetitionRoute extends Component {
 							boolStopVideo={this.state.boolStopVideo}
 							editMode={this.state.editMode}
 							recordEdit={this.recordEdit}
+							resetPlayer={this.state.resetPlayer}
 						/>
 				    </PlayerControls>
 				</div>
