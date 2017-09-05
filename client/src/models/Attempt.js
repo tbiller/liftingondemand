@@ -2,14 +2,14 @@ const liftsInOrder = ['Squat 1', 'Squat 2', 'Squat 3', 'Bench 1', 'Bench 2', 'Be
 			'Deadlift 1', 'Deadlift 2', 'Deadlift 3'];		
 
 class Attempt {
-	constructor(attemptJson, appearance, attemptName, liftsInOrder) {
+	constructor(attemptJson, appearance, liftsInOrder) {
 		this._lifter = appearance._lifter;
 		this._appearance = appearance;
 		this.firstNameFrame = attemptJson.firstNameFrame;
 		this.lastNameFrame = attemptJson.lastNameFrame;
-		this.liftName = attemptName.split(' ')[0];
-		this.attemptNumber = attemptName.split(' ')[1];
-		this.attemptName = attemptName;
+		this.attemptName = attemptJson.attemptName;
+		this.liftName = this.attemptName.split(' ')[0];
+		this.attemptNumber = this.attemptName.split(' ')[1];
 		// this.lights = attemptJson.lights;
 		this.lightsFrame = attemptJson.lightsFrame;
 		this.result = attemptJson.result;

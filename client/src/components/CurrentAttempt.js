@@ -15,10 +15,11 @@ export default function({
 
 	return (
 		<div className='current-attempt'>
-		    <div className='current-attempt-name'>{attempt.attemptName}</div>
 		    <div className='current-weight'>
 		    	{kgWeightString} ({lbWeightString})
 		    </div>
 		</div>
 	);
 }
+
+		    // <div className='current-attempt-name'>{attempt.attemptName}</div>

@@ -6,9 +6,14 @@ class Lifter {
 		this._id = props._id;
 		this.name = props.name;
 		this.yob = props.yob;
-		this.appearances = props.appearances.map((appearanceJson) => {
-			return new Appearance(appearanceJson, this);
-		});
+		this.appearances = [];
+		if (props.appearances !== null && props.appearances.length > 0) {
+			if (typeof(props.appearances[0]) === 'object') {
+				this.appearances = props.appearances.map((appearanceJson) => {
+					return new Appearance(appearanceJson, this);
+				});
+			}
+		}
 	}
 
 	lastName() {

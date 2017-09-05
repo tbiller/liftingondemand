@@ -376,12 +376,14 @@ a {
       align-items: center;
       padding: 8px; }
       .currentLifterInfo .current-attempts .current-attempt .current-attempt-name {
-        margin-right: 5px;
-        font-size: 0.9em; }
+        margin-top: -6px;
+        margin-bottom: -2px;
+        font-size: 0.6em; }
       .currentLifterInfo .current-attempts .current-attempt .current-weight {
         display: flex;
         font-weight: bold;
-        flex-direction: row; }
+        flex-direction: row;
+        font-size: 1.5em; }
         .currentLifterInfo .current-attempts .current-attempt .current-weight .kg-weight {
           font-weight: bold;
           margin-right: 10px; }

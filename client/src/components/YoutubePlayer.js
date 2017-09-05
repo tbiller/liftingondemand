@@ -15,9 +15,6 @@ export default class YoutubePlayer extends Component {
 		}
 	}
 
-	// componentWillMount() {
-	// 	this.respondToProps(this.props);
-	// }
 	componentWillReceiveProps(nextProps) {
 		this.respondToProps(nextProps);
 	}
@@ -35,10 +32,6 @@ export default class YoutubePlayer extends Component {
 			this.setState({'currentVideoId': null})
 		}
 		if (props.attemptToBeSelected || props.secondsToAdvance) {
-			// if (props.resetPlayer) {
-			// 	console.log('canceling');
-			// 	this.player = null;
-			// }
 			if (props.attemptToBeSelected) {
 				this.selectLiftAttempt(props.attemptToBeSelected, props.boolStopVideo);
 			}
@@ -48,7 +41,6 @@ export default class YoutubePlayer extends Component {
 			console.log('done with update');
 			if (this.player) props.playerUpdated();
 		}
-		// }
 	}
 
 	advanceBySeconds = (seconds) => {

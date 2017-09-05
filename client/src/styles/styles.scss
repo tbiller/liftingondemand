@@ -637,14 +637,16 @@ a {
           // border: 1px solid #dadada;   
           padding: 8px;
           .current-attempt-name {
-            margin-right: 5px;
-            font-size: 0.9em;
+            // margin-right: 5px;
+            margin-top: -6px;
+            margin-bottom: -2px;
+            font-size: 0.6em;
           }
           .current-weight {
             display: flex;
             font-weight: bold;
             flex-direction: row;
-            // font-size: 2.0em;
+            font-size: 1.5em;
             // justify-content: space-between;
             // align-items: flex-end;
             .kg-weight {

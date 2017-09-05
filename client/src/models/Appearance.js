@@ -19,12 +19,11 @@ class Appearance {
 		this.weightClass = appearanceJson.weightClass;
 		this._competition = appearanceJson._competition;
 		this._id = appearanceJson._id;
-		// this.total.lifterObj = this;
-		this.attempts = {} // TODO: change to attempts
-		for (let attemptName in appearanceJson.lifts) {
-			if (appearanceJson.lifts.hasOwnProperty(attemptName)) {
-				this.attempts[attemptName] = new Attempt(appearanceJson.lifts[attemptName], this, attemptName);
-			}
+		this.attempts = {} 
+
+		for (let i = 0; i < appearanceJson.attempts.length; i++) {
+			const attempt = appearanceJson.attempts[i];
+			this.attempts[attempt.attemptName] = new Attempt(attempt, this);
 		}
 	}
 

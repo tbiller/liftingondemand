@@ -8,11 +8,14 @@ var express = require('express'),
 	Competition = require('./api/models/CompetitionModel'),
 	Lifter = require('./api/models/LifterModel'),
 	Appearance = require('./api/models/AppearanceModel'),
+	Attempt = require('./api/models/AttemptModel'),
+	AttemptInteraction = require('./api/models/AttemptInteractionModel'),
 	bodyParser = require('body-parser');
   
 var competitionRoutes = require('./api/routes/CompetitionRoutes');
 var lifterRoutes = require('./api/routes/LifterRoutes');
 var appearanceRoutes = require('./api/routes/AppearanceRoutes'); 
+var attemptRoutes = require('./api/routes/AttemptRoutes'); 
 
 app.use(express.static(path.join(__dirname, './client/build')))
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,6 +24,7 @@ app.use(bodyParser.json());
 competitionRoutes(app);
 lifterRoutes(app);
 appearanceRoutes(app);
+attemptRoutes(app);
 
 mongoose.Promise = global.Promise;
 

@@ -2,4 +2,7 @@
 - World games placing
 X World games lifter du TOIT
 X Scroll to Top
-- Refactor IPF vid processing
+X Refactor IPF vid processing
+- Add star
+- Remove star
+- stop redoing IDs every time new data is added
