@@ -15,13 +15,19 @@ exports.get_all_lifters = function(req, res) {
 };
 
 exports.get_a_lifter = function(req, res) {
-	lifter.findById(req.params.lifterId).populate(
-		{
+	lifter.findById(req.params.lifterId).populate({
 		  	path: 'appearances',
 		  	populate: {
-		  		path: '_competition'
+		  		path: '_competition',
+		  		select: 'name dates dateForSorting'
 		  	}
-		}).exec(function(err, lifter) {
+		}).populate({
+			path: 'appearances',
+		  	populate: {
+		  		path: 'attempts',
+		  	}
+		})
+		.exec(function(err, lifter) {
 			console.log(req.params.lifterId);
 			console.log(err);
 			if (err) {

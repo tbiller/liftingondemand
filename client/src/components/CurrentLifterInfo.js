@@ -11,6 +11,7 @@ export default function({
 	activeWeightClass,
 	activeDivision,
 	weightClassSuffix,
+	starAttempt,
 	showCompetitionName
 }) {
 
@@ -61,7 +62,17 @@ export default function({
 					:
 						<div className='arrow inactive'>&gt;&gt;</div>
 					}
+
 				</div>
+			   	<div className='attempt-stars'>
+			    	{+currentAttempt.numStars > 1 &&
+			    		<span>{currentAttempt.numStars} Stars</span>
+			    	} 
+			    	{+currentAttempt.numStars == 1 &&
+			    		<span>{currentAttempt.numStars} Star</span>
+			    	} 
+			    	<div class='button' onClick={starAttempt}>Star Lift</div>
+			    </div>
 		   	</div>
 		);
 	} else {

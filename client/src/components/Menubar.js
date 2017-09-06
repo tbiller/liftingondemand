@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Sidebar from './Sidebar';
 import CompetitionOption from './CompetitionOption';
+import { Link } from 'react-router-dom';
 
 function MenuBar({isOpen, closeMenu, competitions, activeCompetitionId}) {
 	const competitionOptions = [];
@@ -19,7 +20,7 @@ function MenuBar({isOpen, closeMenu, competitions, activeCompetitionId}) {
 
 	return (
 		<div onClick={closeMenu} className={['side-bar', 'left', isOpen ? 'open' : ''].join(' ')}>
-			<div className='app-title'>Lifting On Demand</div>
+			<Link to='/'><div className='app-title'>Lifting On Demand</div></Link>
 			<div className='divider' />
 			<div className='section'>
 				<div className='section-title'>Competitions</div>

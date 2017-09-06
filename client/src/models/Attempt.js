@@ -3,18 +3,21 @@ const liftsInOrder = ['Squat 1', 'Squat 2', 'Squat 3', 'Bench 1', 'Bench 2', 'Be
 
 class Attempt {
 	constructor(attemptJson, appearance, liftsInOrder) {
+		if (!appearance) appearance = attemptJson._appearance;
+		this._id = attemptJson._id;
 		this._lifter = appearance._lifter;
 		this._appearance = appearance;
+		this._competition = appearance._competition;
 		this.firstNameFrame = attemptJson.firstNameFrame;
 		this.lastNameFrame = attemptJson.lastNameFrame;
 		this.attemptName = attemptJson.attemptName;
 		this.liftName = this.attemptName.split(' ')[0];
 		this.attemptNumber = this.attemptName.split(' ')[1];
-		// this.lights = attemptJson.lights;
 		this.lightsFrame = attemptJson.lightsFrame;
 		this.result = attemptJson.result;
 		this.weight = attemptJson.weight;
 		this.records = attemptJson.records;
+		this.numStars = attemptJson.numStars;
 
 		if (this.lastNameFrame && this.firstNameFrame) {
 			if (this.lastNameFrame - this.firstNameFrame > 30 * 120) {

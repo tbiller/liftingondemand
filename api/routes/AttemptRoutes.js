@@ -7,5 +7,8 @@ module.exports = function(app) {
   	app.route('/attempt/:attempt_id/star')
   		.post(attempt.star_attempt);
   	app.route('/attempt/:attempt_id/unstar')
-  		.post(attempt.unstar_attempt)
+  		.post(attempt.unstar_attempt);
+
+  	app.route('/attempts/top')
+  		.get(attempt.top_attempts);
 };

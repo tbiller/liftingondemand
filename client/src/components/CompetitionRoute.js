@@ -561,6 +561,14 @@ class CompetitionRoute extends Component {
 		});
 	}
 
+	starCurrentAttempt = (unstar=false) => {
+		console.log('instarcurent');
+		const updatedAttempt = Object.assign({}, this.state.currentAttempt, {numStars: +this.state.currentAttempt.numStars + 1});
+		this.setState({currentAttempt: updatedAttempt});
+		fetch('/attempt/' +  updatedAttempt._id + '/star', { method: 'POST' });
+
+	}
+
 	render() {
 		const weightClassSuffix = this.state.competition ? this.state.competition.options.weightClassSuffix : 'kg';
 	    return (
@@ -600,6 +608,7 @@ class CompetitionRoute extends Component {
 			    		activeDivision={this.state.division}
 			    		activeWeightClass={this.state.weightClass}
 			    		weightClassSuffix={weightClassSuffix}
+			    		starAttempt={this.starCurrentAttempt}
 			    	/>
 				    <PlayerControls 
 						currentAttempt={this.state.currentAttempt}
@@ -648,5 +657,3 @@ class CompetitionRoute extends Component {
 }
 
 export default CompetitionRoute;
-
-  	// 

@@ -1,5 +1,6 @@
 import React from 'react';
 import Searchbox from './Searchbox';
+import { Link } from 'react-router-dom';
 export default function({
 	// activeCompetition, 
 	menuClick, 
@@ -21,8 +22,8 @@ export default function({
 				<div className='bar' />
 				<div className='bar' />
 			</div>
-			<div onClick={menuClick} className="app-title">
-				Lifting On Demand
+			<div className="app-title">
+				<Link to='/'>Lifting On Demand</Link>
 			</div>
 			<Searchbox 
 				lifters={lifters} 

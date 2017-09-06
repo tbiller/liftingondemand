@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 export default function({
-	attempt
+	attempt,
 }) {
 	if (!attempt) {
 		return null;

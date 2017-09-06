@@ -7,6 +7,7 @@ import LifterTable from './LifterTable';
 import LifterHeader from './LifterHeader';
 import CurrentLifterInfo from './CurrentLifterInfo';
 import Serializer from '../utils/serializer';
+import { CookiesProvider, withCookies, Cookies } from 'react-cookie';
 
 const liftsInOrder = ['Squat 1', 'Squat 2', 'Squat 3', 'Bench 1', 'Bench 2', 'Bench 3',
 			'Deadlift 1', 'Deadlift 2', 'Deadlift 3'];	
@@ -14,6 +15,7 @@ const liftsInOrder = ['Squat 1', 'Squat 2', 'Squat 3', 'Bench 1', 'Bench 2', 'Be
 class LifterRoute extends Component {
 	constructor(props) {
 		super(props);
+
 		this.state = {
 			lifter: null,
 			attemptToBeSelected: null,
@@ -238,6 +240,11 @@ class LifterRoute extends Component {
         // console.log(this.dummyContainerHeight);
 	}
 
+	starCurrentAttempt = (unstar=false) => {
+		this.props.starAttempt(this.state.currentAttempt);
+		this.setState({currentAttempt: this.state.currentAttempt});
+	}
+
 	render() {
 		return (
 			<div>
@@ -251,6 +258,7 @@ class LifterRoute extends Component {
 						currentAttempt={this.state.currentAttempt}
 						showCompetitionName={true}
 						selectLiftAttempt={this.selectLiftAttempt}
+						starAttempt={this.starCurrentAttempt}
 					/>
  					<PlayerControls 
 						currentAttempt={this.state.currentAttempt}
