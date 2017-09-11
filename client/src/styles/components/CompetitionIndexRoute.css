@@ -1,0 +1,22 @@
+.competition-list {
+	width: 60%;
+	margin: 20px auto;	
+}
+
+.competition-list .title {
+	padding: 0px 0px 5px 10px;
+	font-weight: bold;
+	font-size: 1.2em;
+	text-transform: uppercase;
+	border-bottom: 1px solid #dadada;
+	margin-bottom: 12px;
+}
+
+.competition-list .aside {
+	font-weight: normal;
+	font-size: 0.8em;
+	text-transform: none;
+	font-style: italic;
+	margin-left: 20px;
+	/*display: inline-block;*/
+}

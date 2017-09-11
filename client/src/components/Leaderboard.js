@@ -63,8 +63,8 @@ export default function({
 			if (currentAttemptIdx < liftsInOrder.length - 1) {
 				weightToReturn = +lifterAppearance.attempts[liftsInOrder[currentAttemptIdx + 1]].weight;
 			} else {
-				// last lift - order by place
-				weightToReturn = lifterAppearance.place;
+				// last lift - order by last lift
+				weightToReturn = lifterAppearance.attempts[liftsInOrder[currentAttemptIdx]].weight;
 			}
 
 			if (isNaN(weightToReturn)) {

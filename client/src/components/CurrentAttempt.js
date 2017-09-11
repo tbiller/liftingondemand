@@ -6,18 +6,21 @@ export default function({
 	if (!attempt) {
 		return null;
 	}
-	const LBS_IN_KILO = 2.20462;
-	const weight = attempt ? attempt.weight : '';
-	const weightInPounds = weight ? weight * LBS_IN_KILO : '';
 
-	const kgWeightString = weight ? weight + ' kg' : '';
-	const lbWeightString = weight ? Math.round(weightInPounds * 10) / 10 + ' lb' : '';
 
 	return (
 		<div className='current-attempt'>
+				
 		    <div className='current-weight'>
-		    	{kgWeightString} ({lbWeightString})
+		    	<span className='kg-weight'>{attempt.kgString()}</span>
+		    	<span className='lb-weight'>{attempt.lbString()}</span>
 		    </div>
+
+		    {attempt.records &&
+		    <div className='records'>
+		    	{attempt.recordsLong()}
+		    </div>
+		    }
 		</div>
 	);
 }

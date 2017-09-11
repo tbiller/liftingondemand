@@ -1,0 +1,38 @@
+.attempt-card {
+	width: 640px;
+	min-height: 80px;
+	background-color: whitesmoke;
+	border: 1px solid #dadada;
+	/*border-radius: 3px;*/
+	margin: 5px 0px;
+	transition: 0.4s;
+	padding: 4px;
+	display: flex;
+	flex-direction: column;
+}
+
+.attempt-card:hover {
+	cursor: pointer;
+	background-color: #dadada;
+}
+
+.attempt-card .empty-player {
+	height: 360px;
+	width: 640px;
+	background-color: black;
+}
+/*
+<div className='lifter-name'>{attempt._lifter.name}</div>
+			<div className='lift'>{attempt.liftName}</div>
+			<div className='weight'>{attempt.weight}</div>
+			<div className='competition-name'*/
+
+.attempt-card .info {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.attempt-card .info .lifter-name {
+
+}

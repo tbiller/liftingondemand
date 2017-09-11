@@ -21,7 +21,6 @@ export default function({
 		    		{competition ? competition.dates : ''}
 	    		</div>
 	    		<div className='title-and-indicator'>
-	    			<div className='route-indicator'>Competition</div>
 			    	<div className='competition-title'>
 			    		{competition ? competition.name : ''}
 			    	</div>
@@ -41,3 +40,5 @@ export default function({
 		</div>
 	);
 }
+
+	    			// <div className='route-indicator'>Competition</div>

@@ -1,0 +1,44 @@
+.lifter-list {
+	width: 60%;
+	margin: 20px auto;	
+}
+
+.lifter-list .title {
+	padding: 0px 0px 5px 10px;
+	font-weight: bold;
+	font-size: 1.2em;
+	text-transform: uppercase;
+	border-bottom: 1px solid #dadada;
+	margin-bottom: 12px;
+}
+
+.lifter-list .aside {
+	font-weight: normal;
+	font-size: 0.8em;
+	text-transform: none;
+	font-style: italic;
+	margin-left: 20px;
+	/*display: inline-block;*/
+}
+
+.lifter-list .item {
+	height: 40px;
+	padding: 3px 6px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+.lifter-list a:nth-child(2n) {
+  background-color: #efefef;
+}
+
+.lifter-list .item .yob {
+    font-size: 0.75em;
+    color: #999;
+  }
+
+.lifter-list .item:hover {
+  background-color: #dadada;
+  transition: 0.3s;
+}

@@ -544,6 +544,13 @@ class CompetitionRoute extends Component {
 					default: 
 						return 30;
 				}
+			case 'IPF Open Worlds 2016':
+				switch (this.state.weightClass + '_' + this.state.division) {
+					case '120+_open':
+						return 29.88;
+					default: 
+						return 30;
+				}
 			default:
 				return 30;
 		}
@@ -561,12 +568,10 @@ class CompetitionRoute extends Component {
 		});
 	}
 
-	starCurrentAttempt = (unstar=false) => {
-		console.log('instarcurent');
-		const updatedAttempt = Object.assign({}, this.state.currentAttempt, {numStars: +this.state.currentAttempt.numStars + 1});
-		this.setState({currentAttempt: updatedAttempt});
-		fetch('/attempt/' +  updatedAttempt._id + '/star', { method: 'POST' });
-
+	starCurrentAttempt = () => {
+		console.log('in starCurrentAttempt');
+		this.props.starAttempt(this.state.currentAttempt);
+		this.setState({currentAttempt: this.state.currentAttempt});
 	}
 
 	render() {
@@ -602,20 +607,21 @@ class CompetitionRoute extends Component {
 				<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
 				</div>
 				<div className='pinOnScroll' ref='pinOnScroll'>
-			    	<CurrentLifterInfo 
-			    		currentAttempt={this.state.currentAttempt}
-			    		selectLiftAttempt={this.selectLiftAttempt} 
-			    		activeDivision={this.state.division}
-			    		activeWeightClass={this.state.weightClass}
-			    		weightClassSuffix={weightClassSuffix}
-			    		starAttempt={this.starCurrentAttempt}
-			    	/>
+			    	
+						<CurrentLifterInfo 
+				    		currentAttempt={this.state.currentAttempt}
+				    		selectLiftAttempt={this.selectLiftAttempt} 
+				    		activeDivision={this.state.division}
+				    		activeWeightClass={this.state.weightClass}
+				    		weightClassSuffix={weightClassSuffix}
+				    		starAttempt={this.starCurrentAttempt}
+				    		starredAttempts={this.props.starredAttempts}
+				    	/>
 				    <PlayerControls 
 						currentAttempt={this.state.currentAttempt}
 			    		sortedAttemptData={this.state.sortedAttemptData}
 			    		selectLiftAttempt={this.selectLiftAttempt}
 						incrementLiftersLift={this.incrementLiftersLift}
-						// incrementLifter={this.incrementLifter}
 						nextAttempt={this.nextAttempt(1)}
 						previousAttempt={this.nextAttempt(-1)}
 						advanceBySeconds={this.advanceBySeconds}

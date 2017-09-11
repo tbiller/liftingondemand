@@ -14,14 +14,14 @@ const serializeParams = (params) => {
 				break;
 			case 'weightClass':
 				newKey = 'wc';
-				// newVal = title(params[key])
+				newVal = title(params[key])
 				break;
 			case 'lifter':
 				newVal = params[key] ? params[key].split(' ').join('_') : null;
 				break;
 			case 'division':
 				newKey = 'div';
-				// newVal = title(params[key])
+				newVal = title(params[key])
 				break;
 		}
 		serializedParams[newKey] = newVal;

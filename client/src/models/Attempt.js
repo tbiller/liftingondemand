@@ -1,3 +1,7 @@
+import Serializer from '../utils/serializer';
+import queryString from 'query-string';
+
+
 const liftsInOrder = ['Squat 1', 'Squat 2', 'Squat 3', 'Bench 1', 'Bench 2', 'Bench 3',
 			'Deadlift 1', 'Deadlift 2', 'Deadlift 3'];		
 
@@ -41,6 +45,26 @@ class Attempt {
 	prevAttempt() {
 		if (this.attemptIdx() === 0) return null;
 		return this._appearance.attempts[liftsInOrder[this.attemptIdx()-1]];
+	}
+
+	shortName() {
+		let shortLiftName = '';
+		switch (this.liftName.toLowerCase()) {
+			case 'squat':
+				shortLiftName = "SQ";
+				break;
+			case 'bench':
+				shortLiftName = "BP";
+				break;
+			case 'deadlift':
+				shortLiftName = "DL";
+				break;
+		}
+		return shortLiftName + ' ' + this.attemptNumber;
+	}
+
+	longName() {
+		return this.liftName + ' #' + this.attemptNumber;
 	}
 
 	frameWhenClickedOn() {
@@ -109,6 +133,65 @@ class Attempt {
 		console.warn('previous attempt does not exist');
 		return false;
 	}
+
+	compUrlPath() {
+		const attempt = this;
+		const params = Serializer.serializeParams({
+			lifter: attempt._lifter.name,
+			weightClass: attempt._appearance.weightClass,
+			division: attempt._appearance.division,
+			attempt: attempt.attemptName,
+		})
+		return '/comp/'+ attempt._competition.name + '?' + queryString.stringify(params)
+	}
+
+	recordsLong() {
+		if (!this.records) return '';
+		let geo = '';
+		let div = '';
+
+		switch (this.records.substr(0,1).toLowerCase()) {
+			case 'w':
+				geo = 'World';
+				break;
+			case 'c':
+				geo = 'Continental';
+				break;
+		}
+
+		switch (this.records.substr(-1)) {
+			case '1':
+			case '2':
+			case '3':
+			case '4':
+				div = 'Masters ' + this.records.substr(-1);
+				break;
+			case 'j':
+				div = 'Junior';
+				break;
+			case 's':
+				div = 'Subjunior';
+				break;
+			default:
+				if (this.records.length === 1) {
+					div = 'Open';
+				}
+		}
+
+		return geo + ' ' + div + ' Record';
+	}
+
+	kgString() {
+		return this.weight + ' kg';
+	}
+
+	lbString() {
+		const LBS_IN_KILO = 2.20462;
+		const weightInPounds = this.weight * LBS_IN_KILO;
+		const lbWeightString = Math.round(weightInPounds * 10) / 10 + ' lb';
+		return lbWeightString;
+	}
+	
 }	
 
 export default Attempt

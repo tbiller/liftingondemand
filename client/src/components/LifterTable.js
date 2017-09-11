@@ -65,6 +65,9 @@ export default function({
 
 	function attemptCell(cell) {
 		const attempt = cell.value;
+		console.log('attemptcell', cell);
+		if (!attempt) return '';
+
 		const lifter = attempt.lifterObj;
 		const showRecords = !!attempt.records;
 		let className = 'weight-cell ' + attempt.result;
@@ -99,6 +102,7 @@ export default function({
 		return {
 			className: (() => {
 				let className = '';
+				if (!attempt) return '';
 				if (column.id.substr(0, attemptCellPrefix.length) === attemptCellPrefix) {
 					className += ' lift';
 					if (attempt.hasFrame()) {

@@ -169,7 +169,7 @@ export default function({
 				}
 				return className;
 			})(),
-			onClick: e => {
+			onClick: (e) => {
 				const lifterNameId = 'name';
 				if (column.id.substr(0, attemptCellPrefix.length) === attemptCellPrefix) {
 					// const lifter = rowInfo.original;
@@ -179,27 +179,41 @@ export default function({
 					const lifter = rowInfo.original;
 					lifterClick(lifter);
 				}
-			}
+			},
+			// onMouseOver: (e) => {
+			// 	if (!e.target.classList.contains('lift')) return false;
+			// 	console.log(e.target);
+			// 	const left  = e.clientX + 10 + "px";
+   //  			const top  = e.clientY -20  + "px";
+   //  			const overlay = document.getElementsByClassName('mouse-overlay')[0];
+   //  			overlay.style.left = left;
+   //  			overlay.style.top = top;
+   //  			overlay.classList.remove('hidden');
+   //  			// e.preventDefault();
+   //  			// debugger;
+   //  			e.stopPropagation();
+			// }
 		}
 	}
 
 	return (
-		<ReactTable
-			data={results}
-			columns={columns} 
-			sortable={false}
-			resizable={false}
-			showPagination={false}
-			minWidth={20}
-			minRows={0}
-			defaultPageSize={100}
-			loading={loading}
-			noDataText='No data found.'
-			// defaultSortMethod={sortWeights}
-			getTdProps={getTdProps}
-			getTrProps={getTrProps}
-		/>
-
+		<div>
+			<ReactTable
+				data={results}
+				columns={columns} 
+				sortable={false}
+				resizable={false}
+				showPagination={false}
+				minWidth={20}
+				minRows={0}
+				defaultPageSize={100}
+				loading={loading}
+				noDataText='No data found.'
+				// defaultSortMethod={sortWeights}
+				getTdProps={getTdProps}
+				getTrProps={getTrProps}
+			/>
+		</div>
 	)
 
 	

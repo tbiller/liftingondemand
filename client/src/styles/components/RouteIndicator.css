@@ -1,0 +1,21 @@
+.route-indicator {
+	display: flex;
+	flex-direction: row;
+
+}
+
+.route-option {
+	margin: 0px 13px;
+	text-align: center;
+	font-size: 0.8em;
+	color: #999;
+}
+
+.route-option.active {
+	color: #00A8E8;
+	border-bottom: 1px solid #00A8E8;
+}
+
+/*.route-option:hover {
+	cursor: pointer;
+}*/

@@ -97,6 +97,7 @@ export default class YoutubePlayer extends Component {
 	}
 
 	recordCurrentTime(repeat=true, frequency=2000) {
+		if (!this.props.recordTime) return false;
 		window.clearTimeout(this.recordCurrentTimeTimeout);
 		if (this.player) {
 			const currentTime = this.player.getCurrentTime();
@@ -188,7 +189,7 @@ export default class YoutubePlayer extends Component {
 			    			</div>
 			    		</div>
 			    	}
-			    	{!this.state.currentVideoId &&
+			    	{(!this.state.currentVideoId && (this.props.showMessage !== false)) &&
 			    		<div className='no-data overlay'>No video data found</div>
 			    	}
 					<YouTube

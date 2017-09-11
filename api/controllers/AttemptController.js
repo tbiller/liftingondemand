@@ -30,7 +30,7 @@ exports.top_attempts = function(req, res) {
 			path: '_appearance',
 			populate: {
 				path: '_competition',
-				select: 'name'
+				select: 'name dateForSorting'
 			},
 		}).exec(function(err, attempts) {
 			if (err) return handleError(err, res);

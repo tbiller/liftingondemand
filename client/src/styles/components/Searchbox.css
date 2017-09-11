@@ -1,0 +1,22 @@
+.searchbox input {
+    width: 280px;
+    border: none;
+    outline: 0px;
+    outline-offset: 0px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 16px;
+    padding: 1px 6px;
+    transition: 0.2s;
+}
+
+.searchbox input:focus {
+  width: 280px;
+  transition: 0.2s;
+  outline-offset: 0px;
+}
+
+.searchbox input::placeholder {
+  font-size: 14px;
+  color: #ccc;
+}

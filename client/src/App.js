@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom';
 import Menubar from './components/Menubar';
 import Header from './components/Header';
 import DashboardRoute from './components/DashboardRoute';
+import CompetitionIndexRoute from './components/CompetitionIndexRoute';
 import CompetitionRoute from './components/CompetitionRoute';
 import LifterRoute from './components/LifterRoute';
+import LifterIndexRoute from './components/LifterIndexRoute';
 import { withRouter, Switch, Redirect } from 'react-router';
 import { Route } from 'react-router-dom';
 import { CookiesProvider, withCookies, Cookies } from 'react-cookie';
@@ -113,8 +115,9 @@ class App extends Component {
 		} else {
 			action = 'star'
 			attempt.numStars += 1;
-			newStarredAttempts = starredAttempts.concat(attempt._id);
+			newStarredAttempts = starredAttempts.concat([attempt._id]);
 		}
+		console.log('newStarredAttempts', newStarredAttempts);
 
 		cookies.set('starredAttempts', newStarredAttempts, { path: '/' });
 		this.setState({'starredAttempts': newStarredAttempts});
@@ -123,7 +126,8 @@ class App extends Component {
 
 	render() {
 		return (
-			<div className='app' >
+			<div className='app'>
+
 				<Menubar 
 					isOpen={this.state.menuOpen} 
 					closeMenu={this.closeMenu} 
@@ -140,6 +144,14 @@ class App extends Component {
 				    />
 					<div className='content' onClick={this.contentClick}>
 						<Switch>
+							<Route exact path='/competitions' render={(props)=> {
+								return <CompetitionIndexRoute competitions={this.state.competitions} 
+									{...props} />;
+							}} /> 
+							<Route exact path='/lifters' render={(props)=> {
+								return <LifterIndexRoute lifters={this.state.lifters} 
+									{...props} />;
+							}} /> 
 							<Route exact path='/comp/:competitionName' render={(props)=> {
 								return <CompetitionRoute competitions={this.state.competitions} 
 									sendData={this.getData} 
@@ -154,7 +166,11 @@ class App extends Component {
 									starAttempt={this.starAttempt} 
 									starredAttempts={this.state.starredAttempts}/>;
 							}} /> 
-							<Route exact path='/' component={DashboardRoute} />
+							<Route exact path='/' render={(props)=> {
+								return <DashboardRoute {...props} 
+									starAttempt={this.starAttempt} 
+									starredAttempts={this.state.starredAttempts}/>;
+							}} />
 							<Redirect to='/' />
 						</Switch>
 					</div>

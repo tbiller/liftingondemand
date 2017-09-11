@@ -1,12 +1,17 @@
 html, body {
-  height: 100%; }
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif; }
 
 a {
-  text-decoration: none; }
+  text-decoration: unset; }
   a:link {
-    color: #00171F; }
+    color: unset; }
   a:visited {
-    color: #00171F; }
+    color: unset; }
+  a:hover {
+    color: #00A8E8; }
 
 .app {
   left: 0px;
@@ -99,49 +104,48 @@ a {
     width: 960px;
     transition: 0.4s; }
 
-.searchbox {
+.header .searchbox {
   margin-right: 2px;
-  margin-left: auto;
-  position: relative;
   z-index: 999; }
-  .searchbox input {
-    width: 250px;
+  .header .searchbox input {
+    width: 280px;
     border: none;
-    outline: 1px solid #dadada;
+    outline: 0px;
+    outline-offset: 0px;
     height: 26px;
     line-height: 26px;
     font-size: 16px;
     padding: 1px 6px;
     transition: 0.2s; }
-    .searchbox input:focus {
-      width: 350px;
+    .header .searchbox input:focus {
+      width: 280px;
       transition: 0.2s;
-      outline: 1px solid #999;
       outline-offset: 0px; }
-    .searchbox input::placeholder {
+    .header .searchbox input::placeholder {
       font-size: 14px;
       color: #ccc; }
-  .searchbox .searchbox-overlay {
+  .header .searchbox .searchbox-overlay {
     display: block;
-    top: 29px;
+    top: 34px;
     position: absolute;
     background-color: white;
-    width: 362px;
+    width: 292px;
     z-index: 10000;
+    font-size: 0.9em;
     border: 1px solid #dadada; }
-    .searchbox .searchbox-overlay .searchbox-title {
+    .header .searchbox .searchbox-overlay .searchbox-title {
       margin-top: 6px;
       padding: 2px 6px;
       font-weight: bold;
       text-transform: uppercase;
       color: gray; }
-    .searchbox .searchbox-overlay .divider {
+    .header .searchbox .searchbox-overlay .divider {
       margin: 0px 6px;
       border-top: 1px solid #dadada; }
-    .searchbox .searchbox-overlay .searchbox-note {
+    .header .searchbox .searchbox-overlay .searchbox-note {
       padding: 4px 6px;
       color: #ccc; }
-    .searchbox .searchbox-overlay .searchbox-option {
+    .header .searchbox .searchbox-overlay .searchbox-option {
       height: 30px;
       padding: 4px 6px;
       font-size: 0.9em;
@@ -149,10 +153,10 @@ a {
       flex-direction: row;
       justify-content: space-between;
       align-items: center; }
-      .searchbox .searchbox-overlay .searchbox-option .sideKey {
+      .header .searchbox .searchbox-overlay .searchbox-option .sideKey {
         font-size: 0.9em;
         color: #999; }
-      .searchbox .searchbox-overlay .searchbox-option:hover {
+      .header .searchbox .searchbox-overlay .searchbox-option:hover {
         cursor: pointer;
         background-color: #dadada;
         transition: 0.2s; }
@@ -187,9 +191,14 @@ a {
 .header {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  height: 32px;
-  align-items: center; }
+  justify-content: space-between;
+  padding: 2px;
+  align-items: center;
+  border-bottom: 1px solid #dadada; }
+  .header .burger-and-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center; }
   .header .app-title {
     margin-left: 20px;
     font-weight: bold;
@@ -265,21 +274,6 @@ a {
     .side-bar.left .footer > div {
       margin-top: 3px; }
 
-.competition {
-  height: 45px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 10px; }
-  .competition .date {
-    font-size: 0.75em;
-    color: #999; }
-  .competition:hover {
-    background-color: #dadada;
-    transition: 0.3s; }
-
 .circle-indicator {
   width: 16px;
   height: 16px;
@@ -345,62 +339,70 @@ a {
 .currentLifterInfo {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  background-color: black;
+  justify-content: space-between;
+  background-color: #003459;
   z-index: 2;
-  height: 52px;
   color: white;
   align-items: center;
-  padding: 0px 8px;
-  font-size: 18px; }
+  padding: 0px 10px;
+  font-size: 20px; }
+  .currentLifterInfo .attempt-name {
+    font-size: 0.9em;
+    position: absolute;
+    left: 10px; }
   .currentLifterInfo .current-lifter-name, .currentLifterInfo .current-competition-name {
-    overflow-wrap: break-word;
     color: white;
-    font-size: 1.3em; }
+    margin-right: 40px; }
     .currentLifterInfo .current-lifter-name:hover, .currentLifterInfo .current-competition-name:hover {
       color: #00A8E8; }
-  .currentLifterInfo .current-attempts {
+  .currentLifterInfo .center-container {
+    font-size: 1.1em;
+    width: 100%;
+    margin: -2px 0px;
+    font-weight: bold;
     display: flex;
     flex-direction: row;
-    margin-left: 50px;
+    justify-content: center;
+    align-items: center;
+    color: white; }
+  .currentLifterInfo .attempt-stars {
+    display: flex;
+    flex-direction: row;
+    z-index: 4;
+    position: absolute;
+    right: 10px; }
+  .currentLifterInfo .current-attempt {
+    display: flex;
+    text-transform: uppercase;
+    justify-content: space-between;
+    flex-direction: row;
     align-items: center; }
-    .currentLifterInfo .current-attempts .previous-attempt, .currentLifterInfo .current-attempts .next-attempt {
+    .currentLifterInfo .current-attempt .current-weight {
       display: flex;
-      justify-content: center; }
-    .currentLifterInfo .current-attempts .current-attempt {
-      display: flex;
-      min-width: 200px;
-      justify-content: space-between;
-      flex-direction: column;
-      margin: -5px 10px;
-      align-items: center;
-      padding: 8px; }
-      .currentLifterInfo .current-attempts .current-attempt .current-attempt-name {
-        margin-top: -6px;
-        margin-bottom: -2px;
-        font-size: 0.6em; }
-      .currentLifterInfo .current-attempts .current-attempt .current-weight {
-        display: flex;
-        font-weight: bold;
-        flex-direction: row;
-        font-size: 1.5em; }
-        .currentLifterInfo .current-attempts .current-attempt .current-weight .kg-weight {
-          font-weight: bold;
-          margin-right: 10px; }
-        .currentLifterInfo .current-attempts .current-attempt .current-weight .lb-weight {
-          font-size: 1em; }
-    .currentLifterInfo .current-attempts .arrow {
+      flex-direction: row; }
+      .currentLifterInfo .current-attempt .current-weight span.kg-weight, .currentLifterInfo .current-attempt .current-weight span.lb-weight {
+        margin: 5px 0px;
+        padding: 0px 10px; }
+      .currentLifterInfo .current-attempt .current-weight .kg-weight {
+        border-right: 1px solid white; }
+      .currentLifterInfo .current-attempt .current-weight .lb-weight {
+        font-size: 1em; }
+    .currentLifterInfo .current-attempt .arrow {
       height: 20px;
       line-height: 20px;
       color: white; }
-      .currentLifterInfo .current-attempts .arrow.rotated {
+      .currentLifterInfo .current-attempt .arrow.rotated {
         transform: rotate(180deg); }
-      .currentLifterInfo .current-attempts .arrow:hover {
+      .currentLifterInfo .current-attempt .arrow:hover {
         cursor: pointer; }
-      .currentLifterInfo .current-attempts .arrow.inactive {
+      .currentLifterInfo .current-attempt .arrow.inactive {
         color: #999; }
-        .currentLifterInfo .current-attempts .arrow.inactive:hover {
+        .currentLifterInfo .current-attempt .arrow.inactive:hover {
           cursor: default; }
+
+.player-center {
+  display: flex;
+  flex-direction: column; }
 
 .controls-and-player {
   padding: 0px 0px 0px 0px;
@@ -408,10 +410,10 @@ a {
   flex-direction: row;
   justify-content: center;
   background-color: black;
-  height: 360px;
   text-align: center; }
   .controls-and-player .youtube-pane {
     width: 640px;
+    height: 360px;
     position: relative; }
     .controls-and-player .youtube-pane .no-data {
       color: white;
@@ -431,31 +433,53 @@ a {
     flex: 1;
     color: rgba(255, 255, 255, 0.6); }
     .controls-and-player .controls .lifter-name {
-      font-size: 1em; }
+      font-size: 1em;
+      margin-top: 16px; }
     .controls-and-player .controls .attempt {
       margin-top: 4px;
       font-size: 0.9em; }
     .controls-and-player .controls .arrow {
-      width: 40px;
-      margin: 10px 0px; }
+      height: 15px; }
       .controls-and-player .controls .arrow.left {
         transform: rotate(180deg); }
   .controls-and-player .lift-button, .controls-and-player .seek-button {
     background-color: rgba(0, 0, 0, 0);
     border-top: 1px solid #dadada;
-    flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 0px 9px;
     justify-content: center; }
     .controls-and-player .lift-button.clickable:hover, .controls-and-player .seek-button.clickable:hover {
       cursor: pointer;
       background-color: rgba(255, 255, 255, 0.2); }
   .controls-and-player .lift-button {
+    position: relative;
+    flex: 0; }
+    .controls-and-player .lift-button.clickable {
+      flex: 3; }
+  .controls-and-player .seek-button {
+    position: relative;
+    height: 40px; }
+  .controls-and-player .title-container {
+    padding: 2px 4%;
+    position: absolute;
+    top: 6px;
+    display: flex;
+    width: 92%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end; }
+  .controls-and-player .title-container.left {
+    justify-content: flex-start; }
+  .controls-and-player .title {
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    margin: 0px 8px; }
+  .controls-and-player .lift-button.current-lifter {
     flex: 5;
     border-top: none; }
-  .controls-and-player .seek-button {
-    font-size: 0.8em; }
+  .controls-and-player .seek-button .title-container {
+    position: static; }
 
 .button {
   margin: 0px 2px;
@@ -529,6 +553,18 @@ a {
   .ReactTable .-loading {
     font-size: 0.9em; }
 
+.records {
+  background-color: seagreen;
+  color: white; }
+
+.currentLifterInfo .records {
+  text-transform: none;
+  font-size: 0.5em;
+  font-weight: normal;
+  padding: 2px 5px;
+  text-align: center;
+  border: 1px solid white; }
+
 .rt-table {
   overflow: auto;
   min-height: max-content;
@@ -568,8 +604,6 @@ a {
       text-align: center;
       top: 0px;
       right: 0px;
-      background-color: seagreen;
-      color: white;
       padding: 0px 2px;
       font-size: 8px; }
   .rt-table .-headerGroups {
@@ -582,8 +616,7 @@ a {
   .rt-table .rt-tr-group {
     border-bottom: none; }
   .rt-table .rt-tbody .rt-tr:hover {
-    background-color: #dadada;
-    transition: 0.2s; }
+    background-color: #dadada; }
   .rt-table .rt-td.lift.has-frame:hover {
     cursor: pointer;
     background-color: #eee; }
@@ -606,6 +639,11 @@ a {
     text-align: center; }
     .rt-table span.weight-cell.total, .rt-table span.total.total {
       color: black; }
+
+.mouse-overlay {
+  z-index: 100;
+  position: absolute;
+  background-color: white; }
 
 .good-lift {
   color: #66A182; }

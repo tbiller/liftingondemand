@@ -13,10 +13,7 @@ export default function({
 		// <Link to={path}>
 			<div className='lifter-header'>
 				<div className='title-and-indicator'>
-					<div className='route-indicator'>
-						Lifter
-					</div>
-					<div className='lifter-name'>
+										<div className='lifter-name'>
 			    		{lifter ? lifter.name : ''}
 			    	</div>
 				</div>
@@ -28,3 +25,7 @@ export default function({
 		// </Link>
 	);
 }
+
+// <div className='route-indicator'>
+// 						Lifter
+// 					</div>

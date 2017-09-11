@@ -190,6 +190,13 @@ class LifterRoute extends Component {
 					default: 
 						return 30;
 				}
+			case 'IPF Open Worlds 2016':
+				switch (weightClass + '_' + division) {
+					case '120+_open':
+						return 29.88;
+					default: 
+						return 30;
+				}
 			default:
 				return 30;
 		}
@@ -240,7 +247,7 @@ class LifterRoute extends Component {
         // console.log(this.dummyContainerHeight);
 	}
 
-	starCurrentAttempt = (unstar=false) => {
+	starCurrentAttempt = () => {
 		this.props.starAttempt(this.state.currentAttempt);
 		this.setState({currentAttempt: this.state.currentAttempt});
 	}
@@ -265,6 +272,7 @@ class LifterRoute extends Component {
 			    		sortedAttemptData={this.state.sortedAttemptData}
 						incrementLifter={this.incrementLifter}
 						advanceBySeconds={this.advanceBySeconds}
+						selectLiftAttempt={this.selectLiftAttempt}
 						>				        
 						<YoutubePlayer
 				        	attemptToBeSelected={this.state.attemptToBeSelected}
