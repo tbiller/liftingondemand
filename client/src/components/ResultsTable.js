@@ -148,6 +148,7 @@ export default function({
 		return {
 			className: (() => {
 				let className = '';
+				if (!attempt) return '';
 				if (column.id.substr(0, attemptCellPrefix.length) === attemptCellPrefix) {
 					className += ' lift';
 					if (attempt.hasFrame()) {

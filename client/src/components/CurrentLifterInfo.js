@@ -5,6 +5,7 @@ import Light from './Light';
 import Lights from './Lights';
 import AttemptStars from './AttemptStars';
 import CurrentAttempt from './CurrentAttempt';
+import '../styles/components/CurrentLifterInfo.css';
 
 export default function({ 
 	currentAttempt,
@@ -14,7 +15,7 @@ export default function({
 	weightClassSuffix,
 	starAttempt,
 	starredAttempts,
-	showCompetitionName
+	lifterRoute
 }) {
 
 	let DOM;
@@ -23,29 +24,37 @@ export default function({
 		const currentLifterAppearance = currentAttempt._appearance;
 		const nextAttempt = currentLifterAppearance.nextAttemptWithFrameData(currentAttempt.attemptName, 1);
 		const prevAttempt = currentLifterAppearance.nextAttemptWithFrameData(currentAttempt.attemptName, -1);
+		const isStarred = starredAttempts ? starredAttempts.indexOf(currentAttempt._id) !== -1 : false;
 
 		DOM = (
 			<div className='currentLifterInfo'>
-				<div className='attempt-name'>
-					{currentAttempt.longName()}
-				</div>
+				{ lifterRoute ?
+					<Link to={'/comp/' + currentAttempt._appearance._competition.name}>
+				    	<div className='current-competition-name'>{currentAttempt._appearance._competition.name}</div>
+				    </Link>
+				:
+					<Link to={'/lifter/' + currentAttempt._lifter._id}>
+				    	<div className='current-lifter-name'>{currentAttempt._lifter.name}</div>
+				    </Link>
+				}
 				<div className='center-container'>
-					{ showCompetitionName ? 
-						<Link to={'/comp/' + currentAttempt._appearance._competition.name}>
-					    	<div className='current-competition-name'>{currentAttempt._appearance._competition.name}</div>
-					    </Link>
-					: 
-						<Link to={'/lifter/' + currentAttempt._lifter._id}>
-					    	<div className='current-lifter-name'>{currentAttempt._lifter.name}</div>
-					    </Link>
-					}
+					<div className='attempt-name'>
+						{currentAttempt.longName()}:
+					</div>
 					<CurrentAttempt attempt={currentAttempt} />
 				</div>
-				<AttemptStars 
-					attempt={currentAttempt} 
-					starAttempt={starAttempt} 
-					starredAttempts={starredAttempts} 
-				/>
+				<div className='right-container'>
+					{currentAttempt.records &&
+					    <div className='records'>
+					    	{currentAttempt.recordsLong()}
+					    </div>
+				    }
+					<AttemptStars 
+						attempt={currentAttempt} 
+						starAttempt={starAttempt} 
+						isStarred={isStarred} 
+					/>
+				</div>
 		   	
 		   	</div>
 		);

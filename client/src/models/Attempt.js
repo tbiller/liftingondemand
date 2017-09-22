@@ -21,7 +21,7 @@ class Attempt {
 		this.result = attemptJson.result;
 		this.weight = attemptJson.weight;
 		this.records = attemptJson.records;
-		this.numStars = attemptJson.numStars;
+		this.numStars = attemptJson.numStars || 0;
 
 		if (this.lastNameFrame && this.firstNameFrame) {
 			if (this.lastNameFrame - this.firstNameFrame > 30 * 120) {
@@ -70,7 +70,7 @@ class Attempt {
 	frameWhenClickedOn() {
 		if (!this.hasFrame()) return false;
 		let frame;
-		if (!!this.lightsFrame && (this.lightsFrame - this.lastNameFrame) < (60 * 30)) { // todo framerate
+		if (!!this.lightsFrame && (this.lightsFrame - this.lastNameFrame) < (40 * 30)) { // todo framerate
 			frame = this.lightsFrame - 25 * 30; //todo
 		} else if (!!this.firstNameFrame) {
 			frame = parseInt((this.firstNameFrame + this.lastNameFrame) / 2, 10);

@@ -16,11 +16,7 @@ export default function({
 		    	<span className='lb-weight'>{attempt.lbString()}</span>
 		    </div>
 
-		    {attempt.records &&
-		    <div className='records'>
-		    	{attempt.recordsLong()}
-		    </div>
-		    }
+
 		</div>
 	);
 }

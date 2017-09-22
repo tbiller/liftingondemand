@@ -12,6 +12,7 @@ import Sidebar from './Sidebar';
 import Serializer from '../utils/serializer';
 import { withRouter } from 'react-router';
 import queryString from 'query-string';
+import Spinner from './Spinner';
 import Appearance from '../models/Appearance';
 import { capitalize } from '../utils/general';
 
@@ -114,7 +115,7 @@ class CompetitionRoute extends Component {
 
 		console.log(params);
 
-		// this.setState({loading: true});
+		this.setState({loading: true});
 
 		fetch('/appearances?' + queryString.stringify(params))
 			.then(res => res.json())
@@ -152,7 +153,7 @@ class CompetitionRoute extends Component {
 
 
 	handleScroll = (event) => {
-		console.log('scrolling!');
+		if (this.state.loading === true) return false;
 		let scrollTop = event.srcElement.body.scrollTop;
         // let itemTranslate = Math.min(0, scrollTop/3 - 60);
         if (scrollTop >= 90) {
@@ -307,8 +308,6 @@ class CompetitionRoute extends Component {
 		if (!seconds) return null;
 		if (!this.state.currentVideoId) return null;
 
-		// console.log(this.sortedAttemptData);
-		// console.log(this.state.currentVideoId);
 		if (!this.sortedAttemptData[this.state.currentVideoId] || !this.sortedAttemptData[this.state.currentVideoId].length) {
 			console.log('no sortedAttemptData');
 			return null;
@@ -333,6 +332,7 @@ class CompetitionRoute extends Component {
 			lastLiftAttempt.lastNameFrame + 40 * 30; // TODO; this.framerate();
 
 		if (frame > lastFrameOfLifter) {
+			this.setState({leaderboardType: 'final'});
 			return null;
 		}
 		return lastLiftAttempt;
@@ -575,6 +575,9 @@ class CompetitionRoute extends Component {
 	}
 
 	render() {
+		if (this.state.loading === true) {
+			return <Spinner />
+		}
 		const weightClassSuffix = this.state.competition ? this.state.competition.options.weightClassSuffix : 'kg';
 	    return (
 			<div onClick={this.closeOptions}>
@@ -587,36 +590,21 @@ class CompetitionRoute extends Component {
 					optionsShown={this.state.optionsShown}
 				/>
 	
-			    <Sidebar close={this.closeOptions} isOpen={this.state.optionsShown} style='right'>
-			    	<div className='options-pane'>
-						<OptionsContainer 
-				        	activeOpts={ 
-				        		{
-				        			weightClass: this.state.weightClass,
-				        			division: this.state.division,
-				        			leaderboardType: this.state.leaderboardType
-							    }
-							}
-							weightClasses={this.state.competition ? this.state.competition.options.weightClasses : null}
-							divisions={this.state.competition ? this.state.competition.options.divisions : null}
-							weightClassAlign={this.state.competition ? this.state.competition.options.weightClassAlign : null}
-				        	optionClick={this.optionClick}
-				        />
-				    </div>
-				</Sidebar>
+			  
 				<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
 				</div>
 				<div className='pinOnScroll' ref='pinOnScroll'>
 			    	
-						<CurrentLifterInfo 
-				    		currentAttempt={this.state.currentAttempt}
-				    		selectLiftAttempt={this.selectLiftAttempt} 
-				    		activeDivision={this.state.division}
-				    		activeWeightClass={this.state.weightClass}
-				    		weightClassSuffix={weightClassSuffix}
-				    		starAttempt={this.starCurrentAttempt}
-				    		starredAttempts={this.props.starredAttempts}
-				    	/>
+					<CurrentLifterInfo 
+			    		currentAttempt={this.state.currentAttempt}
+			    		selectLiftAttempt={this.selectLiftAttempt} 
+			    		activeDivision={this.state.division}
+			    		activeWeightClass={this.state.weightClass}
+			    		weightClassSuffix={weightClassSuffix}
+			    		starAttempt={this.starCurrentAttempt}
+			    		starredAttempts={this.props.starredAttempts}
+			    		lifterRoute={false}
+			    	/>
 				    <PlayerControls 
 						currentAttempt={this.state.currentAttempt}
 			    		sortedAttemptData={this.state.sortedAttemptData}
@@ -663,3 +651,21 @@ class CompetitionRoute extends Component {
 }
 
 export default CompetitionRoute;
+
+  // <Sidebar close={this.closeOptions} isOpen={this.state.optionsShown} style='right'>
+		// 	    	<div className='options-pane'>
+		// 				<OptionsContainer 
+		// 		        	activeOpts={ 
+		// 		        		{
+		// 		        			weightClass: this.state.weightClass,
+		// 		        			division: this.state.division,
+		// 		        			leaderboardType: this.state.leaderboardType
+		// 					    }
+		// 					}
+		// 					weightClasses={this.state.competition ? this.state.competition.options.weightClasses : null}
+		// 					divisions={this.state.competition ? this.state.competition.options.divisions : null}
+		// 					weightClassAlign={this.state.competition ? this.state.competition.options.weightClassAlign : null}
+		// 		        	optionClick={this.optionClick}
+		// 		        />
+		// 		    </div>
+		// 		</Sidebar>

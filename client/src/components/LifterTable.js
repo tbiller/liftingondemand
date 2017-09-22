@@ -13,7 +13,6 @@ export default function({
 }) {
 	const dateOptions = {year: 'numeric', month: 'numeric'};
 	const minAttemptWidth = 50;
-	console.log(appearances);
 
 	const columns = [
 		{Header: 'Date', id: 'date', minWidth: 60, accessor: (d) => new Date(d._competition.dateForSorting).toLocaleString('en-US', dateOptions)},
@@ -35,7 +34,6 @@ export default function({
 	];
 
 	function sortComps(appA, appB) {
-		console.log(appA);
 		return new Date(appB._competition.dateForSorting) - new Date(appA._competition.dateForSorting);
 	}
 
@@ -65,7 +63,6 @@ export default function({
 
 	function attemptCell(cell) {
 		const attempt = cell.value;
-		console.log('attemptcell', cell);
 		if (!attempt) return '';
 
 		const lifter = attempt.lifterObj;

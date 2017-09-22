@@ -1,38 +1,115 @@
 .attempt-card {
 	width: 640px;
 	min-height: 80px;
-	background-color: whitesmoke;
-	border: 1px solid #dadada;
-	/*border-radius: 3px;*/
-	margin: 5px 0px;
+	/*background-color: whitesmoke;*/
+	/*border: 1px solid #dadada;*/
+	position: relative;
+	margin: 15px 0px;
 	transition: 0.4s;
-	padding: 4px;
+	/*padding: 4px;*/
 	display: flex;
 	flex-direction: column;
 }
+.attempt-card .header {
+	padding-bottom: 4px;
+	margin-bottom: 4px;
+	border-bottom: 1px solid #dadada;
+	display: unset;
 
-.attempt-card:hover {
-	cursor: pointer;
-	background-color: #dadada;
 }
 
-.attempt-card .empty-player {
+.attempt-card .player-container {
 	height: 360px;
 	width: 640px;
+	z-index: 0;
 	background-color: black;
 }
+
+.attempt-card .youtube-player {
+	z-index: 1;
+}
+
+
 /*
 <div className='lifter-name'>{attempt._lifter.name}</div>
 			<div className='lift'>{attempt.liftName}</div>
 			<div className='weight'>{attempt.weight}</div>
 			<div className='competition-name'*/
 
-.attempt-card .info {
+.attempt-card .lifter-info {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	align-items: center;
+	position: relative;
+	border: none;
+	padding: 2px 4px;
 }
 
-.attempt-card .info .lifter-name {
+.attempt-card .attempt-info .right-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
 
+.attempt-card .attempt-info .records {
+	margin-right: 15px;
+}
+
+.attempt-card .lifter-info .lifter-name {
+	font-weight: bold;
+	font-size: 1.1em;
+}
+.attempt-card .lifter-info .bodyweight {
+	color: #999;
+	font-size: 0.9em;
+}
+.attempt-card .competition-name {
+	font-weight: 300;
+}
+.attempt-card .records {
+	/*position: absolute;*/
+	/*font-size: 0.8em;*/
+	font-size: 12px;
+	padding: 2px 5px;
+	/*top: 0px;*/
+	/*right: 0px;*/
+}
+
+.attempt-card .attempt-info {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0px 4px;
+	font-weight: 300;
+
+
+}
+.attempt-card .attempt-info .attempt {
+	/*text-transform: uppercase;*/
+	/*margin: -3px 0px;*/
+	/*font-size: 14px;*/
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border: none;
+}
+
+.attempt-card .attempt-info .competition-name{
+	/*text-transform: uppercase;*/
+	/*margin: -3px 0px;*/
+	/*font-size: 14px;*/
+	/*padding: 3px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	border: none;*/
+}
+
+.attempt-card .attempt-info .kg-weight {
+	font-weight: bold;
+	font-size: 1.05em;
+	margin: 0px 12px;
 }

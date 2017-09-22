@@ -4,16 +4,19 @@ import '../styles/components/CompetitionOption.css';
 
 export default function({competition, isActive}) {
 	return (
-		<div className={['competition-option', isActive ? 'active' : ''].join(' ')}>
-			<Link to={'/comp/' + competition.name}>
+		<Link to={'/comp/' + competition.name}>
+			<div className={['competition-option', isActive ? 'active' : ''].join(' ')}>
 				<div>
 					<div className='name'>{competition.name}</div>
 					<div className='date'>{competition.dates}</div>
 				</div>
+				<div className='aside'>
+					{competition.style}
+				</div>
 				{isActive &&
 					<div className={['circle-indicator', isActive ? 'active' : ''].join(' ')} />
 				}
-			</Link>
-		</div>
+			</div>
+		</Link>
 	)
 }

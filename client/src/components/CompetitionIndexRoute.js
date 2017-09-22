@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import CompetitionOption from './CompetitionOption';
+import Spinner from './Spinner'
 import '../styles/components/CompetitionIndexRoute.css';
 
 class CompetitionIndexRoute extends Component {
 	render() {
+		if (this.props.loading === true) {
+			return <Spinner />;
+		}
 		const { competitions } = this.props;
 		const competitionOptions = [];
 		if (competitions.length) {

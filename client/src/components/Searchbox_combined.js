@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { capitalize } from '../utils/general';
 import { Link } from 'react-router-dom'
+import '../styles/components/Searchbox_combined.css';
 
 class Searchbox extends Component {
 	constructor(props) {
@@ -53,7 +54,7 @@ class Searchbox extends Component {
 
 	}
 
-	createEls = (name, matches, maxItems, generateLink, mainKey, sideKey, sidePrefix='') => {
+	createEls = (name, matches, maxItems, generateLink, mainKey, sideKey, sidePrefix='', sideSuffix='') => {
 		const els = [];
 		els.push(<div key={name + 'title'} className='searchbox-title'>{capitalize(name) + 's'}</div>);
 		for (let i = 0; i < matches.length; i++) {
@@ -63,7 +64,7 @@ class Searchbox extends Component {
 					<div onClick={() => this.setState({value: ''})} key={name + i} className={'searchbox-option ' + name}>
 						<span className='mainKey'>{match[mainKey]}</span>
 						{sideKey &&
-							<span className='sideKey'>{sidePrefix + match[sideKey]}</span>
+							<span className='sideKey'>{sidePrefix + match[sideKey] + sideSuffix}</span>
 						}
 					</div>
 				</Link>
@@ -90,10 +91,11 @@ class Searchbox extends Component {
 		// const lifterEls = [], competitionEls = [];
 		const { matchingLifters, matchingCompetitions } = this.matchingModels(this.state.value);
 		
+
 		const lifterEls = this.createEls('lifter', matchingLifters, maxItems, (match) => {
 			return '/lifter/' + match._id;
 		},
-		'name', 'yob', 'YoB: ');
+		'name', 'recentWeightClass', '', ' kg');
 		const competitionEls = this.createEls('competition', matchingCompetitions, maxItems, (match) => {
 			return '/comp/' + match.name;
 		}, 'name', 'dates');
@@ -125,7 +127,7 @@ class Searchbox extends Component {
 					onChange={this.handleChange} 
 					onSubmit={this.handleSubmit}
 					onBlur={this.handleBlur}
-					placeholder='search for lifters or competitions'
+					placeholder='Search for lifters or competitions'
 				/>
 				<div className={['searchbox-overlay', listboxEls ? '' : 'hidden'].join(' ')}>
 					{listboxEls}

@@ -18,9 +18,25 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  // box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
 }
 
+// *,
+// *:before,
+// *:after {
+//   box-sizing: inherit;
+// }
+// body, .header-and-content, #root, .app {
+//   position: relative;
+//   min-height: 100%;
+//   flex: 1;
+// }
+
+#root {
+  min-height: 100%;
+  display: flex;
+}
 a {
   text-decoration: unset;
   &:link {
@@ -34,6 +50,15 @@ a {
   }
 }
 
+a.visible-link {
+  &:link {
+    color: $blue1;
+  }
+
+  &:hover {
+    color: $blue1;
+  }
+}
 
 .app {
   // background-color: #dadada;
@@ -41,17 +66,18 @@ a {
   padding: 0px 0px 10px;
   display: flex;
   flex-direction: column;
+  flex-y: 1;
   // margin: 0 auto;
   width: $appWidth;
   // min-height: 800px;
   position: relative;
-  overflow: hidden;
-
+  min-height: 100%;
   // @media (min-width: $minWidthForSideOptions) {
   //   flex-direction: row;
 }
 .header-and-content {
   z-index: 1;
+  margin-bottom: 30px;
 }
 
 .side-bar.left {
@@ -78,6 +104,9 @@ a {
 .options-pane {
   padding: 0px 8px;
   width: 110px;
+  .left .option {
+    text-align: left;
+  }
   .all-options {
     display: flex;
     // min-width: 140px;
@@ -144,6 +173,47 @@ a {
   } 
 }
 
+.option {
+  width: 94%;
+  // flex: 1;
+  padding: 0px 3%;
+  min-width: 28px;
+  font-size: 0.8em;
+  height: 24px;
+  line-height: 24px;
+  margin: 1px 0px;
+  border-radius: 2px;
+  border: 1px solid #dadada;
+  text-align: center;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #dadada;
+  }
+
+  &:active {
+    box-shadow: 0 0 0 1px rgba(0,0,0,.15) inset, 0 0 6px rgba(0,0,0,.2) inset
+  }
+
+  &.active {
+    background-color: $shamrock; //$deepBlack;
+    color: white;
+  }
+
+  // &.division {
+  //   width: 80px;
+  // }
+
+  &.leaderboardType {
+    width: 100px;
+    padding: 0px 4px;
+    margin-left: 3px;
+  }
+
+
+  
+}
+
 .burger-icon {
   display: flex;
   flex-direction: column;
@@ -184,163 +254,11 @@ a {
 }
 
 
-.header .searchbox {
-  margin-right: 2px;
-  // margin-left: auto;
-  // height:100%;
-  // top: 0px;
-  // position: relative;
-  z-index: 999;
-
-  input {
-    // position: absolute;
-    // top: 0px;
-    width: 280px;
-    border: none;
-    // border-bottom: 1px solid #dadada;
-    outline: 0px;
-    outline-offset: 0px;
-    height: 26px;
-    line-height: 26px;
-    font-size: 16px;
-    padding: 1px 6px;
-    transition: 0.2s;
-
-    &:focus {
-      width: 280px;
-      transition: 0.2s;
-      // border-bottom: 1px solid #999;
-      outline-offset: 0px;
-    }
-
-    &::placeholder {
-      font-size: 14px;
-      color: #ccc;
-    }
-  }
-  .searchbox-overlay {
-    // padding: 5px 6px;
-    display: block;
-    top: 34px;
-    position: absolute;
-    background-color: white;
-    width: 280px + 2 * 6px;
-    // height: 400px;
-    z-index: 10000;
-    font-size: 0.9em;
-
-    border: 1px solid #dadada;
-
-    .searchbox-title {
-      margin-top: 6px;
-      padding: 2px 6px;
-      font-weight: bold;
-      text-transform: uppercase;
-      color: gray;
-    }
-    .divider {
-      margin: 0px 6px;
-      border-top: 1px solid #dadada;
-    }
-    .searchbox-note {
-      padding: 4px 6px;
-      // paddi
-      color: #ccc;
-    }
-    .searchbox-option {
-      height: 30px;
-      padding: 4px 6px;
-      font-size: 0.9em;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-
-      // marginzzzzz
-
-      .sideKey {
-        // margin-left: 20px;
-        font-size: 0.9em;
-        color: #999;
-      }
-      &:hover {
-        cursor: pointer;
-        background-color: #dadada;
-        transition: 0.2s;
-      }
-
-    }
-  }
-}
-
-.left .option {
-  text-align: left;
-}
-
-.option {
-  width: 94%;
-  // flex: 1;
-  padding: 0px 3%;
-  min-width: 28px;
-  font-size: 0.8em;
-  height: 24px;
-  line-height: 24px;
-  margin: 1px 0px;
-  border-radius: 2px;
-  border: 1px solid #dadada;
-  text-align: center;
-
-  &:hover {
-    cursor: pointer;
-    background-color: #dadada;
-  }
-
-  &:active {
-    box-shadow: 0 0 0 1px rgba(0,0,0,.15) inset, 0 0 6px rgba(0,0,0,.2) inset
-  }
-
-  &.active {
-    background-color: $shamrock; //$deepBlack;
-    color: white;
-  }
-
-  // &.division {
-  //   width: 80px;
-  // }
-
-  &.leaderboardType {
-    width: 100px;
-    padding: 0px 4px;
-    margin-left: 3px;
-  }
-}
 
 
-.header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  // height: px;
-  padding: 2px;
-  align-items: center;
-  // background-color: $shamrock;
-  border-bottom: 1px solid #dadada;
-  // margin-top: 5px;
-  // background-color: $blue1;
-  .burger-and-title {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-  .app-title {
-    margin-left: 20px;
-    // text-transform: uppercase;
-    font-weight: bold;
-    font-size: 20px;
-    // font-family: "PT Serif", Georgia, "Times New Roman", serif;
-  }
-  
-}
+
+
+
 
 
 .side-bar {
@@ -426,16 +344,7 @@ a {
   .section-content {
     padding-left: 10px;
   }
-  .footer {
-    // margin-top: auto;
-    margin-bottom: 6px;
-    color: gray;
-    font-size: 0.8em;
-    padding: 0px 10px;
-    > div {
-      margin-top: 3px;
-    }
-  }
+  
 }
 
 
@@ -457,9 +366,9 @@ a {
 
 
 
-
 .content {
-  position: relative;
+  padding-top: 41px;
+  // position: relative;
 }
 
 
@@ -487,7 +396,8 @@ a {
   justify-content: center;
   min-height: 38px;
   color: #333;
-  padding: 4px 4px;
+  padding: 4px 4px 0px 4px;
+  // border-bottom: 1px solid #dadada;
 
   .competition-date {
     position: absolute;
@@ -520,7 +430,7 @@ a {
     }
   }
   
-  .active-division, .yob {
+  .yob {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -579,105 +489,7 @@ a {
 // }
 
 
-    .currentLifterInfo {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      background-color: $blue3;
-      z-index: 2;
-      color: white;
-      align-items: center;
-      padding: 0px 10px;
-      font-size: 20px;
-      // box-shadow: 0px 3px 3px black;
-      // margin-bottom: 2px;
-     .attempt-name {
-        font-size: 0.9em;
-        position: absolute;
-        left: 10px;
-      }
-
-      .current-lifter-name, .current-competition-name {
-        color:white;
-        margin-right: 40px;
-         &:hover {
-          // font-weight: bold;
-          color: $blue1;
-        }
-      }
-      .center-container {
-        // position: absolute;
-        font-size: 1.1em;
-        width: 100%;
-        margin: -2px 0px;
-        font-weight: bold;
-        // left: 50%;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        // transform: translate(-50%);
-       
-      }
-      .attempt-stars {
-          display: flex;
-          flex-direction: row;
-          z-index: 4;
-          position: absolute;
-          right: 10px;
-        }
-      .current-attempt {
-        display: flex;
-        text-transform: uppercase;
-        justify-content: space-between;
-        flex-direction: row;
-        // background-color: black;
-        // color: white;
-        // margin: -5px 0px -5px 10px;
-        align-items: center;
-        // border: 1px solid #dadada;   
-        // padding: 8px;
-       
-        .current-weight {
-          display: flex;
-          // font-weight: bold;
-          flex-direction: row;
-          // font-size: 1.5em;
-          // justify-content: space-between;
-          // align-items: flex-end;
-          span.kg-weight, span.lb-weight {
-            margin: 5px 0px;
-            padding: 0px 10px;
-          }
-
-          .kg-weight {
-            border-right: 1px solid white;
-          }
-
-          .lb-weight {
-            font-size: 1em;
-          }
-        }
-
-        .arrow {
-          height: 20px;
-          line-height: 20px;
-          color: white;
-          &.rotated {
-            transform: rotate(180deg);
-          }
-          &:hover {
-            cursor: pointer;
-          }
-          &.inactive {
-            color: #999;
-            &:hover {
-              cursor: default;
-            }
-          }
-        }
-      }
+    
 
       // .prev-and-next-attempts {
       //   display: flex;
@@ -702,7 +514,7 @@ a {
       //   padding-right: 10px;
       //   margin-left:auto;
       // }
-    }
+    // }
 
     .player-center {
       display: flex;
@@ -741,10 +553,10 @@ a {
         flex-direction: column;
         flex: 1;
         color: rgba(255,255,255,0.6);
-        .lifter-name {
-          font-size: 1em;
-          margin-top: 16px;
-        }
+        // .lifter-name {
+        //   font-size: 1em;
+        //   margin-top: 16px;
+        // }
         .attempt {
           margin-top: 4px;
           font-size: 0.9em;
@@ -752,8 +564,11 @@ a {
         .arrow {
           // width: 40px;
           height: 15px;
+          margin-right: -8px;
           &.left {
             transform: rotate(180deg);
+            margin-left: -8px;
+            margin-right: 0px;
           }
         }
       }
@@ -761,16 +576,22 @@ a {
       .lift-button, .seek-button {
         background-color: rgba(0,0,0,0);
         border-top: 1px solid #dadada;
-        // color: #dadada;
-        
+        font-size: 0.8em;
+        padding: 4px;
         display: flex;
         flex-direction: column;
-        // padding: 0px 9px;
         justify-content: center;
+        align-items: flex-start;
+
         &.clickable:hover {
           cursor: pointer;
           background-color: rgba(255,255,255,0.2);
         }
+
+        &.right {
+          align-items:flex-end;
+        }
+
 
       }
       .lift-button {
@@ -785,11 +606,7 @@ a {
         height: 40px;
       }
       .title-container {
-        padding: 2px 4%;
-        position: absolute;
-        top: 6px;
         display: flex;
-        width: 92%;
         flex-direction: row;
         align-items: center;
         justify-content: flex-end;
@@ -863,7 +680,7 @@ a {
   // min-height: 800px;
   // padding-top: 5px;
   // border-to`p: 1px dashed #dadada;
-  padding: 0px 3px;
+  padding-left:3px;
   overflow: auto;
   .leaderboard-header {
     display: flex;
@@ -934,15 +751,8 @@ a {
   color: white;
 }
 
-.currentLifterInfo .records {
-  text-transform: none;
-  font-size: 0.5em;
-  // max-width: 100px;
-  font-weight: normal;
-  padding: 2px 5px;
-  text-align: center;
-  border: 1px solid white;
-}
+
+
 
 
 .rt-table {
@@ -950,6 +760,9 @@ a {
   min-height: max-content;
   font-size: 12px;
   border: none;
+  .rt-tbody {
+    // padding-bottom:30px;
+  }
   .rt-thead {
     background-color: #efefef;
     box-shadow: none;

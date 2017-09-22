@@ -4,6 +4,10 @@ html, body {
   padding: 0;
   font-family: 'Open Sans', sans-serif; }
 
+#root {
+  min-height: 100%;
+  display: flex; }
+
 a {
   text-decoration: unset; }
   a:link {
@@ -13,17 +17,24 @@ a {
   a:hover {
     color: #00A8E8; }
 
+a.visible-link:link {
+  color: #00A8E8; }
+a.visible-link:hover {
+  color: #00A8E8; }
+
 .app {
   left: 0px;
   padding: 0px 0px 10px;
   display: flex;
   flex-direction: column;
+  flex-y: 1;
   width: 960px;
   position: relative;
-  overflow: hidden; }
+  min-height: 100%; }
 
 .header-and-content {
-  z-index: 1; }
+  z-index: 1;
+  margin-bottom: 30px; }
 
 .side-bar.left {
   z-index: 2; }
@@ -46,6 +57,8 @@ a {
 .options-pane {
   padding: 0px 8px;
   width: 110px; }
+  .options-pane .left .option {
+    text-align: left; }
   .options-pane .all-options {
     display: flex;
     flex-direction: column;
@@ -76,6 +89,30 @@ a {
         .options-pane .all-options .options-container .specific-options:first-child {
           margin-left: 0px; }
 
+.option {
+  width: 94%;
+  padding: 0px 3%;
+  min-width: 28px;
+  font-size: 0.8em;
+  height: 24px;
+  line-height: 24px;
+  margin: 1px 0px;
+  border-radius: 2px;
+  border: 1px solid #dadada;
+  text-align: center; }
+  .option:hover {
+    cursor: pointer;
+    background-color: #dadada; }
+  .option:active {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15) inset, 0 0 6px rgba(0, 0, 0, 0.2) inset; }
+  .option.active {
+    background-color: #66A182;
+    color: white; }
+  .option.leaderboardType {
+    width: 100px;
+    padding: 0px 4px;
+    margin-left: 3px; }
+
 .burger-icon {
   display: flex;
   flex-direction: column;
@@ -103,106 +140,6 @@ a {
     top: 0px;
     width: 960px;
     transition: 0.4s; }
-
-.header .searchbox {
-  margin-right: 2px;
-  z-index: 999; }
-  .header .searchbox input {
-    width: 280px;
-    border: none;
-    outline: 0px;
-    outline-offset: 0px;
-    height: 26px;
-    line-height: 26px;
-    font-size: 16px;
-    padding: 1px 6px;
-    transition: 0.2s; }
-    .header .searchbox input:focus {
-      width: 280px;
-      transition: 0.2s;
-      outline-offset: 0px; }
-    .header .searchbox input::placeholder {
-      font-size: 14px;
-      color: #ccc; }
-  .header .searchbox .searchbox-overlay {
-    display: block;
-    top: 34px;
-    position: absolute;
-    background-color: white;
-    width: 292px;
-    z-index: 10000;
-    font-size: 0.9em;
-    border: 1px solid #dadada; }
-    .header .searchbox .searchbox-overlay .searchbox-title {
-      margin-top: 6px;
-      padding: 2px 6px;
-      font-weight: bold;
-      text-transform: uppercase;
-      color: gray; }
-    .header .searchbox .searchbox-overlay .divider {
-      margin: 0px 6px;
-      border-top: 1px solid #dadada; }
-    .header .searchbox .searchbox-overlay .searchbox-note {
-      padding: 4px 6px;
-      color: #ccc; }
-    .header .searchbox .searchbox-overlay .searchbox-option {
-      height: 30px;
-      padding: 4px 6px;
-      font-size: 0.9em;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center; }
-      .header .searchbox .searchbox-overlay .searchbox-option .sideKey {
-        font-size: 0.9em;
-        color: #999; }
-      .header .searchbox .searchbox-overlay .searchbox-option:hover {
-        cursor: pointer;
-        background-color: #dadada;
-        transition: 0.2s; }
-
-.left .option {
-  text-align: left; }
-
-.option {
-  width: 94%;
-  padding: 0px 3%;
-  min-width: 28px;
-  font-size: 0.8em;
-  height: 24px;
-  line-height: 24px;
-  margin: 1px 0px;
-  border-radius: 2px;
-  border: 1px solid #dadada;
-  text-align: center; }
-  .option:hover {
-    cursor: pointer;
-    background-color: #dadada; }
-  .option:active {
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15) inset, 0 0 6px rgba(0, 0, 0, 0.2) inset; }
-  .option.active {
-    background-color: #66A182;
-    color: white; }
-  .option.leaderboardType {
-    width: 100px;
-    padding: 0px 4px;
-    margin-left: 3px; }
-
-.header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 2px;
-  align-items: center;
-  border-bottom: 1px solid #dadada; }
-  .header .burger-and-title {
-    display: flex;
-    flex-direction: row;
-    align-items: center; }
-  .header .app-title {
-    margin-left: 20px;
-    font-weight: bold;
-    font-size: 20px; }
 
 .side-bar {
   overflow: hidden;
@@ -266,13 +203,6 @@ a {
     margin-top: auto; }
   .side-bar.left .section-content {
     padding-left: 10px; }
-  .side-bar.left .footer {
-    margin-bottom: 6px;
-    color: gray;
-    font-size: 0.8em;
-    padding: 0px 10px; }
-    .side-bar.left .footer > div {
-      margin-top: 3px; }
 
 .circle-indicator {
   width: 16px;
@@ -285,7 +215,7 @@ a {
     background-color: #66A182; }
 
 .content {
-  position: relative; }
+  padding-top: 41px; }
 
 .competition-header, .lifter-header {
   position: relative;
@@ -295,7 +225,7 @@ a {
   justify-content: center;
   min-height: 38px;
   color: #333;
-  padding: 4px 4px; }
+  padding: 4px 4px 0px 4px; }
   .competition-header .competition-date, .lifter-header .competition-date {
     position: absolute;
     left: 10px;
@@ -315,7 +245,7 @@ a {
     .competition-header .title-and-indicator .competition-title, .competition-header .title-and-indicator .lifter-name, .lifter-header .title-and-indicator .competition-title, .lifter-header .title-and-indicator .lifter-name {
       font-weight: bold;
       font-size: 30px; }
-  .competition-header .active-division, .competition-header .yob, .lifter-header .active-division, .lifter-header .yob {
+  .competition-header .yob, .lifter-header .yob {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -328,77 +258,13 @@ a {
     justify-content: flex-end;
     align-items: center;
     cursor: pointer; }
-    .competition-header .active-division .arrow, .competition-header .yob .arrow, .lifter-header .active-division .arrow, .lifter-header .yob .arrow {
+    .competition-header .yob .arrow, .lifter-header .yob .arrow {
       width: 25px;
       height: 25px;
       transition: 0.2s;
       transform: rotate(-90deg); }
-      .competition-header .active-division .arrow.rotated, .competition-header .yob .arrow.rotated, .lifter-header .active-division .arrow.rotated, .lifter-header .yob .arrow.rotated {
+      .competition-header .yob .arrow.rotated, .lifter-header .yob .arrow.rotated {
         transform: rotate(0deg); }
-
-.currentLifterInfo {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  background-color: #003459;
-  z-index: 2;
-  color: white;
-  align-items: center;
-  padding: 0px 10px;
-  font-size: 20px; }
-  .currentLifterInfo .attempt-name {
-    font-size: 0.9em;
-    position: absolute;
-    left: 10px; }
-  .currentLifterInfo .current-lifter-name, .currentLifterInfo .current-competition-name {
-    color: white;
-    margin-right: 40px; }
-    .currentLifterInfo .current-lifter-name:hover, .currentLifterInfo .current-competition-name:hover {
-      color: #00A8E8; }
-  .currentLifterInfo .center-container {
-    font-size: 1.1em;
-    width: 100%;
-    margin: -2px 0px;
-    font-weight: bold;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    color: white; }
-  .currentLifterInfo .attempt-stars {
-    display: flex;
-    flex-direction: row;
-    z-index: 4;
-    position: absolute;
-    right: 10px; }
-  .currentLifterInfo .current-attempt {
-    display: flex;
-    text-transform: uppercase;
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: center; }
-    .currentLifterInfo .current-attempt .current-weight {
-      display: flex;
-      flex-direction: row; }
-      .currentLifterInfo .current-attempt .current-weight span.kg-weight, .currentLifterInfo .current-attempt .current-weight span.lb-weight {
-        margin: 5px 0px;
-        padding: 0px 10px; }
-      .currentLifterInfo .current-attempt .current-weight .kg-weight {
-        border-right: 1px solid white; }
-      .currentLifterInfo .current-attempt .current-weight .lb-weight {
-        font-size: 1em; }
-    .currentLifterInfo .current-attempt .arrow {
-      height: 20px;
-      line-height: 20px;
-      color: white; }
-      .currentLifterInfo .current-attempt .arrow.rotated {
-        transform: rotate(180deg); }
-      .currentLifterInfo .current-attempt .arrow:hover {
-        cursor: pointer; }
-      .currentLifterInfo .current-attempt .arrow.inactive {
-        color: #999; }
-        .currentLifterInfo .current-attempt .arrow.inactive:hover {
-          cursor: default; }
 
 .player-center {
   display: flex;
@@ -432,25 +298,30 @@ a {
     flex-direction: column;
     flex: 1;
     color: rgba(255, 255, 255, 0.6); }
-    .controls-and-player .controls .lifter-name {
-      font-size: 1em;
-      margin-top: 16px; }
     .controls-and-player .controls .attempt {
       margin-top: 4px;
       font-size: 0.9em; }
     .controls-and-player .controls .arrow {
-      height: 15px; }
+      height: 15px;
+      margin-right: -8px; }
       .controls-and-player .controls .arrow.left {
-        transform: rotate(180deg); }
+        transform: rotate(180deg);
+        margin-left: -8px;
+        margin-right: 0px; }
   .controls-and-player .lift-button, .controls-and-player .seek-button {
     background-color: rgba(0, 0, 0, 0);
     border-top: 1px solid #dadada;
+    font-size: 0.8em;
+    padding: 4px;
     display: flex;
     flex-direction: column;
-    justify-content: center; }
+    justify-content: center;
+    align-items: flex-start; }
     .controls-and-player .lift-button.clickable:hover, .controls-and-player .seek-button.clickable:hover {
       cursor: pointer;
       background-color: rgba(255, 255, 255, 0.2); }
+    .controls-and-player .lift-button.right, .controls-and-player .seek-button.right {
+      align-items: flex-end; }
   .controls-and-player .lift-button {
     position: relative;
     flex: 0; }
@@ -460,11 +331,7 @@ a {
     position: relative;
     height: 40px; }
   .controls-and-player .title-container {
-    padding: 2px 4%;
-    position: absolute;
-    top: 6px;
     display: flex;
-    width: 92%;
     flex-direction: row;
     align-items: center;
     justify-content: flex-end; }
@@ -510,7 +377,7 @@ a {
 
 .leaderboard {
   position: relative;
-  padding: 0px 3px;
+  padding-left: 3px;
   overflow: auto; }
   .leaderboard .leaderboard-header {
     display: flex;
@@ -556,14 +423,6 @@ a {
 .records {
   background-color: seagreen;
   color: white; }
-
-.currentLifterInfo .records {
-  text-transform: none;
-  font-size: 0.5em;
-  font-weight: normal;
-  padding: 2px 5px;
-  text-align: center;
-  border: 1px solid white; }
 
 .rt-table {
   overflow: auto;

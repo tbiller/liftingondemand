@@ -4,20 +4,27 @@
 }
 
 .lifter-list .title {
-	padding: 0px 0px 5px 10px;
+	padding: 0px 0px 5px 6px;
 	font-weight: bold;
 	font-size: 1.2em;
 	text-transform: uppercase;
-	border-bottom: 1px solid #dadada;
-	margin-bottom: 12px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid black;
+	/*margin-bottom: 12px;*/
 }
 
 .lifter-list .aside {
 	font-weight: normal;
 	font-size: 0.8em;
 	text-transform: none;
-	font-style: italic;
+	/*font-style: italic;*/
 	margin-left: 20px;
+	color: #999;
+	display: flex;
+	flex-direction: row;
 	/*display: inline-block;*/
 }
 
@@ -28,15 +35,20 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-}
-.lifter-list a:nth-child(2n) {
-  background-color: #efefef;
+	border-bottom: 1px dashed #dadada;
 }
 
-.lifter-list .item .yob {
+/*.lifter-list .item .weightClass {
     font-size: 0.75em;
     color: #999;
-  }
+}*/
+.lifter-list .item .yob {
+    margin-right: 40px;
+}
+
+.lifter-list .item:hover{
+	color: unset;
+}
 
 .lifter-list .item:hover {
   background-color: #dadada;

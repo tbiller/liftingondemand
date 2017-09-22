@@ -8,22 +8,25 @@ var AttemptSchema = new Schema({
     _id: Schema.Types.ObjectId,
     _appearance: { type: Schema.Types.ObjectId, ref: 'Appearance' },
     attemptName: String,
+    liftName: String,
+    attemptNumber: Number,
     weight: String,
+    weightValue: Number,
     result: String,
     records: String,
     firstNameFrame: Number,
     lastNameFrame: Number,
     lightsFrame: Number,
     lights: Schema.Types.Mixed,
+    division: String,
+    weightclass: String,
+    style: String,
   	numStars: { type: Number, default: 0 }
 });
 
-// AttemptSchema.virtual('stars', {
-// 	ref: 'AttemptInteraction',
-// 	localField: '_id',
-// 	foreignField: 'attempt'
-// });
-
+AttemptSchema.index({ liftName: 1});
+AttemptSchema.index({ numStars: -1, weightValue: -1 });
+AttemptSchema.set('autoIndex', false);
 // AttemptSchema.virtual('numStars').get(function() {
 // 	console.log('innumstars');
 // 	console.log(this._id)

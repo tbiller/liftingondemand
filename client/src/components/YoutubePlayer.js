@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import YouTube from 'react-youtube';
+import deepEqual from 'deep-equal';
 
 export default class YoutubePlayer extends Component {
 	constructor(props) {
@@ -13,6 +14,10 @@ export default class YoutubePlayer extends Component {
 				width: '640',
 			},
 		}
+	}
+
+	shouldComponentUpdate(nextProps) {
+		return !deepEqual(nextProps, this.props);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -33,7 +38,7 @@ export default class YoutubePlayer extends Component {
 		}
 		if (props.attemptToBeSelected || props.secondsToAdvance) {
 			if (props.attemptToBeSelected) {
-				this.selectLiftAttempt(props.attemptToBeSelected, props.boolStopVideo);
+				this.selectLiftAttempt(props.attemptToBeSelected, props.boolStopVideo, props.muteVideo);
 			}
 			if (props.secondsToAdvance) {
 				this.advanceBySeconds(props.secondsToAdvance, props.boolStopVideo);
@@ -49,7 +54,7 @@ export default class YoutubePlayer extends Component {
 		this.skipToSecond(this.player.getCurrentTime() + seconds);
 	}
 
-	ensureVideoIsPlaying = (videoId, boolStopVideo, startSeconds) => {
+	ensureVideoIsPlaying = (videoId, boolStopVideo, startSeconds, muteVideo) => {
 		if (!this.player) { return false; }
 		console.log(this.player.getVideoUrl());
 		if (videoId && videoId !== this.state.currentVideoId) {
@@ -63,10 +68,12 @@ export default class YoutubePlayer extends Component {
 			this.player.loadVideoById(videoId);
 			this.player.playVideo();
 		}
+
+		if (muteVideo) this.player.mute();
 			
 	}
 
-	selectLiftAttempt = (attempt, boolStopVideo) => {
+	selectLiftAttempt = (attempt, boolStopVideo, muteVideo) => {
 		window.clearTimeout(this.recordCurrentTimeTimeout);
 		console.log('yt selecting attempt!!!');
 		console.log(attempt);
@@ -79,17 +86,12 @@ export default class YoutubePlayer extends Component {
 
 
 		if (!!frame) {
-			this.ensureVideoIsPlaying(videoId, boolStopVideo, seconds);
+			this.ensureVideoIsPlaying(videoId, boolStopVideo, seconds, muteVideo);
 			// debugger;
 			if (!boolStopVideo) {
 				this.skipTo(seconds);
 			}
-			// if (boolStopVideo === true) {
-			// 	if (this.player) this.player.stopVideo();
-			// } else {
-			// 	if (this.player) this.player.playVideo();
-			// }
-			// this.recordCurrentTime();
+
 			return true;
 		} 
 		this.recordCurrentTime();
@@ -166,6 +168,7 @@ export default class YoutubePlayer extends Component {
 	}
 
 	secondsFromFrame(frame) {
+		console.log('selecting', Math.floor(frame / this.props.framerate));
 		return Math.floor(frame / this.props.framerate);
 	}
 

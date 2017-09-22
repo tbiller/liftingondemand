@@ -1,20 +1,21 @@
 import React from 'react';
+import '../styles/components/AttemptStars.css';
 
 export default function({
 	attempt,
 	starAttempt,
-	starredAttempts
+	isStarred
 }) {
-	const hasStarredThisAttempt = starredAttempts ? 
-		starredAttempts.indexOf(attempt._id) !== -1 : false;
-	const buttonText = hasStarredThisAttempt ? 'Starred' : 'Star';
-	console.log('buttonText', starredAttempts);
+
+	const buttonText = isStarred ? 'Starred' : 'Star';
 	return (
-		<div className='attempt-stars'>
-	    	<span>({attempt.numStars})</span>
-	    	<div className='button' onClick={starAttempt}>
-	    		{buttonText}
-	    	</div>
+		<div className='attempt-stars' onClick={starAttempt}>
+			{isStarred ? 
+				<img className='star' src= {require('../images/star.png')} />
+			:
+				<img className='star' src= {require('../images/unstar.png')} />
+			}
+	    	<span className='num-stars'>{attempt.numStars}</span>
 	   </div>	
 
 	)

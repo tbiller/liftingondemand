@@ -21,9 +21,11 @@ class Appearance {
 		this._id = appearanceJson._id;
 		this.attempts = {} 
 
-		for (let i = 0; i < appearanceJson.attempts.length; i++) {
-			const attempt = appearanceJson.attempts[i];
-			this.attempts[attempt.attemptName] = new Attempt(attempt, this);
+		if (!!appearanceJson.attempts) {
+			for (let i = 0; i < appearanceJson.attempts.length; i++) {
+				const attempt = appearanceJson.attempts[i];
+				this.attempts[attempt.attemptName] = new Attempt(attempt, this);
+			}
 		}
 	}
 

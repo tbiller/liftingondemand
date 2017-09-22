@@ -1,53 +1,40 @@
 import React, { Component } from 'react';
-import YoutubePlayer from './YoutubePlayer';
-import AttemptStars from './AttemptStars';
+import AttemptCardHeader from './AttemptCardHeader';
+import AttemptCardPlayer from './AttemptCardPlayer';
+import deepEqual from 'deep-equal';
 import '../styles/components/AttemptCard.css';
 
-export default function({
-	attempt,
-	starAttempt,
-	starredAttempts,
-	isActive,
-	onClick
-}) {
-	function playerUpdated() {
+class AttemptCard extends Component {
+	
+
+	playerUpdated() {
 
 	}
-
-	if (!attempt) return null;
-	return (
-		<div className='attempt-card' onClick={onClick}>
-			<div className='info'>
-				<div>
-					<div className='lift'>{attempt.liftName}</div>
-					<div className='kg-weight'>{attempt.kgString()}</div>
-					<div className='lb-weight'>{attempt.lbString()}</div>
-				</div>
-				<div className='lifter-name'>{attempt._lifter.name}</div>
-				{attempt.records &&
-				    <div className='records'>
-				    	{attempt.recordsLong()}
-				    </div>
-			    }
-				<div className='competition-name'>{attempt._competition.name}</div>
-			</div>
-			
-		    {isActive ? 
-			    <YoutubePlayer 
-			    	attemptToBeSelected={attempt}
-					secondsToAdvance={0}
-					playerUpdated={playerUpdated}
-					framerate={30}
-					showMessage={false}
+	
+	render() {
+		const { cardRef,
+		attempt,
+		starAttempt,
+		isStarred,
+		isActive,
+		onClick } = this.props;
+		if (!attempt) return null;
+		console.log('renderinrg attempt card');
+		return (
+			<div ref={cardRef} className='attempt-card' onClick={onClick}>
+				<AttemptCardHeader 
+					attempt={attempt}
+					starAttempt={starAttempt}
+					isStarred={isStarred}
 					/>
-			:
-				<div className='empty-player' />
-			}
-			<AttemptStars attempt={attempt} starAttempt={(e)=> {
-				starAttempt(attempt);
-				console.log('stropping stopPropagation')
-				e.stopPropagation();
-			}} starredAttempts={starredAttempts} />
-		</div>
-	);
+				<AttemptCardPlayer
+					attempt={attempt}
+					playerUpdated={this.playerUpdated}
+					isActive={isActive}
+					/>
+			</div>
+		);
+	}
 }
+
+export default AttemptCard;

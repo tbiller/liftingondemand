@@ -5,8 +5,11 @@ import YoutubePlayer from './YoutubePlayer';
 import PlayerControls from './PlayerControls';
 import LifterTable from './LifterTable';
 import LifterHeader from './LifterHeader';
+import Spinner from './Spinner';
 import CurrentLifterInfo from './CurrentLifterInfo';
+import queryString from 'query-string';
 import Serializer from '../utils/serializer';
+import deepEqual from 'deep-equal';
 import { CookiesProvider, withCookies, Cookies } from 'react-cookie';
 
 const liftsInOrder = ['Squat 1', 'Squat 2', 'Squat 3', 'Bench 1', 'Bench 2', 'Bench 3',
@@ -18,6 +21,7 @@ class LifterRoute extends Component {
 
 		this.state = {
 			lifter: null,
+			loading: false,
 			attemptToBeSelected: null,
 			secondsToAdvance: null,
 			currentAttempt: null,
@@ -26,12 +30,14 @@ class LifterRoute extends Component {
 	}
 	componentDidMount = () => {
 		this.updateBasedOnNewProps(this.props);
-		this.props.sendData({'activeCompetitionId': null});
 		window.addEventListener('scroll', this.handleScroll);
 	}
 
 	componentWillReceiveProps = (nextProps) => {
-		this.updateBasedOnNewProps(nextProps);
+
+		if (this.props.match.params.lifterId !== nextProps.match.params.lifterId) {
+			this.updateBasedOnNewProps(nextProps);
+		}
 	}
 
 	componentDidUpdate = (prevProps, prevState) => {
@@ -54,20 +60,43 @@ class LifterRoute extends Component {
 	}
 
 	getLifter = (lifterId) => {
+		this.setState({loading: true});
 		fetch('/lifter/' + lifterId)
 			.then(res => res.json())
 			.then(json => {
 				const lifter = new Lifter(json);
-				this.setState({lifter});
-				this.updateCurrentAttempt(null);
-				// 
-				this.selectFirstAttempt(lifter);
+				//check to make sure a more recent request has not gone out in the meantime
+				if (lifter._id !== this.props.match.params.lifterId) return false;
+
+				this.setState({lifter, loading: false});
+
+				const urlParams = Serializer.deserializeParams(queryString.parse(this.props.location.search));
+				const attemptId = urlParams.attempt;
+
+				// debugger;
+				if (attemptId) {
+					// check to make sure attempt is part of lifter. If so, select it.
+					lifter.appearances.forEach((appearance) => {
+						for (let attemptName in appearance.attempts) {
+							if (appearance.attempts.hasOwnProperty(attemptName)) {
+								const attempt = appearance.attempts[attemptName];
+								if (attempt._id === attemptId) {
+									this.selectLiftAttempt({attempt, boolStopVideo: true});
+									return;
+								}
+							}
+						}
+						this.selectFirstAttempt(lifter);
+					});
+				} else {
+					this.selectFirstAttempt(lifter);
+				}
+
 			});
 	}
 
 	selectFirstAttempt = (lifter) => {
 		if (!lifter.appearances.length) {
-			// this.setState({resetPlayer: true});
 			return false;
 		} 
 
@@ -85,29 +114,9 @@ class LifterRoute extends Component {
 			}
 		}
 
-		// this.setState({resetPlayer: true});
 		return false;
 	}
 
-	// appearances = () => {
-	// 	const lifter = this.state.lifter;
-	// 	if (!lifter) return null;
-	// 	const appearances = [];
-	// 	for (let i = 0; i < lifter.appearances.length; i++) {
-	// 		const appearance = lifter.appearances[i];
-	// 		console.log(appearance);
-	// 		appearances.push(
-	// 			<div key={i}>
-	// 				<CompetitionHeader 
-	// 					competition={appearance._competition}
-	// 					division={appearance.division}
-	// 					weightClass={appearance.weightClass}
-	// 				/>
-	// 			</div>
-	// 		);
-	// 	}
-	// 	return appearances;
-	// }
 
 	attemptClick = (attempt) => {
 		console.log(attempt);
@@ -122,10 +131,6 @@ class LifterRoute extends Component {
 		Serializer.navigateTo(this.props.history, '/comp/' + compName, {division, weightClass, lifter});
 	}
 
-	//////////////////////////////////////////
-	// Shared between competition route and lifter route
-	//////////////////////////////////////////
-
 	updateCurrentAttempt = (attempt) => {
 		this.setState({
 			currentAttempt: attempt,
@@ -135,11 +140,15 @@ class LifterRoute extends Component {
 		const { history, location } = this.props;
 
 		if (attempt) {
-			Serializer.updateUrlParams(history, location, {'lifter': attempt._lifter.name ? attempt._lifter.name : '', 'attempt': attempt.attemptName || ''}, false);
+			Serializer.updateUrlParams(history, location, {'attempt': attempt._id}, false);
 		} else {
-			Serializer.updateUrlParams(history, location, {'lifter': null, 'attempt': null}, null);
+			Serializer.updateUrlParams(history, location, {'attempt': null}, null);
 		}
  	}
+	//////////////////////////////////////////
+	// Shared between competition route and lifter route
+	//////////////////////////////////////////
+
 
 	selectLiftAttempt = ({attempt, watchContinuous, boolStopVideo=false}) => {
 		if (!attempt) return false;
@@ -178,7 +187,6 @@ class LifterRoute extends Component {
 		// console.log(this.state.currentAttempt._appearance._competition.name);
 		switch (compName) {
 			// console.log(thist.)
-
 			case 'IPF Classic Worlds 2017':
 				switch (weightClass + '_' + division) {
 					case '66_open':
@@ -203,7 +211,9 @@ class LifterRoute extends Component {
 	}	
 
 	frameFromSeconds(seconds) {
+		console.log('selecting', Math.floor(seconds * this.framerate()))
 		return Math.floor(seconds * this.framerate());
+
 	}
 
 	playerUpdated = () =>{
@@ -233,6 +243,7 @@ class LifterRoute extends Component {
 
 	handleScroll = (event) => {
 		console.log('scrolling!');
+		if (this.state.loading === true) return false;
 		let scrollTop = event.srcElement.body.scrollTop;
         // let itemTranslate = Math.min(0, scrollTop/3 - 60);
         if (scrollTop >= 95) {
@@ -253,6 +264,9 @@ class LifterRoute extends Component {
 	}
 
 	render() {
+		if (this.state.loading === true) {
+			return <Spinner />
+		}
 		return (
 			<div>
 			
@@ -263,8 +277,9 @@ class LifterRoute extends Component {
 				<div className='pinOnScroll' ref='pinOnScroll'>
 					<CurrentLifterInfo 
 						currentAttempt={this.state.currentAttempt}
-						showCompetitionName={true}
+						lifterRoute={true}
 						selectLiftAttempt={this.selectLiftAttempt}
+						starredAttempts={this.props.starredAttempts}
 						starAttempt={this.starCurrentAttempt}
 					/>
  					<PlayerControls 

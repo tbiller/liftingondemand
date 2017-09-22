@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Menubar from './components/Menubar';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import DashboardRoute from './components/DashboardRoute';
 import CompetitionIndexRoute from './components/CompetitionIndexRoute';
 import CompetitionRoute from './components/CompetitionRoute';
 import LifterRoute from './components/LifterRoute';
 import LifterIndexRoute from './components/LifterIndexRoute';
+import AboutRoute from './components/AboutRoute';
+import Lifter from './models/Lifter';
 import { withRouter, Switch, Redirect } from 'react-router';
 import { Route } from 'react-router-dom';
 import { CookiesProvider, withCookies, Cookies } from 'react-cookie';
-
 import './styles/styles.css';
 
 
@@ -20,23 +22,24 @@ class App extends Component {
 		const { cookies } = this.props;
 		if (!cookies.get('starredAttempts')) {
 			cookies.set('starredAttempts', [], {path: '/'});
-		}
+		} 
 
 		this.state = {
-			activeCompetitionId: '',
+			// activeCompetitionId: '',
 			menuOpen: false,
 			competitions: [],
 			lifters: [],
-			loadingCompetitions: true,
-			loadingLifters: true,
-			userCookie: cookies
+			loadingCompetitions: false,
+			loadingLifters: false,
+			userCookie: cookies,
+			starredAttempts: cookies.get('starredAttempts')
 		};
 	}
 
 	componentDidMount = () => {
 		// this.app = ReactDOM.findDOMNode(this.refs.content);
 		window.addEventListener('scroll', this.handleScroll);
-
+		this.setState({loadingCompetitions: true, loadingLifters: true});
 		console.log(this.props);
 		fetch('/competitions')
 			.then(res => res.json())
@@ -49,8 +52,12 @@ class App extends Component {
 		fetch('/lifters')
 			.then(res => res.json())
 			.then(json => {
+				const lifters = [];
+				json.forEach((lifterJson) => {
+					lifters.push(new Lifter(lifterJson));
+				});
 				this.setState({
-					lifters: json, 
+					lifters: lifters, 
 					loadingLifters: false
 				})
 			});
@@ -74,22 +81,12 @@ class App extends Component {
 		this.toggleMenu(false);
 	}
 
-	contentClick = (e) => {
-		if (this.state.menuOpen) {
-			this.closeMenu();
-			e.stopPropagation();
-		}
-	}
-
-	competitionClick = (competition) => {
-		if (competition.name === this.state.competitionName) return false;
-		this.setState({
-			activeCompetition: competition, 
-			competitionName: competition.name
-		});
-		this.props.history.push('/comp/' + competition.name);
-		window.setTimeout(this.closeMenu, 400);
-	}
+	// contentClick = (e) => {
+	// 	// if (this.state.menuOpen) {
+	// 	// 	this.closeMenu();
+	// 	// 	e.stopPropagation();
+	// 	// }
+	// }
 
 	getData = (data) => {
 		this.setState(data);
@@ -99,7 +96,6 @@ class App extends Component {
 		console.log('in starAttempt');
 		const { cookies } = this.props;
 		const starredAttempts = cookies.get('starredAttempts');
-		console.log(starredAttempts);
 		let newStarredAttempts = [];
 		let action = '';
 		const idx = starredAttempts.indexOf(attempt._id);
@@ -142,15 +138,15 @@ class App extends Component {
 				    	lifters={this.state.lifters}
 				    	competitions={this.state.competitions}
 				    />
-					<div className='content' onClick={this.contentClick}>
+					<div className='content'>
 						<Switch>
 							<Route exact path='/competitions' render={(props)=> {
 								return <CompetitionIndexRoute competitions={this.state.competitions} 
-									{...props} />;
+									loading={this.state.loadingCompetitions} {...props} />;
 							}} /> 
 							<Route exact path='/lifters' render={(props)=> {
 								return <LifterIndexRoute lifters={this.state.lifters} 
-									{...props} />;
+									loading={this.state.loadingLifters} {...props} />;
 							}} /> 
 							<Route exact path='/comp/:competitionName' render={(props)=> {
 								return <CompetitionRoute competitions={this.state.competitions} 
@@ -162,9 +158,11 @@ class App extends Component {
 							}} /> 
 							<Route exact path='/lifter/:lifterId' render={(props)=> {
 								return <LifterRoute {...props} 
-									sendData={this.getData}
 									starAttempt={this.starAttempt} 
 									starredAttempts={this.state.starredAttempts}/>;
+							}} /> 
+							<Route exact path='/about' render={(props)=> {
+								return <AboutRoute {...props} />
 							}} /> 
 							<Route exact path='/' render={(props)=> {
 								return <DashboardRoute {...props} 
@@ -174,6 +172,7 @@ class App extends Component {
 							<Redirect to='/' />
 						</Switch>
 					</div>
+					<Footer />
 				</div>
 		  	</div>
 		);
@@ -183,7 +182,3 @@ class App extends Component {
 
 export default withCookies(App);
 
-
-  // <Route exact path='/' render={() =>
-			    // 	<erect to='/competition/IPF_Classic_Worlds_2017' />
-			    // }/>

@@ -4,15 +4,16 @@ var mongoose = require('mongoose'),
   competition = mongoose.model('Competition');
 
 exports.list_all_competitions = function(req, res) {
-  competition.find({}, function(err, competition) {
-    if (err) res.send(err);
-    res.json(competition);
-  });
+	 competition.find().lean()
+	  	.exec(function(err, competition) {
+		    if (err) res.send(err);
+		    res.json(competition);
+		});
 };
 
 
 exports.get_a_competition_by_params = function(req, res) {
-	competition.find(req.query)
+	competition.find(req.query).lean()
 		.exec(function(err, comps) {
 			if (err) {
 				console.log(err);

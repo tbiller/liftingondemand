@@ -4,14 +4,20 @@ var mongoose = require('mongoose'),
   lifter = mongoose.model('Lifter');
 
 exports.get_all_lifters = function(req, res) {
-  lifter.find({}).exec(function(err, lifters) {
-    if (err)  {
-    	console.log(err);
-    	res.send(err);
-    	return;
-    }
-    res.json(lifters);
-  });
+	lifter.find({})
+	.populate({
+		path: 'appearances',
+		select: 'weightClass'
+	})
+	.lean()
+	.exec(function(err, lifters) {
+		if (err)  {
+			console.log(err);
+			res.send(err);
+			return;
+		}
+		res.json(lifters);
+	});
 };
 
 exports.get_a_lifter = function(req, res) {
@@ -27,6 +33,7 @@ exports.get_a_lifter = function(req, res) {
 		  		path: 'attempts',
 		  	}
 		})
+		.lean()
 		.exec(function(err, lifter) {
 			console.log(req.params.lifterId);
 			console.log(err);

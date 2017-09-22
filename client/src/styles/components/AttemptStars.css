@@ -1,0 +1,27 @@
+.attempt-stars {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.attempt-stars:hover {
+	cursor: pointer;
+}
+
+.attempt-stars .star {
+	width: 20px;
+	height: 20px;
+}
+
+.attempt-stars .num-stars {
+	margin-left: 4px;
+	
+}
+
+/*      .attempt-stars {
+          display: flex;
+          flex-direction: row;
+          z-index: 4;
+          position: absolute;
+          right: 10px;
+        }*/

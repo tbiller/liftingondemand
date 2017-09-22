@@ -1,19 +1,68 @@
 import React, { Component } from 'react';
 import TopAttempts from './TopAttempts';
+import AttemptOptions from './AttemptOptions';
 import AttemptList from './AttemptList';
-
+import queryString from 'query-string';
+import deepEqual from 'deep-equal';
+import Attempt from '../models/Attempt';
+import '../styles/components/DashboardRoute.css';
 
 class DashboardRoute extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			filters: {},
+			topAttempts: [],
+			loading: false
+		};
+	}
+
+	componentDidMount() {
+		this.fetchNewData();
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (!deepEqual(prevState.filters, this.state.filters)) {
+			console.log('fetching new data');
+			this.fetchNewData();
+		}
+	}
+
+
+	fetchNewData() {
+		this.setState({loading: true});
+		const filters = this.state.filters;
+
+		fetch('/attempts/top?' + queryString.stringify(this.state.filters))
+			.then(res => res.json())
+			.then(json => {
+				// make sure this is for the most recent request
+				if (!deepEqual(this.state.filters, filters)) return;
+				
+				const attempts = [];
+				if (json) {
+					json.forEach((attemptJson) => {
+						attempts.push(new Attempt(attemptJson));
+					});
+				}
+				this.setState({topAttempts: attempts, loading: false})
+			});
+	}
+
+	recordFilters = (filters) => {
+		console.log('updating to filters', filters);
+		this.setState({filters});
 	}
 
 	render() {
 		return (
-			<div>
+			<div className='attempts'>
+				<AttemptOptions recordFilters={this.recordFilters} />
 				<AttemptList 
+					attempts={this.state.topAttempts}
 					starredAttempts={this.props.starredAttempts}
-					starAttempt={this.props.starAttempt}/>
+					starAttempt={this.props.starAttempt}
+					loading={this.state.loading}/>
 			</div>
 		)
 	}

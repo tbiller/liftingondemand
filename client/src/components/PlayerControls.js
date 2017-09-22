@@ -33,25 +33,25 @@ export default function({
 									<img className='arrow left' src= {require('../images/arrow-right.png')} />
 									<div className='title'>Prev. Lift</div>
 								</div>
-								<div className='lifter-name'>{currentAttempt._lifter.shortName()}</div>
 								<div className='attempt'>{liftersPreviousAttempt.attemptName}: {liftersPreviousAttempt.weight} kg</div>
 							</div>
 					}
 				</div>
-				<div 
-					className={['lift-button left', previousAttempt ? 'clickable' : ''].join(' ')}
-					onClick={()=>attemptClick(previousAttempt)}>
-					{ previousAttempt && 
+				
+				{ previousAttempt && 
+					<div 
+						className={['lift-button left', previousAttempt ? 'clickable' : ''].join(' ')}
+						onClick={()=>attemptClick(previousAttempt)}>
+					
 							<div>
 								<div className='title-container left'>
 									<img className='arrow left' src= {require('../images/arrow-right.png')} />
 									<div className='title'>Prev. Lifter</div>
 								</div>
 								<div className='lifter-name'>{previousAttempt._lifter.shortName()}</div>
-								<div className='attempt'>{previousAttempt.attemptName}: {previousAttempt.weight} kg</div>
 							</div>
-					}
-				</div>
+					</div>
+				}
 				{editMode && 
 					<div>
 						<div className='seek-button left clickable' onClick={() => advanceBySeconds(-60)}>&lt;&lt; 60 secs</div>
@@ -78,25 +78,23 @@ export default function({
 									<div className='title'>Next Lift</div>
 									<img className='arrow right' src= {require('../images/arrow-right.png')} />
 								</div>
-								<div className='lifter-name'>{currentAttempt._lifter.shortName()}</div>
 								<div className='attempt'>{liftersNextAttempt.attemptName}: {liftersNextAttempt.weight} kg</div>
 							</div>
 					}
 				</div>
-				<div
-					className={['lift-button right', nextAttempt ? 'clickable' : ''].join(' ')}
-					onClick={()=>attemptClick(nextAttempt)}>
-					{ nextAttempt && 
+				{ nextAttempt && 
+					<div
+						className={['lift-button right', nextAttempt ? 'clickable' : ''].join(' ')}
+						onClick={()=>attemptClick(nextAttempt)}>
 							<div>
 								<div className='title-container'>
 									<div className='title'>Next Lifter</div>
 									<img className='arrow right' src= {require('../images/arrow-right.png')} />
 								</div>
 								<div className='lifter-name'>{nextAttempt._lifter.shortName()}</div>
-								<div className='attempt'>{nextAttempt.attemptName}: {nextAttempt.weight} kg</div>
 							</div>
-					}
-				</div>
+					</div>
+				}
 				{editMode && 
 					<div>
 						<div className='seek-button right clickable' onClick={() => advanceBySeconds(30)}>30 secs &gt;&gt;</div>
@@ -113,6 +111,14 @@ export default function({
 	   	</div>
     );
 }
+
+								// <div className='attempt'>{nextAttempt.attemptName}: {nextAttempt.weight} kg</div>
+
+								// <div className='lifter-name'>{currentAttempt._lifter.shortName()}</div>
+
+// <div className='lifter-name'>{currentAttempt._lifter.shortName()}</div>
+								// <div className='attempt'>{previousAttempt.attemptName}: {previousAttempt.weight} kg</div>
+
 			// </div>
 			// <div className='next-lift control-group'>
 

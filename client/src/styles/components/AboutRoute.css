@@ -1,0 +1,21 @@
+.about {
+	width: 60%;
+	margin: 20px auto;	
+}
+
+.about .title {
+	padding: 0px 0px 5px 6px;
+	font-weight: bold;
+	font-size: 1.2em;
+	text-transform: uppercase;
+	border-bottom: 1px solid black;
+}
+
+.about .about-content {
+	margin-top: 15px;
+}
+
+.about span.email-address {
+	margin: 0px 10px;
+	color: #999;
+}

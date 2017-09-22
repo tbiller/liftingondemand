@@ -7,13 +7,13 @@ export default withRouter(function({location}) {
 	const routes = [
 		['Starred Attempts', '', ''], 
 		['Competitions', 'comp', 'competitions'],
-		['Lifters', 'lifter', 'lifters']
+		['Lifters', 'lifter', 'lifters'],
+		['About', 'about', 'about']
 	];
 	console.log(location);
 	const routeOptions = [];
 	const path = location.pathname.split('/')[1].toLowerCase();
 	routes.forEach((route) => {
-
 		const isActive = path === route[1].toLowerCase() || path === route[2].toLowerCase();
 		routeOptions.push(
 			<div key={route[0]} className={['route-option', isActive ? 'active' : ''].join(' ')}>

@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var CompetitionSchema = new Schema({
   _id: Schema.Types.ObjectId,
   name: String,
+  style: String
 });
 
 module.exports = mongoose.model('Competition', CompetitionSchema);

@@ -12,8 +12,11 @@ class Lifter {
 				this.appearances = props.appearances.map((appearanceJson) => {
 					return new Appearance(appearanceJson, this);
 				});
+				this.recentWeightClass = this.appearances[0].weightClass;
 			}
 		}
+
+
 	}
 
 	lastName() {

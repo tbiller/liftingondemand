@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import queryString from 'query-string';
 import { capitalize } from '../utils/general';
+import '../styles/components/CompetitionHeader.css';
+
 
 export default function({
 	competition,
@@ -25,20 +27,27 @@ export default function({
 			    		{competition ? competition.name : ''}
 			    	</div>
 			    </div>
-		    	{weightClass && 
-					<div onClick={(e)=> {
-						e.stopPropagation();
-						if (boolShowOptions) toggleOptions();
-					}} className='active-division'>
-						{weightClass +  weightClassSuffix + '  ' + capitalize(division)}
-						{boolShowOptions &&
-							<img className={['arrow', optionsShown ? 'rotated' : ''].join(' ')} src= {require('../images/arrow-down.png')} />
-						}
-					</div>
-				}
+		    	<div className='active-division option'>
+		    		<div className='option-title'>Division</div>
+		    		{division}
+		    	</div>
+		    	<div className='active-weightclass option'>
+		    		<div className='option-title'>Weightclass</div>
+		    		{weightClass}
+		    	</div>
 			</div>
 		</div>
 	);
 }
-
+// {weightClass && 
+// 					<div onClick={(e)=> {
+// 						e.stopPropagation();
+// 						if (boolShowOptions) toggleOptions();
+// 					}} className='active-division'>
+// 						{weightClass +  weightClassSuffix + '  ' + capitalize(division)}
+// 						{boolShowOptions &&
+// 							<img className={['arrow', optionsShown ? 'rotated' : ''].join(' ')} src= {require('../images/arrow-down.png')} />
+// 						}
+// 					</div>
+// 				}
 	    			// <div className='route-indicator'>Competition</div>
