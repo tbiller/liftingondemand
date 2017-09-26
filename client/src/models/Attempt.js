@@ -110,7 +110,7 @@ class Attempt {
 	}
 
 	hasBeenSubmittedAsOf(asOfAttempt) {
-		// console.log(asOfAttempt);
+		// //console.log(asOfAttempt);
 		if (this.hasOccurredAsOf(asOfAttempt)) {
 			return true;
 		}

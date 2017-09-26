@@ -29,8 +29,8 @@ export default class YoutubePlayer extends Component {
 	}
 
 	respondToProps(props) {
-		console.log('responding to props');
-		console.log(props);
+		//console.log('responding to props');
+		//console.log(props);
 		// if (this.player) {
 		if (props.resetPlayer === true) {
 			if (this.player) this.player.loadVideoById('');
@@ -43,7 +43,7 @@ export default class YoutubePlayer extends Component {
 			if (props.secondsToAdvance) {
 				this.advanceBySeconds(props.secondsToAdvance, props.boolStopVideo);
 			}
-			console.log('done with update');
+			//console.log('done with update');
 			if (this.player) props.playerUpdated();
 		}
 	}
@@ -56,9 +56,9 @@ export default class YoutubePlayer extends Component {
 
 	ensureVideoIsPlaying = (videoId, boolStopVideo, startSeconds, muteVideo) => {
 		if (!this.player) { return false; }
-		console.log(this.player.getVideoUrl());
+		//console.log(this.player.getVideoUrl());
 		if (videoId && videoId !== this.state.currentVideoId) {
-			console.log('changing video to ' + videoId);
+			//console.log('changing video to ' + videoId);
 			this.setState({'currentVideoId': videoId});
 			this.player.loadVideoById(videoId);
 		}
@@ -75,13 +75,13 @@ export default class YoutubePlayer extends Component {
 
 	selectLiftAttempt = (attempt, boolStopVideo, muteVideo=true) => {
 		window.clearTimeout(this.recordCurrentTimeTimeout);
-		console.log('yt selecting attempt!!!');
-		console.log(attempt);
+		//console.log('yt selecting attempt!!!');
+		//console.log(attempt);
 
 		const videoId = attempt._appearance.videoId;
 		const seconds = attempt.frameWhenClickedOn()
-		console.log('videoId', videoId)
-		console.log('seconds', seconds)
+		//console.log('videoId', videoId)
+		//console.log('seconds', seconds)
 
 		if (seconds > 0) {
 			this.ensureVideoIsPlaying(videoId, boolStopVideo, seconds, muteVideo);
@@ -112,10 +112,10 @@ export default class YoutubePlayer extends Component {
 	}	
 
 	onPlayerReady = (ev) => {
-		console.log('player ready');
+		//console.log('player ready');
 		this.player = ev.target;
 		// if (this.state.skipToFrameOnPlayerReady) {
-		// 	console.log('skip to frame blahblah');
+		// 	//console.log('skip to frame blahblah');
 		// 	this.skipToFrame(this.state.skipToFrameOnPlayerReady);
 		// 	this.setState({skipToFrameOnPlayerReady: null});
 		// }
@@ -142,18 +142,18 @@ export default class YoutubePlayer extends Component {
     }
 
     onError = (ev) => {
-    	console.log('error');
-    	console.log(ev);
+    	//console.log('error');
+    	//console.log(ev);
     }
 
 	skipTo(seconds) {
 		if (!this.player) {
 			// this.setState({skipToFrameOnPlayerReady: frame});
-			// console.log('player not readyssssssssssssssss');
+			// //console.log('player not readyssssssssssssssss');
 			return false;
 		}
 // 
-		console.log('seeking to frame');
+		//console.log('seeking to frame');
 		this.player.seekTo(seconds, true);
 		this.player.playVideo();
 		// this.player.stopVideo();
@@ -166,14 +166,14 @@ export default class YoutubePlayer extends Component {
 	}
 
 	secondsFromFrame(frame) {
-		console.log('selecting', Math.floor(frame / this.props.framerate));
+		//console.log('selecting', Math.floor(frame / this.props.framerate));
 		return Math.floor(frame / this.props.framerate);
 	}
 
 
 	render = () => {
-		console.log('in ytplayer render');
-		console.log(this.props.resetPlayer);
+		//console.log('in ytplayer render');
+		//console.log(this.props.resetPlayer);
 		// if (this.props.resetPlayer) { return null; }
 		return (
 				<div className='youtube-pane'>

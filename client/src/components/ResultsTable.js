@@ -19,7 +19,7 @@ export default function({
 }) {
 	const minAttemptWidth = 50;
 	const live = (leaderboardType === 'live');
-	console.log('RENDER: Results Table');
+	//console.log('RENDER: Results Table');
 	// if (currentLifter) {
 	// 	var currentAttempt = currentLifter.attempts[currentAttemptName];
 	// }
@@ -183,7 +183,7 @@ export default function({
 			},
 			// onMouseOver: (e) => {
 			// 	if (!e.target.classList.contains('lift')) return false;
-			// 	console.log(e.target);
+			// 	//console.log(e.target);
 			// 	const left  = e.clientX + 10 + "px";
    //  			const top  = e.clientY -20  + "px";
    //  			const overlay = document.getElementsByClassName('mouse-overlay')[0];

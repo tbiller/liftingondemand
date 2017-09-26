@@ -16,7 +16,7 @@ class Searchbox extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		// console.log('allOptions', this.props.allOptions);
+		// //console.log('allOptions', this.props.allOptions);
 		if (this.props.allOptions.length === 0 && nextProps.allOptions.length > 0) {
 			this.props.reportMatches(nextProps.allOptions);
 		}

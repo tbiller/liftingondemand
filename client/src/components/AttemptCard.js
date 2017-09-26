@@ -16,7 +16,7 @@ class AttemptCard extends Component {
 		isActive,
 		onClick } = this.props;
 		if (!attempt) return null;
-		console.log('renderinrg attempt card');
+		//console.log('renderinrg attempt card');
 		return (
 			<div ref={cardRef} className='attempt-card' onClick={onClick}>
 				<AttemptCardHeader 

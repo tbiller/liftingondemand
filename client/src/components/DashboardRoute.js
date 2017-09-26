@@ -27,7 +27,7 @@ class DashboardRoute extends Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		if (!deepEqual(prevState.filters, this.state.filters)) {
-			console.log('fetching new data');
+			//console.log('fetching new data');
 			this.fetchNewData();
 		}
 	}

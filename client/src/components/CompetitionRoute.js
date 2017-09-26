@@ -116,7 +116,7 @@ class CompetitionRoute extends Component {
 	getCompData = (competition, division, weightClass) => {
 		if (!competition) return false;
 
-		console.log('fetching data');
+		//console.log('fetching data');
 
 		const params = {
 			_competition: competition._id,
@@ -129,8 +129,8 @@ class CompetitionRoute extends Component {
 		fetch('/appearances?' + queryString.stringify(params))
 			.then(res => res.json())
 			.then(json => {
-				console.log("yooo");
-				console.log(json)
+				//console.log("yooo");
+				//console.log(json)
 				const lifterAppearances = json.map((appearanceJson) => new Appearance(appearanceJson));
 				this.sortedAttemptData = this.sortAttempts(lifterAppearances);
 				this.addFlightsToAttempts(this.sortedAttemptData);
@@ -194,7 +194,7 @@ class CompetitionRoute extends Component {
 	}
 
 	sortAttempts = (lifterAppearances) => {
-		console.log('sorting attempt data');
+		//console.log('sorting attempt data');
 
 		// add all attempts to array based on videoID
 		const attemptData = {};
@@ -213,8 +213,8 @@ class CompetitionRoute extends Component {
 					}
 				}
 			} else {
-				// console.log('no video id for lifter');
-				// console.log(lifter);
+				// //console.log('no video id for lifter');
+				// //console.log(lifter);
 			}
 		});
 
@@ -315,7 +315,7 @@ class CompetitionRoute extends Component {
 		if (!this.state.currentVideoId) return null;
 
 		if (!this.sortedAttemptData[this.state.currentVideoId] || !this.sortedAttemptData[this.state.currentVideoId].length) {
-			console.log('no sortedAttemptData');
+			//console.log('no sortedAttemptData');
 			return null;
 		}
 
@@ -346,7 +346,7 @@ class CompetitionRoute extends Component {
 	}
 
 	lifterClick = (appearance) => {
-		// console.log(lifter);
+		// //console.log(lifter);
 		Serializer.navigateTo(this.props.history, '/lifter/' + appearance._lifter._id);
 		return false;
 		const lifterIdx = this.state.watchContinuousLifters.indexOf(appearance);
@@ -427,7 +427,7 @@ class CompetitionRoute extends Component {
 
 
 	selectFirstLifter = () => {
-		console.log('selecting first lifter');
+		//console.log('selecting first lifter');
 
 		// find first lifter in last flight
 		let firstAttempt = null;
@@ -482,7 +482,7 @@ class CompetitionRoute extends Component {
 			this.edits[key][attemptName]['lastNameTime'] = +(seconds).toFixed(0);
 		}
 
-		console.log(JSON.stringify(this.edits));
+		//console.log(JSON.stringify(this.edits));
 	}
 
 
@@ -554,7 +554,7 @@ class CompetitionRoute extends Component {
 	}
 
 	starCurrentAttempt = () => {
-		console.log('in starCurrentAttempt');
+		//console.log('in starCurrentAttempt');
 		this.props.starAttempt(this.state.currentAttempt);
 		this.setState({currentAttempt: this.state.currentAttempt});
 	}

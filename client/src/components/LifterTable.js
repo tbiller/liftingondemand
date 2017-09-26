@@ -89,8 +89,8 @@ export default function({
 		return a - b;
 	}
 
-	console.log('rerendering with currentAttempt:')
-	console.log(currentAttempt);
+	//console.log('rerendering with currentAttempt:')
+	//console.log(currentAttempt);
 	function getTdProps(state, rowInfo, column, instance) {
 		const attemptCellPrefix = 'attempts.';
 		const lifterAppearance = rowInfo.original;
@@ -113,18 +113,18 @@ export default function({
 					className += ' comp-name';
 				}
 				if (currentAttempt) {
-					// console.log(currentAttempt._appearance);
-					// console.log(lifterAppearance);
+					// //console.log(currentAttempt._appearance);
+					// //console.log(lifterAppearance);
 
 					if (currentAttempt._appearance._id === lifterAppearance._id) {
-						console.log('addingcurrentlift')
+						//console.log('addingcurrentlift')
 						className += ' current-lifter';
 						if (column.id.substr(attemptCellPrefix.length) === currentAttempt.attemptName) {
 							className += ' current-lift';
 						}
 					}
 				} else {
-					console.log('no currentattempt');
+					//console.log('no currentattempt');
 				}
 
 				

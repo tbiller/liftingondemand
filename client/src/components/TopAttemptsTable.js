@@ -8,7 +8,7 @@ export default function({
 }) {
 	const dateOptions = {year: 'numeric', month: 'numeric'};
 	const minAttemptWidth = 50;
-	console.log(attempts);
+	//console.log(attempts);
 
 	const columns = [
 		{Header: 'Stars', accessor: 'numStars'},
@@ -23,7 +23,7 @@ export default function({
 		const attempt = rowInfo.original;
 		return {
 			onClick: (e) => {
-				console.log(attempt);
+				//console.log(attempt);
 				attemptClick(attempt);
 			}
 		};

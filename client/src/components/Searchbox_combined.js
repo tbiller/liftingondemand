@@ -10,7 +10,7 @@ class Searchbox extends Component {
 	}
 
 	componentDidUpdate() {
-		// console.log(this.matchingModels(this.state.value));
+		// //console.log(this.matchingModels(this.state.value));
 	}
 
 	handleChange = (e) => {
@@ -38,11 +38,11 @@ class Searchbox extends Component {
 			regs.push(new RegExp('(?:^| )(' + strParts[i] + ')', 'i'));
 		}
 		
-		console.log(this.props.competitions);
+		//console.log(this.props.competitions);
 		if (this.props.lifters) matchingLifters = this.performRegex(this.props.lifters, 'name', regs);
 		if (this.props.competitions) matchingCompetitions = this.performRegex(this.props.competitions, 'name', regs);
 		
-		console.log(matchingCompetitions)
+		//console.log(matchingCompetitions)
 
 		return {
 			matchingLifters,
@@ -113,7 +113,7 @@ class Searchbox extends Component {
 
 
 	handleBlur = (e) => {
-		// console.log('blurred');
+		// //console.log('blurred');
 		window.setTimeout(() => {this.setState({'value': ''})}, 400);
 	}
 

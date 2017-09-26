@@ -22,7 +22,7 @@ export default function({
 	}
 
 	function createOptions(vals, currentValue, suffix='', clearDefaultLabel=false, allowNoChoice=true) {
-		console.log(currentValue);
+		//console.log(currentValue);
 		const selectOptions = [];
 		let selectedValue = null;
 

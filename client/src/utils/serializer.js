@@ -69,7 +69,7 @@ const updateUrlParams = (history, location, newParams, addToHistory=true) => {
 
 const navigateTo = (history, pathname, params, addToHistory=true) => {
 	const search = params ? '?' + queryString.stringify(serializeParams(params)) : '';
-	console.log(search);
+	//console.log(search);
 	if (addToHistory) {
 		history.push({pathname, search});
 	} else {

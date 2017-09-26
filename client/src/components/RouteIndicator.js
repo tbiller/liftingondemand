@@ -10,7 +10,7 @@ export default withRouter(function({location}) {
 		['Lifters', 'lifter', 'lifters'],
 		['About', 'about', 'about']
 	];
-	console.log(location);
+	//console.log(location);
 	const routeOptions = [];
 	const path = location.pathname.split('/')[1].toLowerCase();
 	routes.forEach((route) => {

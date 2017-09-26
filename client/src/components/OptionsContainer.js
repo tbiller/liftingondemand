@@ -64,7 +64,7 @@ export default function({activeOpts, optionClick, weightClasses, divisions, weig
 	const weightClassGroups = [];
 	let i = 0;
 	if (weightClasses) {
-		console.log(weightClasses);
+		//console.log(weightClasses);
 		weightClasses.forEach((weightClassGroup) => {
 			weightClassGroups.push(
 				<div key={i++} className='specific-options'>{createOptions(weightClassGroup, 'weightClass')}</div>

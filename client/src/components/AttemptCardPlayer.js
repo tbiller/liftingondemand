@@ -35,7 +35,7 @@ class AttemptCardPlayer extends Component {
 	}
 
 	replayAttempt = () => {
-		console.log('in replay attempt')
+		//console.log('in replay attempt')
 		this.setState({
 			attemptToBeSelected: this.props.attempt
 		});
@@ -52,7 +52,7 @@ class AttemptCardPlayer extends Component {
 			isActive,
 		} = this.props;
 
-		console.log('atttemptforwatchmore', this.props.attempt);
+		//console.log('atttemptforwatchmore', this.props.attempt);
 
 		return (
 			<div className='player-container'>

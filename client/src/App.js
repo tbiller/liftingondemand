@@ -40,7 +40,7 @@ class App extends Component {
 		// this.app = ReactDOM.findDOMNode(this.refs.content);
 		window.addEventListener('scroll', this.handleScroll);
 		this.setState({loadingCompetitions: true, loadingLifters: true});
-		console.log(this.props);
+		//console.log(this.props);
 		fetch('/competitions')
 			.then(res => res.json())
 			.then(json => {
@@ -93,7 +93,7 @@ class App extends Component {
 	}
 
 	starAttempt = (attempt) => {
-		console.log('in starAttempt');
+		//console.log('in starAttempt');
 		const { cookies } = this.props;
 		const starredAttempts = cookies.get('starredAttempts');
 		let newStarredAttempts = [];
@@ -101,19 +101,19 @@ class App extends Component {
 		const idx = starredAttempts.indexOf(attempt._id);
 		
 		if (idx !== -1) {
-			console.log('unstarring');
+			//console.log('unstarring');
 			action = 'unstar';
 			attempt.numStars -= 1;
 			if (attempt.numStars < 0) attempt.numStars = 0;
 			newStarredAttempts = starredAttempts.slice();
 			newStarredAttempts.splice(idx, 1);
-			console.log(starredAttempts);
+			//console.log(starredAttempts);
 		} else {
 			action = 'star'
 			attempt.numStars += 1;
 			newStarredAttempts = starredAttempts.concat([attempt._id]);
 		}
-		console.log('newStarredAttempts', newStarredAttempts);
+		//console.log('newStarredAttempts', newStarredAttempts);
 
 		cookies.set('starredAttempts', newStarredAttempts, { path: '/' });
 		this.setState({'starredAttempts': newStarredAttempts});

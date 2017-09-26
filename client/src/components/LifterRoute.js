@@ -120,7 +120,7 @@ class LifterRoute extends Component {
 
 
 	attemptClick = (attempt) => {
-		console.log(attempt);
+		//console.log(attempt);
 		this.selectLiftAttempt({attempt})
 	}
 
@@ -182,7 +182,7 @@ class LifterRoute extends Component {
 
 
 	playerUpdated = () =>{
-		console.log('player updated');
+		//console.log('player updated');
 		this.setState({
 			attemptToBeSelected: null,
 			secondsToAdvance: null,

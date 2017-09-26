@@ -97,7 +97,7 @@ export default function({
 	}
 
 	function orderedResults() {
-		console.log('resorting');
+		//console.log('resorting');
 
 		const unorderedResults = [];
 		for (let lifterName in results) {

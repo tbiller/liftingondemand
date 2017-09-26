@@ -57,12 +57,12 @@ class AttemptList extends Component {
 	}
 
 	setActive(attempt) {
-		console.log('in active');
+		//console.log('in active');
 		this.setState({activeAttempt: attempt});
 	}
 
 	render() {
-		console.log('rendering attempt list')
+		//console.log('rendering attempt list')
 
 		if (this.props.loading === true) {
 			return (
@@ -82,7 +82,7 @@ class AttemptList extends Component {
 				<AttemptCard 
 					cardRef={(cardEl) => {
 						if(cardEl) this.attemptCardEls.push({attempt: attempt, cardEl: cardEl});
-						console.log(this.attemptCardEls);
+						//console.log(this.attemptCardEls);
 					}}
 					attempt={attempt} 
 					starAttempt={this.props.starAttempt}
