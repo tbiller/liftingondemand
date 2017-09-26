@@ -33,6 +33,8 @@ mongoose.connect('mongodb://admintb:EKTtesDH9Eyx@ds161443.mlab.com:61443/powerli
 
 // All remaining requests return the React app, so it can handle routing.
 app.get('*', function(request, response) {
+	console.log('got it')
+	console.log(request);
   response.sendFile(path.join(__dirname, './client/build', 'index.html'));
 });
 

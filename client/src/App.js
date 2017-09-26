@@ -117,7 +117,7 @@ class App extends Component {
 
 		cookies.set('starredAttempts', newStarredAttempts, { path: '/' });
 		this.setState({'starredAttempts': newStarredAttempts});
-		fetch('/attempt/' +  attempt._id + '/' + action, { method: 'POST' });
+		fetch('/api/attempt/' +  attempt._id + '/' + action, { method: 'POST' });
 	}
 
 	render() {
