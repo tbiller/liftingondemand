@@ -69,8 +69,7 @@ export default class YoutubePlayer extends Component {
 			this.player.playVideo();
 		}
 
-		if (muteVideo) this.player.mute();
-			
+		if (muteVideo && this.player.isMuted() === undefined) this.player.mute();
 	}
 
 	selectLiftAttempt = (attempt, boolStopVideo, muteVideo=true) => {
