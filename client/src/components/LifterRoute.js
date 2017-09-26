@@ -21,7 +21,7 @@ class LifterRoute extends Component {
 
 		this.state = {
 			lifter: null,
-			loading: false,
+			loading: true,
 			attemptToBeSelected: null,
 			secondsToAdvance: null,
 			currentAttempt: null,
@@ -260,6 +260,7 @@ class LifterRoute extends Component {
 				        	recordTime={this.timeChange}
 				        	resetPlayer={this.state.resetPlayer}
 				        	boolStopVideo={this.state.boolStopVideo}
+				        	showMessage={!this.state.loading}
 				        />
 				    </PlayerControls>
 				   

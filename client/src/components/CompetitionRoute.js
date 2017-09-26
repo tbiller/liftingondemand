@@ -611,6 +611,7 @@ class CompetitionRoute extends Component {
 								recordTime={this.timeChange}
 								boolStopVideo={this.state.boolStopVideo}
 								editMode={this.state.editMode}
+								showMessage={!this.state.loading}
 								recordEdit={this.recordEdit}
 								resetPlayer={this.state.resetPlayer}
 							/>
