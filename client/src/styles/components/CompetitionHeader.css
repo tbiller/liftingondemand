@@ -10,11 +10,12 @@
 	z-index: 15;
 	font-size: 0.9em;
     color: #999;
+    background-color: #fbfbfb;
 }
 
 .competition-header  .left {
     position: absolute;
-    left: 10px;
+    left: 12px;
 }
 
 .competition-header .competition-title {
@@ -25,7 +26,7 @@
 
 .competition-header .right {
 	position: absolute;
-	right: 0px;
+	right: 6px;
 }
 
 .competition-header .options {

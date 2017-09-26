@@ -57,7 +57,8 @@ class CompetitionRoute extends Component {
 			prevState.division !== this.state.division || 
 			prevState.weightClass !== this.state.weightClass) {
 			const addToHistory = !!prevState.division && !!prevState.weightClass;
-		// 	this.getCompData(this.state.competition, this.state.division, this.state.weightClass);
+			
+			this.getCompData(this.state.competition, this.state.division, this.state.weightClass);
 		 	Serializer.updateUrlParams(this.props.history, this.props.location,
 		 		{weightClass: this.state.weightClass, division: this.state.division}, addToHistory);
 		}
@@ -87,16 +88,8 @@ class CompetitionRoute extends Component {
 			activeCompetition = this.state.competition;
 		}
 
-
-		// if (newlyActiveCompetition && this.state.competition) {
-		// 	// new competition, reset to default 
-		// 	var { division, weightClass } = newlyActiveCompetition.options['default'];
-		// } else {
-		// 	// no change in competition, or new competition but no previous one (page refresh)
 		division = queryParams.division;
 		weightClass = queryParams.weightClass;
-
-		console.log(activeCompetition);
 
 		if (activeCompetition &&
 			(!weightClass || !division)) {
@@ -104,11 +97,15 @@ class CompetitionRoute extends Component {
 			weightClass = activeCompetition.options['default'].weightClass;
 		}
 
+
+
 		if (activeCompetition !== this.state.competition ||
 			division !== this.state.division ||
 			weightClass !== this.state.weightClass) {
-			this.getCompData(activeCompetition, division, weightClass)
+			// this.getCompData(activeCompetition, division, weightClass)
+			// this.setState({division, weightClass});
 		}
+
 		if (activeCompetition) {
 			if (division !== this.state.division) this.setState({division});
 			if (weightClass !== this.state.weightClass) this.setState({weightClass});
@@ -406,9 +403,12 @@ class CompetitionRoute extends Component {
 	// }
 
 	optionChange = (optType, val) => {
+		
+
 		this.setState({
 			[optType]: val
 		});
+
 	}
 
 	nextLiftAttemptName = (liftAttemptName, increment=1) => {

@@ -396,6 +396,7 @@ a.visible-link {
   justify-content: center;
   min-height: 38px;
   color: #333;
+  background-color: #fbfbfb;
   padding: 4px 4px 0px 4px;
   // border-bottom: 1px solid #dadada;
 
@@ -519,6 +520,7 @@ a.visible-link {
     .player-center {
       display: flex;
       flex-direction: column;
+      background-color: black;
     }
     .controls-and-player {
       padding: 0px 0px 4px 0px;

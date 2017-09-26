@@ -225,6 +225,7 @@ a.visible-link:hover {
   justify-content: center;
   min-height: 38px;
   color: #333;
+  background-color: #fbfbfb;
   padding: 4px 4px 0px 4px; }
   .lifter-header .competition-date {
     position: absolute;
@@ -268,7 +269,8 @@ a.visible-link:hover {
 
 .player-center {
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+  background-color: black; }
 
 .controls-and-player {
   padding: 0px 0px 4px 0px;
