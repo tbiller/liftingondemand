@@ -217,7 +217,7 @@ a.visible-link:hover {
 .content {
   padding-top: 41px; }
 
-.competition-header, .lifter-header {
+.lifter-header {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -226,26 +226,26 @@ a.visible-link:hover {
   min-height: 38px;
   color: #333;
   padding: 4px 4px 0px 4px; }
-  .competition-header .competition-date, .lifter-header .competition-date {
+  .lifter-header .competition-date {
     position: absolute;
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 0.9em;
     color: #999; }
-  .competition-header .title-and-indicator, .lifter-header .title-and-indicator {
+  .lifter-header .title-and-indicator {
     display: flex;
     flex-direction: column; }
-    .competition-header .title-and-indicator .route-indicator, .lifter-header .title-and-indicator .route-indicator {
+    .lifter-header .title-and-indicator .route-indicator {
       text-align: center;
       text-transform: uppercase;
       margin-bottom: -6px;
       font-size: 0.8em;
       color: #00A8E8; }
-    .competition-header .title-and-indicator .competition-title, .competition-header .title-and-indicator .lifter-name, .lifter-header .title-and-indicator .competition-title, .lifter-header .title-and-indicator .lifter-name {
+    .lifter-header .title-and-indicator .competition-title, .lifter-header .title-and-indicator .lifter-name {
       font-weight: bold;
       font-size: 30px; }
-  .competition-header .yob, .lifter-header .yob {
+  .lifter-header .yob {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -258,12 +258,12 @@ a.visible-link:hover {
     justify-content: flex-end;
     align-items: center;
     cursor: pointer; }
-    .competition-header .yob .arrow, .lifter-header .yob .arrow {
+    .lifter-header .yob .arrow {
       width: 25px;
       height: 25px;
       transition: 0.2s;
       transform: rotate(-90deg); }
-      .competition-header .yob .arrow.rotated, .lifter-header .yob .arrow.rotated {
+      .lifter-header .yob .arrow.rotated {
         transform: rotate(0deg); }
 
 .player-center {
@@ -271,12 +271,17 @@ a.visible-link:hover {
   flex-direction: column; }
 
 .controls-and-player {
-  padding: 0px 0px 0px 0px;
+  padding: 0px 0px 4px 0px;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: black;
+  background-color: white;
+  color: rgba(255, 255, 255, 0.6);
   text-align: center; }
+  .controls-and-player.dark-text {
+    color: rgba(0, 0, 0, 0.6); }
+    .controls-and-player.dark-text .title {
+      color: rgba(0, 0, 0, 0.6); }
   .controls-and-player .youtube-pane {
     width: 640px;
     height: 360px;
@@ -296,11 +301,11 @@ a.visible-link:hover {
   .controls-and-player .controls {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    color: rgba(255, 255, 255, 0.6); }
-    .controls-and-player .controls .attempt {
-      margin-top: 4px;
-      font-size: 0.9em; }
+    width: 140px;
+    min-width: 95px; }
+    .controls-and-player .controls .lifter-name, .controls-and-player .controls .attempt {
+      font-size: 0.9em;
+      margin-top: 7px; }
     .controls-and-player .controls .arrow {
       height: 15px;
       margin-right: -8px; }
@@ -312,16 +317,18 @@ a.visible-link:hover {
     background-color: rgba(0, 0, 0, 0);
     border-top: 1px solid #dadada;
     font-size: 0.8em;
-    padding: 4px;
+    padding: 2px;
+    padding-left: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start; }
     .controls-and-player .lift-button.clickable:hover, .controls-and-player .seek-button.clickable:hover {
       cursor: pointer;
-      background-color: rgba(255, 255, 255, 0.2); }
+      font-weight: bold; }
     .controls-and-player .lift-button.right, .controls-and-player .seek-button.right {
-      align-items: flex-end; }
+      align-items: flex-end;
+      padding-right: 10px; }
   .controls-and-player .lift-button {
     position: relative;
     flex: 0; }
@@ -384,7 +391,7 @@ a.visible-link:hover {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 3px 0px; }
+    margin: 6px 0px 3px 0px; }
     .leaderboard .leaderboard-header .leaderboard-title {
       font-size: 18px;
       font-weight: bold;
@@ -478,7 +485,7 @@ a.visible-link:hover {
     background-color: #dadada; }
   .rt-table .rt-td.lift.has-frame:hover {
     cursor: pointer;
-    background-color: #eee; }
+    background-color: white; }
   .rt-table .rt-tr.current-lifter {
     border: 2px solid black;
     border-width: 2px 0px;
@@ -488,9 +495,11 @@ a.visible-link:hover {
       .rt-table .rt-tr.current-lifter .rt-td.current-lift span {
         color: white;
         font-weight: bold; }
+      .rt-table .rt-tr.current-lifter .rt-td.current-lift:hover {
+        background-color: black; }
   .rt-table .rt-td.lifter-name:hover, .rt-table .rt-td.comp-name:hover {
     cursor: pointer;
-    background-color: #efefef;
+    background-color: white;
     color: #00A8E8; }
   .rt-table span.weight-cell, .rt-table span.total {
     display: block;

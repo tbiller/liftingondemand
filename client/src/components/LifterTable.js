@@ -160,6 +160,7 @@ export default function({
 
 	return (
 		<ReactTable
+			className='lifter-table'
 			data={appearances.sort(sortComps)}
 			columns={columns} 
 			sortable={false}

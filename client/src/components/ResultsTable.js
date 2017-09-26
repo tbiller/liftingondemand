@@ -19,7 +19,7 @@ export default function({
 }) {
 	const minAttemptWidth = 50;
 	const live = (leaderboardType === 'live');
-	console.log(results);
+	console.log('RENDER: Results Table');
 	// if (currentLifter) {
 	// 	var currentAttempt = currentLifter.attempts[currentAttemptName];
 	// }

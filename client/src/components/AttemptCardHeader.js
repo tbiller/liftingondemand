@@ -35,11 +35,17 @@ class AttemptCardHeader extends Component {
 						<div className='lb-weight'>{attempt.lbString()}</div>
 					</div>
 					<div className='right-container'>
+					 	<div className='weightclass-division'>
+					 		{
+							attempt._appearance.weightclassLong() + ' - ' + 
+							attempt._appearance.divisionLong() }
+						</div>
 						{attempt.records &&
 						    <div className='records'>
 						    	{attempt.recordsLong()}
 						    </div>
 					    }
+
 					    <AttemptStars attempt={attempt} starAttempt={(e)=> {
 							starAttempt(attempt);
 							e.stopPropagation();

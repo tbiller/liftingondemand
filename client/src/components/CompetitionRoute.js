@@ -33,7 +33,8 @@ class CompetitionRoute extends Component {
 			currentVideoId: null,
 			leaderboardType: 'final',
 			watchContinuousLifters: [],
-			loading: false
+			loading: true,
+			dummyContainerHeight: 0
 		};
 
 		this.liftsInOrder = ['Squat 1', 'Squat 2', 'Squat 3', 'Bench 1', 'Bench 2', 'Bench 3',
@@ -43,62 +44,75 @@ class CompetitionRoute extends Component {
 
 
 	componentDidMount = () => {
-		this.updateBasedOnNewProps(this.props);
+		this.updateBasedOnURL(this.props);
 		window.addEventListener('scroll', this.handleScroll);
 	}
 
 	componentWillReceiveProps = (nextProps) => {
-		this.updateBasedOnNewProps(nextProps);
+		this.updateBasedOnURL(nextProps);
 	}
 
 	componentDidUpdate = (prevProps, prevState) => {
 		if (prevState.competition !== this.state.competition ||
 			prevState.division !== this.state.division || 
 			prevState.weightClass !== this.state.weightClass) {
-			this.getCompData(this.state.competition, this.state.division, this.state.weightClass);
+			const addToHistory = !!prevState.division && !!prevState.weightClass;
+		// 	this.getCompData(this.state.competition, this.state.division, this.state.weightClass);
 		 	Serializer.updateUrlParams(this.props.history, this.props.location,
-		 		{weightClass: this.state.weightClass, division: this.state.division});
+		 		{weightClass: this.state.weightClass, division: this.state.division}, addToHistory);
 		}
-	} 
+	}
 
 	componentWillUnmount() {
 	  window.removeEventListener('scroll', this.handleScroll);
 	}
 
-	updateBasedOnNewProps = (props) => {
+	updateBasedOnURL = (props) => {
 		const competitionName = props.match.params.competitionName;
+		let activeCompetition, division, weightClass;
 		const queryParams = Serializer.deserializeParams(queryString.parse(props.location.search));
-		let newlyActiveCompetition;
 
-		// let division, weightClass;
-
-		for (let i = 0; i < props.competitions.length; i++) {
-			const competition = props.competitions[i];
-			if (competition.name === competitionName) {
-				if (competition !== this.state.competition) {
-					newlyActiveCompetition = competition;
-					this.setState({competition});
-					props.sendData({activeCompetitionId: competition._id});
+		if (!this.state.competition) {
+			for (let i = 0; i < props.competitions.length; i++) {
+				const competition = props.competitions[i];
+				if (competition.name === competitionName) {
+					if (competition !== this.state.competition) {
+						activeCompetition = competition;
+						this.setState({competition});
+					}
+					break;
 				}
-				break;
 			}
-		}
-
-		if (newlyActiveCompetition && this.state.competition) {
-			// new competition, reset to default 
-			var { division, weightClass } = newlyActiveCompetition.options['default'];
 		} else {
-			// no change in competition, or new competition but no previous one (page refresh)
-			var { division, weightClass } = queryParams;
-			//TODO check if these params are valid for this competition
-			if (newlyActiveCompetition && (!division || !weightClass)) {
-				division = newlyActiveCompetition.options.default.division;
-				weightClass = newlyActiveCompetition.options.default.weightClass;
-			}
+			activeCompetition = this.state.competition;
 		}
 
-		if (division !== this.state.division) this.setState({division});
-		if (weightClass !== this.state.weightClass) this.setState({weightClass});
+
+		// if (newlyActiveCompetition && this.state.competition) {
+		// 	// new competition, reset to default 
+		// 	var { division, weightClass } = newlyActiveCompetition.options['default'];
+		// } else {
+		// 	// no change in competition, or new competition but no previous one (page refresh)
+		division = queryParams.division;
+		weightClass = queryParams.weightClass;
+
+		console.log(activeCompetition);
+
+		if (activeCompetition &&
+			(!weightClass || !division)) {
+			division = activeCompetition.options['default'].division;
+			weightClass = activeCompetition.options['default'].weightClass;
+		}
+
+		if (activeCompetition !== this.state.competition ||
+			division !== this.state.division ||
+			weightClass !== this.state.weightClass) {
+			this.getCompData(activeCompetition, division, weightClass)
+		}
+		if (activeCompetition) {
+			if (division !== this.state.division) this.setState({division});
+			if (weightClass !== this.state.weightClass) this.setState({weightClass});
+		}
 		this.setState({editMode: queryParams.editMode === 'true'});
 	}
 
@@ -113,8 +127,6 @@ class CompetitionRoute extends Component {
 			weightClass: weightClass
 		};
 
-		console.log(params);
-
 		this.setState({loading: true});
 
 		fetch('/appearances?' + queryString.stringify(params))
@@ -126,7 +138,6 @@ class CompetitionRoute extends Component {
 				this.sortedAttemptData = this.sortAttempts(lifterAppearances);
 				this.addFlightsToAttempts(this.sortedAttemptData);
 				this.setState({ lifterAppearances, loading: false});
-				
 				this.receivedNewData(lifterAppearances);
 			});
 	}
@@ -155,17 +166,15 @@ class CompetitionRoute extends Component {
 	handleScroll = (event) => {
 		if (this.state.loading === true) return false;
 		let scrollTop = event.srcElement.body.scrollTop;
-        // let itemTranslate = Math.min(0, scrollTop/3 - 60);
-        if (scrollTop >= 90) {
-        	this.setState({dummyContainerHeight: this.refs.pinOnScroll.clientHeight});
-        	this.refs.pinOnScroll.className = 'pinOnScroll pinned';
-        	// this.refs.dummyContainer.clientHeight = this.dummyContainerHeight;
-        } else {
+        if (scrollTop >= 70) {
+        	if (this.state.dummyContainerHeight === 0) {
+	        	this.setState({dummyContainerHeight: this.refs.pinOnScroll.clientHeight});
+	        	this.refs.pinOnScroll.className = 'pinOnScroll pinned';
+	        }
+        } else if (this.state.dummyContainerHeight > 0) {
         	this.setState({dummyContainerHeight: 0});
         	this.refs.pinOnScroll.className = 'pinOnScroll';
         }
-        console.log(scrollTop);
-        // console.log(this.dummyContainerHeight);
 	}
 
 
@@ -218,7 +227,7 @@ class CompetitionRoute extends Component {
 			if (attemptData.hasOwnProperty(videoId)) {
 				// sort based on lights frame
 				attemptData[videoId].sort((attemptA, attemptB) => {
-					return attemptA.lastNameFrame - attemptB.lastNameFrame;
+					return attemptA.lastNameTime - attemptB.lastNameTime;
 				});
 			}
 		}
@@ -313,13 +322,14 @@ class CompetitionRoute extends Component {
 			return null;
 		}
 
+		seconds += 4;
+
 		const attemptData = this.sortedAttemptData[this.state.currentVideoId];  
-		const frame = this.frameFromSeconds(seconds + 4);
 		for (let i = 1; i < attemptData.length; i++) {
 			// debugger;
 			let attempt = attemptData[i];
-			if (attempt.firstNameFrame > frame) {
-				if (attempt.frameWhenClickedOn() <= frame) {
+			if (attempt.firstNameTime > seconds) {
+				if (attempt.frameWhenClickedOn() <= seconds) {
 					return attempt;
 				}
 				return attemptData[i-1];
@@ -327,11 +337,11 @@ class CompetitionRoute extends Component {
 		}
 
 		const lastLiftAttempt = attemptData[attemptData.length-1];
-		const lastFrameOfLifter = lastLiftAttempt.lightsFrame ? 
-			lastLiftAttempt.lightsFrame + 20 * 30 :
-			lastLiftAttempt.lastNameFrame + 40 * 30; // TODO; this.framerate();
+		const lastFrameOfLifter = lastLiftAttempt.lightsTime ? 
+			lastLiftAttempt.lightsTime + 20 :
+			lastLiftAttempt.lastNameTime + 40; // TODO; this.framerate();
 
-		if (frame > lastFrameOfLifter) {
+		if (seconds > lastFrameOfLifter) {
 			this.setState({leaderboardType: 'final'});
 			return null;
 		}
@@ -385,14 +395,20 @@ class CompetitionRoute extends Component {
 		this.incrementLifter(0, autoPlayLifters);
 	}
 
-	optionClick = (optType, val) => {
+	// optionClick = (optType, val) => {
+	// 	this.setState({
+	// 		[optType]: val
+	// 	});
+
+	// 	const timeout = 300;
+	// 	window.clearTimeout(this.optionCloseTimeout);
+	// 	this.optionCloseTimeout = window.setTimeout(this.closeOptions, timeout);
+	// }
+
+	optionChange = (optType, val) => {
 		this.setState({
 			[optType]: val
 		});
-
-		const timeout = 300;
-		window.clearTimeout(this.optionCloseTimeout);
-		this.optionCloseTimeout = window.setTimeout(this.closeOptions, timeout);
 	}
 
 	nextLiftAttemptName = (liftAttemptName, increment=1) => {
@@ -431,7 +447,7 @@ class CompetitionRoute extends Component {
 		if (firstAttempt == null) {
 			this.setState({resetPlayer: true});
 		}
-		this.selectLiftAttempt({attempt: firstAttempt, boolStopVideo: true});
+		this.selectLiftAttempt({attempt: firstAttempt, boolStopVideo: false});
 	}
 
 	toggleOptions = (boolOpen) => {
@@ -448,7 +464,7 @@ class CompetitionRoute extends Component {
 		this.toggleOptions(false);
 	}
 
-	recordEdit = (frameType, seconds) => {
+	recordEdit = (timeType, seconds) => {
 		const currentLifter = this.state.currentAttempt._lifter;
 		const key = currentLifter.name + '_' + this.state.weightClass + '_' + this.state.division;
 		const attemptName = this.state.currentAttempt.attemptName;
@@ -461,9 +477,9 @@ class CompetitionRoute extends Component {
 			this.edits[key][attemptName] = {};
 		}
 
-		this.edits[key][attemptName][frameType] = +(seconds * this.framerate()).toFixed(0);
-		if (frameType === 'firstNameFrame' && !this.edits[key][attemptName]['lastNameFrame']) {
-			this.edits[key][attemptName]['lastNameFrame'] = +(seconds * this.framerate()).toFixed(0);
+		this.edits[key][attemptName][timeType] = +(seconds).toFixed(0);
+		if (timeType === 'firstNameTime' && !this.edits[key][attemptName]['lastNameTime']) {
+			this.edits[key][attemptName]['lastNameTime'] = +(seconds).toFixed(0);
 		}
 
 		console.log(JSON.stringify(this.edits));
@@ -481,13 +497,13 @@ class CompetitionRoute extends Component {
 			currentVideoId: attempt ? attempt._appearance.videoId : this.state.currentVideoId
 		});
 
-		const { history, location } = this.props;
+		// const { history, location } = this.props;
 
-		if (attempt) {
-			Serializer.updateUrlParams(history, location, {'lifter': attempt._lifter.name ? attempt._lifter.name : '', 'attempt': attempt.attemptName || ''}, false);
-		} else {
-			Serializer.updateUrlParams(history, location, {'lifter': null, 'attempt': null}, null);
-		}
+		// if (attempt) {
+		// 	Serializer.updateUrlParams(history, location, {'lifter': attempt._lifter.name ? attempt._lifter.name : '', 'attempt': attempt.attemptName || ''}, false);
+		// } else {
+		// 	Serializer.updateUrlParams(history, location, {'lifter': null, 'attempt': null}, null);
+		// }
  	}
 
 	selectLiftAttempt = ({attempt, watchContinuous, boolStopVideo=false}) => {
@@ -529,37 +545,6 @@ class CompetitionRoute extends Component {
 		});
 	}
 
-
-	framerate() {
-		if (!this.state.competition) return 30;
-
-		switch (this.state.competition.name) {
-			case 'IPF Classic Worlds 2017':
-				switch (this.state.weightClass + '_' + this.state.division) {
-					case '66_open':
-					case '57_open':
-						return 25;
-					case '83_open':
-						return 29.88;
-					default: 
-						return 30;
-				}
-			case 'IPF Open Worlds 2016':
-				switch (this.state.weightClass + '_' + this.state.division) {
-					case '120+_open':
-						return 29.88;
-					default: 
-						return 30;
-				}
-			default:
-				return 30;
-		}
-	}	
-
-	frameFromSeconds(seconds) {
-		return Math.floor(seconds * this.framerate());
-	}
-
 	playerUpdated = () =>{
 		this.setState({
 			attemptToBeSelected: null,
@@ -575,9 +560,9 @@ class CompetitionRoute extends Component {
 	}
 
 	render() {
-		if (this.state.loading === true) {
-			return <Spinner />
-		}
+		// if (this.state.loading === true) {
+		// 	return <Spinner />
+		// }
 		const weightClassSuffix = this.state.competition ? this.state.competition.options.weightClassSuffix : 'kg';
 	    return (
 			<div onClick={this.closeOptions}>
@@ -588,63 +573,69 @@ class CompetitionRoute extends Component {
 					boolShowOptions={true} 
 					toggleOptions={this.toggleOptions}
 					optionsShown={this.state.optionsShown}
+					optionChange={this.optionChange}
 				/>
-	
-			  
-				<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
-				</div>
-				<div className='pinOnScroll' ref='pinOnScroll'>
-			    	
-					<CurrentLifterInfo 
-			    		currentAttempt={this.state.currentAttempt}
-			    		selectLiftAttempt={this.selectLiftAttempt} 
-			    		activeDivision={this.state.division}
-			    		activeWeightClass={this.state.weightClass}
-			    		weightClassSuffix={weightClassSuffix}
-			    		starAttempt={this.starCurrentAttempt}
-			    		starredAttempts={this.props.starredAttempts}
-			    		lifterRoute={false}
-			    	/>
-				    <PlayerControls 
-						currentAttempt={this.state.currentAttempt}
-			    		sortedAttemptData={this.state.sortedAttemptData}
-			    		selectLiftAttempt={this.selectLiftAttempt}
-						incrementLiftersLift={this.incrementLiftersLift}
-						nextAttempt={this.nextAttempt(1)}
-						previousAttempt={this.nextAttempt(-1)}
-						advanceBySeconds={this.advanceBySeconds}
-						editMode={this.state.editMode}
-						>
-						<YoutubePlayer
-							attemptToBeSelected={this.state.attemptToBeSelected}
-							secondsToAdvance={this.state.secondsToAdvance}
-							boolStopVideo={this.state.boolStopVideo}
-							playerUpdated={this.playerUpdated}
-							recordTime={this.timeChange}
-							framerate={this.framerate()}
-							boolStopVideo={this.state.boolStopVideo}
+		
+				{this.state.loading === false ?
+			  		<div>
+					<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
+					</div>
+					<div className='pinOnScroll' ref='pinOnScroll'>
+				    	
+						<CurrentLifterInfo 
+				    		currentAttempt={this.state.currentAttempt}
+				    		selectLiftAttempt={this.selectLiftAttempt} 
+				    		activeDivision={this.state.division}
+				    		activeWeightClass={this.state.weightClass}
+				    		weightClassSuffix={weightClassSuffix}
+				    		starAttempt={this.starCurrentAttempt}
+				    		starredAttempts={this.props.starredAttempts}
+				    		lifterRoute={false}
+				    	/>
+					    <PlayerControls 
+					    	className='dark-text'
+							currentAttempt={this.state.currentAttempt}
+				    		sortedAttemptData={this.state.sortedAttemptData}
+				    		selectLiftAttempt={this.selectLiftAttempt}
+							incrementLiftersLift={this.incrementLiftersLift}
+							nextAttempt={this.nextAttempt(1)}
+							previousAttempt={this.nextAttempt(-1)}
+							advanceBySeconds={this.advanceBySeconds}
 							editMode={this.state.editMode}
-							recordEdit={this.recordEdit}
-							resetPlayer={this.state.resetPlayer}
-						/>
-				    </PlayerControls>
-				</div>
-				<div ref='continueToScroll'>
-			     	<Leaderboard 
-			     		loading={this.state.loading}
-			     		player={this.player}
-			     		liftsInOrder={this.liftsInOrder}
-			     		leaderboardType={this.state.leaderboardType}
-			     		results={this.state.lifterAppearances}
-			     		tdClick={this.selectLiftAttempt}
-			     		lifterClick={this.lifterClick}
-			     		optionClick={this.optionClick}
-			     		currentAttempt={this.state.currentAttempt}
-			     		autoPlayingLifters={this.state.watchContinuousLifters}
-			     		clearAutoPlayingLifters={this.clearAutoPlayingLifters}
-			     		autoPlayTopLifters={this.autoPlayTopLifters}
-			 		/>
-			 	</div>
+							>
+							<YoutubePlayer
+								attemptToBeSelected={this.state.attemptToBeSelected}
+								secondsToAdvance={this.state.secondsToAdvance}
+								boolStopVideo={this.state.boolStopVideo}
+								playerUpdated={this.playerUpdated}
+								recordTime={this.timeChange}
+								boolStopVideo={this.state.boolStopVideo}
+								editMode={this.state.editMode}
+								recordEdit={this.recordEdit}
+								resetPlayer={this.state.resetPlayer}
+							/>
+					    </PlayerControls>
+					</div>
+					<div ref='continueToScroll'>
+				     	<Leaderboard 
+				     		loading={this.state.loading}
+				     		player={this.player}
+				     		liftsInOrder={this.liftsInOrder}
+				     		leaderboardType={this.state.leaderboardType}
+				     		results={this.state.lifterAppearances}
+				     		tdClick={this.selectLiftAttempt}
+				     		lifterClick={this.lifterClick}
+				     		optionClick={this.optionChange}
+				     		currentAttempt={this.state.currentAttempt}
+				     		autoPlayingLifters={this.state.watchContinuousLifters}
+				     		clearAutoPlayingLifters={this.clearAutoPlayingLifters}
+				     		autoPlayTopLifters={this.autoPlayTopLifters}
+				 		/>
+				 	</div>
+				 	</div>
+				:
+				 	<Spinner />
+				}
 			</div>
 	    );
 	}

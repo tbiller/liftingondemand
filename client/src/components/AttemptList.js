@@ -44,7 +44,7 @@ class AttemptList extends Component {
 			const cardTop = viewportOffset.top;
 			const cardHeight = viewportOffset.height;
 			const cardMiddle = cardTop + cardHeight / 2.0;
-			if (cardMiddle > 0) {
+			if (cardMiddle > 30) {
 				if (attempt !== this.state.activeAttempt) this.setState({activeAttempt: attempt});
 				break;
 			}
@@ -99,7 +99,7 @@ class AttemptList extends Component {
 				{attemptCards.length ?
 					attemptCards
 				:
-					<div className='no-data'>No starred attempts found - go star some!</div>
+					<div className='no-data'>No lifts found</div>
 				}
 			</div>
 		);

@@ -121,20 +121,8 @@ export default function({
 		<div className='leaderboard'>
 			<div className='leaderboard-header'>
 				<div className='leaderboard-title'>Leaderboard</div>
-				<div className='autoplay-buttons'>
-					<div className='button watch-top-three' onClick={() => autoPlayTopLifters(3)}>Watch Top 3</div>
-					{autoPlayingLifters.length > 0 &&
-						<div className='button clear-autoplay' onClick={clearAutoPlayingLifters}>Stop Autoplaying</div>
-					}
-				</div>
-				<div className='legend'>
-					<span className='title'></span>
-					<div className='legend-entries'>
-						<span className='good-lift'>Good Lift</span>
-						<span className='no-lift'>No Lift</span>
-						<span className='no-frame'>No Data</span>
-					</div>
-				</div>
+				
+				
 				<div className='options'>
 					<Option value='final' displayValue='Final Results' optType='leaderboardType' activeValue={leaderboardType} optionClick={optionClick}/>
 					<Option value='live' displayValue='In the Moment' optType='leaderboardType' activeValue={leaderboardType} optionClick={optionClick}/>
@@ -152,5 +140,22 @@ export default function({
 }
 
 
+
+
 			// className={['leaderboard-type', leaderboardType === 'final' ? 'active' : ''].join(' ')}>Final Results</div>
 			// <d<div onClick=iv className={['leaderboard-type', leaderboardType === 'live' ? 'active' : ''].join(' ')}>In the Moment</div>
+// <div className='autoplay-buttons'>
+// 					<div className='button watch-top-three' onClick={() => autoPlayTopLifters(3)}>Watch Top 3</div>
+// 					{autoPlayingLifters.length > 0 &&
+// 						<div className='button clear-autoplay' onClick={clearAutoPlayingLifters}>Stop Autoplaying</div>
+// 					}
+// 				</div>
+
+// <div className='legend'>
+// 					<span className='title'></span>
+// 					<div className='legend-entries'>
+// 						<span className='good-lift'>Good Lift</span>
+// 						<span className='no-lift'>No Lift</span>
+// 						<span className='no-frame'>No Data</span>
+// 					</div>
+// 				</div>

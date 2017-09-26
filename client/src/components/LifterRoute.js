@@ -26,6 +26,7 @@ class LifterRoute extends Component {
 			secondsToAdvance: null,
 			currentAttempt: null,
 			currentVideoId: null,
+			dummyContainerHeight: 0
 		}
 	}
 	componentDidMount = () => {
@@ -81,7 +82,7 @@ class LifterRoute extends Component {
 							if (appearance.attempts.hasOwnProperty(attemptName)) {
 								const attempt = appearance.attempts[attemptName];
 								if (attempt._id === attemptId) {
-									this.selectLiftAttempt({attempt, boolStopVideo: true});
+									this.selectLiftAttempt({attempt, boolStopVideo: false});
 									return;
 								}
 							}
@@ -108,7 +109,7 @@ class LifterRoute extends Component {
 			for (let j = 0; j < liftsInOrder.length; j++) {
 				const attempt = lifter.appearances[i].attempts[liftsInOrder[j]];
 				if (attempt && attempt.hasFrame()) {
-					this.selectLiftAttempt({attempt, boolStopVideo: true})
+					this.selectLiftAttempt({attempt, boolStopVideo: false})
 					return true;
 				}
 			}
@@ -179,42 +180,6 @@ class LifterRoute extends Component {
 		});
 	}
 
-	framerate() {
-		if (!this.state.currentAttempt) return 30;
-		const appearance = this.state.currentAttempt._appearance;
-		const {weightClass, division} = appearance;
-		const compName = appearance._competition.name;
-		// console.log(this.state.currentAttempt._appearance._competition.name);
-		switch (compName) {
-			// console.log(thist.)
-			case 'IPF Classic Worlds 2017':
-				switch (weightClass + '_' + division) {
-					case '66_open':
-					case '57_open':
-
-						return 25;
-					case '83_open':
-						return 29.88;
-					default: 
-						return 30;
-				}
-			case 'IPF Open Worlds 2016':
-				switch (weightClass + '_' + division) {
-					case '120+_open':
-						return 29.88;
-					default: 
-						return 30;
-				}
-			default:
-				return 30;
-		}
-	}	
-
-	frameFromSeconds(seconds) {
-		console.log('selecting', Math.floor(seconds * this.framerate()))
-		return Math.floor(seconds * this.framerate());
-
-	}
 
 	playerUpdated = () =>{
 		console.log('player updated');
@@ -242,20 +207,17 @@ class LifterRoute extends Component {
 	}
 
 	handleScroll = (event) => {
-		console.log('scrolling!');
 		if (this.state.loading === true) return false;
 		let scrollTop = event.srcElement.body.scrollTop;
-        // let itemTranslate = Math.min(0, scrollTop/3 - 60);
-        if (scrollTop >= 95) {
-        	this.setState({dummyContainerHeight: this.refs.pinOnScroll.clientHeight});
-        	this.refs.pinOnScroll.className = 'pinOnScroll pinned';
-        	// this.refs.dummyContainer.clientHeight = this.dummyContainerHeight;
-        } else {
+        if (scrollTop >= 70) {
+        	if (this.state.dummyContainerHeight === 0) {
+	        	this.setState({dummyContainerHeight: this.refs.pinOnScroll.clientHeight});
+	        	this.refs.pinOnScroll.className = 'pinOnScroll pinned';
+	        }
+        } else if (this.state.dummyContainerHeight > 0) {
         	this.setState({dummyContainerHeight: 0});
         	this.refs.pinOnScroll.className = 'pinOnScroll';
         }
-        console.log(scrollTop);
-        // console.log(this.dummyContainerHeight);
 	}
 
 	starCurrentAttempt = () => {
@@ -283,6 +245,7 @@ class LifterRoute extends Component {
 						starAttempt={this.starCurrentAttempt}
 					/>
  					<PlayerControls 
+ 						className='dark-text'
 						currentAttempt={this.state.currentAttempt}
 			    		sortedAttemptData={this.state.sortedAttemptData}
 						incrementLifter={this.incrementLifter}
@@ -295,7 +258,6 @@ class LifterRoute extends Component {
 				        	playerUpdated={this.playerUpdated}
 				        	recordTime={this.timeChange}
 				        	resetPlayer={this.state.resetPlayer}
-				        	framerate={this.framerate()}
 				        	boolStopVideo={this.state.boolStopVideo}
 				        />
 				    </PlayerControls>

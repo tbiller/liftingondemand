@@ -7,9 +7,6 @@ import '../styles/components/AttemptCard.css';
 class AttemptCard extends Component {
 	
 
-	playerUpdated() {
-
-	}
 	
 	render() {
 		const { cardRef,
@@ -29,7 +26,6 @@ class AttemptCard extends Component {
 					/>
 				<AttemptCardPlayer
 					attempt={attempt}
-					playerUpdated={this.playerUpdated}
 					isActive={isActive}
 					/>
 			</div>

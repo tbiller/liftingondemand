@@ -388,7 +388,7 @@ a.visible-link {
   //   justify-content: space-between;
 
 
-.competition-header, .lifter-header {
+.lifter-header {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -521,12 +521,18 @@ a.visible-link {
       flex-direction: column;
     }
     .controls-and-player {
-      padding: 0px 0px 0px 0px;
+      padding: 0px 0px 4px 0px;
       display: flex;
       flex-direction: row;
       justify-content: center;
-      background-color: black;
-      // height: 360px;
+      background-color: white;
+      color: rgba(255,255,255,0.6);
+      &.dark-text {
+        color: rgba(0,0,0, 0.6);
+        .title {
+          color: rgba(0,0,0, 0.6);
+        }
+      }
       text-align: center;
       .youtube-pane {
         width: 640px;
@@ -551,20 +557,23 @@ a.visible-link {
       .controls {
         display: flex;
         flex-direction: column;
-        flex: 1;
-        color: rgba(255,255,255,0.6);
-        // .lifter-name {
-        //   font-size: 1em;
-        //   margin-top: 16px;
-        // }
-        .attempt {
-          margin-top: 4px;
+        // flex: 1;
+        width: 140px;
+        min-width: 95px;
+
+        // max-width: 160px;
+        
+
+
+        .lifter-name, .attempt {
           font-size: 0.9em;
+          margin-top: 7px;
         }
         .arrow {
           // width: 40px;
           height: 15px;
           margin-right: -8px;
+          // margin-left: -3px;
           &.left {
             transform: rotate(180deg);
             margin-left: -8px;
@@ -577,7 +586,8 @@ a.visible-link {
         background-color: rgba(0,0,0,0);
         border-top: 1px solid #dadada;
         font-size: 0.8em;
-        padding: 4px;
+        padding: 2px;
+        padding-left: 10px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -585,11 +595,13 @@ a.visible-link {
 
         &.clickable:hover {
           cursor: pointer;
-          background-color: rgba(255,255,255,0.2);
+          font-weight: bold;
+          // background-color: #efefef;
         }
 
         &.right {
           align-items:flex-end;
+          padding-right: 10px;
         }
 
 
@@ -687,7 +699,7 @@ a.visible-link {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 3px 0px;
+    margin: 6px 0px 3px 0px;
     .leaderboard-title {
       font-size: 18px;
       font-weight: bold;
@@ -744,6 +756,10 @@ a.visible-link {
     font-size: 0.9em;
   }
 
+}
+
+.lifter-table {
+  // margin-top: 4px;
 }
 
 .records {
@@ -860,7 +876,7 @@ a.visible-link {
 
   .rt-td.lift.has-frame:hover{ //, .rt-td.lifter-name:hover {
     cursor: pointer;
-    background-color: #eee;
+    background-color: white;
   }
 
 
@@ -875,6 +891,12 @@ a.visible-link {
       // color: white;
     }
 
+    .rt-td:hover {
+      // background-color: white;
+      // transition:0.2s;
+
+    }
+
     .rt-td.current-lift {
       background-color: black;
       span {
@@ -882,18 +904,17 @@ a.visible-link {
         // text-decoration:none;
         font-weight: bold;
       }
+      &:hover {
+        background-color: black;
+      }
     }
 
-    &:hover {
-      // background-color: $deepBlack;
-      // transition:0.2s;
-
-    }
+    
   }
 
 .rt-td.lifter-name:hover, .rt-td.comp-name:hover {
   cursor: pointer;
-  background-color: #efefef;
+  background-color: white;
   color: $blue1;
   div span, div {
     // color: black;

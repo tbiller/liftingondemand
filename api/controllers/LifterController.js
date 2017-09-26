@@ -7,7 +7,11 @@ exports.get_all_lifters = function(req, res) {
 	lifter.find({})
 	.populate({
 		path: 'appearances',
-		select: 'weightClass'
+		select: 'weightClass',
+		// populate: {
+		// 	path: '_competition',
+		// 	select: 'options.weightClassSuffix'
+		// }
 	})
 	.lean()
 	.exec(function(err, lifters) {

@@ -1,16 +1,37 @@
-.attempt-options {
-	display: flex;
-	margin-top: 10px;
-	padding-bottom: 6px;
-	/*min-width: px;*/
-	flex-direction: column;
-	justify-content: flex-start;
+
+.attempt-options-container {
+	width: 680px;
+	padding: 0px 140px;
+	/*height: 40px;*/
+	/*box-shadow: 0px 3px 3px 0px #EFEFEF;*/
+	background-color: #EFEFEF;
+	border-bottom: 1px solid #dadada;
 	position: fixed;
 	z-index: 10;
-	/*border-bottom: 1px solid #dadada;*/
+}
+.attempt-options {
+	display: flex;
+	/*width: 80px;*/
+	/*padding: 0px 100px;*/
+
+	margin: 0 auto;
+	/*padding-bottom: 6px;*/
+	padding: 6px;
+	/*min-width: px;*/
+	flex-direction: row;
+	justify-content: space-between;
+	z-index: 10;
+	/*background-color: white;*/
+	font-size: 0.85em;
 }
 
-.attempt-options .option-group {
+.vertical-divider {
+	border-left: 1px solid #dadada;
+	margin-left: 10px;
+	padding-left: 10px;
+}
+
+/*.attempt-options .option-group {
 	display: flex;
 	flex-direction: column;
 	margin: 10px 0px;
@@ -36,4 +57,68 @@
 	padding: 2px 5px;
 	height: unset;
 	line-height: unset;
+}
+*/
+.attempt-options .options {
+	display: flex;
+	flex-direction: row;
+}
+
+.attempt-options .options .option-select {
+	/*margin: 0px 0px;*/
+}
+
+
+.attempt-options .option-select {
+	min-width: 90px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	/*align-items: center;*/
+	font-size: 0.85em;
+}
+
+.attempt-options .option-select .Select {
+	width: 100%;
+
+}
+
+.attempt-options .option-select .option-title {
+	/*margin-top: -5px;*/
+	font-size: 0.9em;
+	font-weight: 300;
+}
+
+.attempt-options .Select-control {
+    height: 24px;
+
+}
+.attempt-options .Select-control .Select-placeholder {
+  	line-height: 22px;
+}
+
+.attempt-options .Select-control .Select-value {
+	font-weight: bold;
+	padding: 0px 7px !important;
+    line-height: 22px !important;
+}
+.attempt-options .Select-control .Select-value .Select-value-label {
+    line-height: 22px;
+}
+
+.attempt-options .Select-control .Select-input {
+	height: 22px;
+}
+
+.attempt-options .Select-menu-outer {
+max-height: 1000px;
+}
+
+.attempt-options .Select-arrow-zone {
+	width: 14px !important;
+	padding-right: 0px !important;
+}
+
+.Select-menu {
+max-height: 998px;
 }

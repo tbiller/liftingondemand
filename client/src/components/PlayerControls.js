@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function({ 
 	currentAttempt,
 	incrementLiftersLift,
-	// incrementLifter,
 	advanceBySeconds,
 	selectLiftAttempt,
 	editMode,
 	previousAttempt,
 	nextAttempt,
+	className,
+	showReplay,
+	replayAttempt,
+	showWatchMore,
+	attemptForWatchMore,
 	children
 }) {
 	if (currentAttempt) {
@@ -22,7 +27,7 @@ export default function({
 		}
 	}
 	return (
-		<div className='controls-and-player'>
+		<div className={['controls-and-player', className].join(' ')}>
 			<div className='controls left'>
 				<div 
 					className={['lift-button current-lifter left', liftersPreviousAttempt ? 'clickable' : ''].join(' ')}
@@ -58,7 +63,15 @@ export default function({
 						<div className='seek-button left clickable' onClick={() => advanceBySeconds(-30)}>&lt;&lt; 30 secs</div>
 					</div>
 				}
-				<div className='seek-button left clickable' onClick={() => advanceBySeconds(-10)}>
+				{showReplay && 
+					<div className='seek-button left clickable' onClick={(e) => {e.stopPropagation(); replayAttempt();}}>
+						<div className='title-container left'>
+							<img className='arrow left' src= {require('../images/arrow-right.png')} />
+							<div className='title'>Replay</div>
+						</div>
+					</div>
+				}
+				<div className='seek-button left clickable' onClick={(e) => {e.stopPropagation(); advanceBySeconds(-10)}}>
 					<div className='title-container left'>
 						<img className='arrow left' src= {require('../images/arrow-right.png')} />
 						<div className='title'>10 secs</div>
@@ -66,7 +79,7 @@ export default function({
 				</div>
 			</div>
 			<div className='player-center'>
-			{children}
+				{children}
 			</div>
 			<div className='controls right'>
 				<div
@@ -101,7 +114,17 @@ export default function({
 						<div className='seek-button right clickable' onClick={() => advanceBySeconds(60)}>60 secs &gt;&gt;</div>	
 					</div>
 				}
-				<div className='seek-button right clickable' onClick={() => advanceBySeconds(10)}>
+				{showWatchMore && 
+					<div className='seek-button right clickable'>
+						<Link to={'/lifter/' + attemptForWatchMore._lifter._id + '?att=' + attemptForWatchMore._id}> 
+							<div className='title-container'>
+								<div className='title'>Watch More</div>
+								<img className='arrow right' src= {require('../images/arrow-right.png')} />
+							</div>
+						</Link>
+					</div>
+				}
+				<div className='seek-button right clickable' onClick={(e) => {e.stopPropagation(); advanceBySeconds(10)}}>
 					<div className='title-container'>
 						<div className='title'>10 secs</div>
 						<img className='arrow right' src= {require('../images/arrow-right.png')} />

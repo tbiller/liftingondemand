@@ -30,24 +30,31 @@ exports.top_attempts = function(req, res) {
 		path: '_appearance',
 		populate: {
 			path: '_competition',
-			select: 'name dateForSorting style'
+			select: 'name dateForSorting style options.weightClassSuffix',
+			// populate: {
+			// 	path: 'options',
+			// 	select: 'weightClassSuffix'
+			// }
 		},
 	};
 
-	// if (req.query.style) {
-	// 	competitionPopulate.populate['match'] = {style: utils.toTitleCase(req.query.style)};
-	// }
 
-	// if (req.query.division) {
-	// 	lifterPopulate['match'] = {division: req.query.division.toLowerCase()};
-	// 	competitionPopulate['match'] = {division: req.query.division.toLowerCase()};
-	// }
+	var sortObj = { weightValue: -1 };
+	if (req.query.sortBy) {
+		switch (req.query.sortBy.toLowerCase()) {
+			case 'popularity':
+				sortObj = { numStars: -1, weightValue: -1 };
+				break;
+			default:
+				sortObj = { weightValue: -1 };
+				break;
+		}
+	}
+	// if (req.query.sortBy)
 
-
-	// console.log(lifterPopulate)
 	var query = attempt.find().lean()
 		
-		.sort({numStars: -1, weightValue: -1})
+		.sort(sortObj)
 		.limit(numAttempts)
 		.or([{'numStars': {$gt: 0}}, {'result': 'good-lift'}])
 		.populate(lifterPopulate)
@@ -80,6 +87,20 @@ exports.unstar_attempt = function(req, res) {
 	changeStar(-1, req, res);
 }
 
+// exports.edit_attempt = function(req, res) {
+// 	var attempt_id = req.params.attempt_id;
+// 	var timeType = req.body.type;
+// 	var time = req.body.time;
+// 	if (!attempt_id) return res.send();// res.send('Attempt id must be submitted')
+// 	if (!timeType) return res.send();// res.send('Type must be submitted')
+// 	if (!time) return res.send();// res.send('Time must be submitted')
+		
+// 	attempt.findById(attempt_id, function(err, attempt) {
+// 		if (err) return res.send('Attempt not recognized');
+// 		attempt.set(timeType, time);
+// 		attempt.set('edited', true);
+// 	});
+// }
 
 function changeStar(num, req, res) {
 	var attempt_id = req.params.attempt_id;
@@ -89,8 +110,6 @@ function changeStar(num, req, res) {
 		res.send('Attempt id must be submitted')
 		return;
 	}
-
-
 
 	attempt.findById(attempt_id, function(err, attempt) {
 		if (err) return res.send('Attempt not recognized')

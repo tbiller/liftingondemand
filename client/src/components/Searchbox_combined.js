@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { capitalize } from '../utils/general';
+import { capitalize, title } from '../utils/general';
 import { Link } from 'react-router-dom'
 import '../styles/components/Searchbox_combined.css';
 
@@ -95,7 +95,7 @@ class Searchbox extends Component {
 		const lifterEls = this.createEls('lifter', matchingLifters, maxItems, (match) => {
 			return '/lifter/' + match._id;
 		},
-		'name', 'recentWeightClass', '', ' kg');
+		'name', 'recentWeightClassLong', '', '');
 		const competitionEls = this.createEls('competition', matchingCompetitions, maxItems, (match) => {
 			return '/comp/' + match.name;
 		}, 'name', 'dates');

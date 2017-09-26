@@ -1,3 +1,93 @@
-.option-title {
+.competition-header {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	min-height: 38px;
+	color: #333;
+	padding: 4px 4px 0px 4px;
+	z-index: 15;
+	font-size: 0.9em;
+    color: #999;
+}
 
+.competition-header  .left {
+    position: absolute;
+    left: 10px;
+}
+
+.competition-header .competition-title {
+	font-weight: bold;
+	color: black;
+	font-size: 30px;
+}
+
+.competition-header .right {
+	position: absolute;
+	right: 0px;
+}
+
+.competition-header .options {
+	display: flex;
+	flex-direction: row;
+}
+
+.competition-header .options .option-select{
+	margin-left: 6px;
+}
+
+
+.competition-header .option-select {
+	min-width: 70px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+	font-size: 0.85em;
+}
+
+.competition-header .option-select .Select {
+	width: 100%;
+
+}
+
+.competition-header .option-select .option-title {
+	margin-top: -5px;
+	font-size: 0.9em;
+	font-weight: 300;
+}
+
+.competition-header .Select-control {
+    height: 24px;
+
+}
+.competition-header .Select-control .Select-placeholder {
+  	line-height: 22px;
+}
+
+.competition-header .Select-control .Select-value {
+	font-weight: bold;
+	padding: 0px 7px !important;
+    line-height: 22px !important;
+}
+.competition-header .Select-control .Select-value .Select-value-label {
+    line-height: 22px;
+}
+
+.competition-header .Select-control .Select-input {
+	height: 22px;
+}
+
+.competition-header .Select-menu-outer {
+max-height: 1000px;
+}
+
+.competition-header .Select-arrow-zone {
+	width: 14px !important;
+	padding-right: 0px !important;
+}
+
+.Select-menu {
+max-height: 998px;
 }

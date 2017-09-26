@@ -60,12 +60,12 @@ export default class YoutubePlayer extends Component {
 		if (videoId && videoId !== this.state.currentVideoId) {
 			console.log('changing video to ' + videoId);
 			this.setState({'currentVideoId': videoId});
+			this.player.loadVideoById(videoId);
 		}
 
 		if (boolStopVideo) {
-			this.player.cueVideoById(videoId, startSeconds)
+			this.player.cueVideoById(videoId, startSeconds);
 		} else {
-			this.player.loadVideoById(videoId);
 			this.player.playVideo();
 		}
 
@@ -73,19 +73,17 @@ export default class YoutubePlayer extends Component {
 			
 	}
 
-	selectLiftAttempt = (attempt, boolStopVideo, muteVideo) => {
+	selectLiftAttempt = (attempt, boolStopVideo, muteVideo=true) => {
 		window.clearTimeout(this.recordCurrentTimeTimeout);
 		console.log('yt selecting attempt!!!');
 		console.log(attempt);
-		let seconds, offsetSeconds = 0;
 
 		const videoId = attempt._appearance.videoId;
+		const seconds = attempt.frameWhenClickedOn()
+		console.log('videoId', videoId)
+		console.log('seconds', seconds)
 
-		let frame = attempt.frameWhenClickedOn()
-		seconds = this.secondsFromFrame(frame) + offsetSeconds;
-
-
-		if (!!frame) {
+		if (seconds > 0) {
 			this.ensureVideoIsPlaying(videoId, boolStopVideo, seconds, muteVideo);
 			// debugger;
 			if (!boolStopVideo) {
@@ -181,13 +179,13 @@ export default class YoutubePlayer extends Component {
 				<div className='youtube-pane'>
 				{this.props.editMode &&
 						<div className='editTools'>
-			    			<div className='button' onClick={()=>this.props.recordEdit('firstNameFrame', this.player.getCurrentTime())}>
+			    			<div className='button' onClick={()=>this.props.recordEdit('firstNameTime', this.player.getCurrentTime())}>
 			    				firstNameFrame
 			    			</div>
-			    			<div className='button' onClick={()=>this.props.recordEdit('lastNameFrame', this.player.getCurrentTime())}>
+			    			<div className='button' onClick={()=>this.props.recordEdit('lastNameTime', this.player.getCurrentTime())}>
 			    				lastNameFrame
 			    			</div>
-			    			<div className='button' onClick={()=>this.props.recordEdit('lightsFrame', this.player.getCurrentTime())}>
+			    			<div className='button' onClick={()=>this.props.recordEdit('lightsTime', this.player.getCurrentTime())}>
 			    				lightsFrame
 			    			</div>
 			    		</div>

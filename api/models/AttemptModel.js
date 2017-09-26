@@ -14,13 +14,14 @@ var AttemptSchema = new Schema({
     weightValue: Number,
     result: String,
     records: String,
-    firstNameFrame: Number,
-    lastNameFrame: Number,
-    lightsFrame: Number,
+    firstNameTime: Number,
+    lastNameTime: Number,
+    lightsTime: Number,
     lights: Schema.Types.Mixed,
     division: String,
     weightclass: String,
     style: String,
+    edited: {type: Boolean, default: false},
   	numStars: { type: Number, default: 0 }
 });
 

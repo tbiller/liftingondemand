@@ -51,6 +51,7 @@
 }
 
 .lifter-list .item:hover {
-  background-color: #dadada;
+  background-color: #efefef;
   transition: 0.3s;
+  color: black;
 }

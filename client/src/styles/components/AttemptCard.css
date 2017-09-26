@@ -1,10 +1,11 @@
 .attempt-card {
 	width: 640px;
+
 	min-height: 80px;
 	/*background-color: whitesmoke;*/
 	/*border: 1px solid #dadada;*/
 	position: relative;
-	margin: 15px 0px;
+	margin: 15px auto;
 	transition: 0.4s;
 	/*padding: 4px;*/
 	display: flex;
@@ -12,8 +13,8 @@
 }
 .attempt-card .header {
 	padding-bottom: 4px;
-	margin-bottom: 4px;
-	border-bottom: 1px solid #dadada;
+	/*margin-bottom: 4px;*/
+	/*border-bottom: 1px solid #dadada;*/
 	display: unset;
 
 }
@@ -54,6 +55,11 @@
 
 .attempt-card .attempt-info .records {
 	margin-right: 15px;
+}
+
+.attempt-card .weightclass-division {
+	font-size: 0.9em;
+	margin-right: 6px;
 }
 
 .attempt-card .lifter-info .lifter-name {

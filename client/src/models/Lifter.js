@@ -1,20 +1,26 @@
 import Appearance from './Appearance';
-
+import { title } from '../utils/general';
 
 class Lifter {
-	constructor(props) {
-		this._id = props._id;
-		this.name = props.name;
-		this.yob = props.yob;
+	constructor(json, fromJson=true) {
+		this._id = json._id;
+		this.name = json.name;
+		this.yob = json.yob;
 		this.appearances = [];
-		if (props.appearances !== null && props.appearances.length > 0) {
-			if (typeof(props.appearances[0]) === 'object') {
-				this.appearances = props.appearances.map((appearanceJson) => {
-					return new Appearance(appearanceJson, this);
-				});
-				this.recentWeightClass = this.appearances[0].weightClass;
+
+		if (fromJson == true) {
+			if (json.appearances && json.appearances.length > 0) {
+				if (typeof(json.appearances[0]) === 'object') {
+					this.appearances = json.appearances.map((appearanceJson) => {
+						return new Appearance(appearanceJson, this);
+					});
+					this.recentWeightClass = this.appearances[0].weightClass;
+					this.weightClassSuffix = isNaN(parseInt(this.recentWeightClass, 10)) ? '' : 'kg';
+					this.recentWeightClassLong = title(this.recentWeightClass) + ' ' + this.weightClassSuffix;
+				}
 			}
 		}
+
 
 
 	}

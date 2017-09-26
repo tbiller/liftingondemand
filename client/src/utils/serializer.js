@@ -14,14 +14,12 @@ const serializeParams = (params) => {
 				break;
 			case 'weightClass':
 				newKey = 'wc';
-				newVal = title(params[key])
 				break;
 			case 'lifter':
 				newVal = params[key] ? params[key].split(' ').join('_') : null;
 				break;
 			case 'division':
 				newKey = 'div';
-				newVal = title(params[key])
 				break;
 		}
 		serializedParams[newKey] = newVal;
@@ -41,14 +39,14 @@ const deserializeParams = (params) => {
 				break;
 			case 'wc':
 				newKey = 'weightClass';
-				// newVal = title(params[key])
+				newVal = title(params[key])
 				break;
 			case 'lifter':
 				newVal = params[key] ? params[key].split('_').join(' ') : null;
 				break;
 			case 'div':
 				newKey = 'division';
-				// newVal = title(params[key])
+				newVal = title(params[key])
 				break;
 		}
 		deserializedParams[newKey] = newVal;
@@ -61,6 +59,7 @@ const updateUrlParams = (history, location, newParams, addToHistory=true) => {
 	const params = queryString.parse(location.search);
 	const combinedParams = Object.assign({}, params, serializedParams);
 
+	// debugger;
 	if (addToHistory) {
 		history.push({search: '?' + queryString.stringify(combinedParams)});
 	} else {

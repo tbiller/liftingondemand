@@ -1,4 +1,5 @@
 import Serializer from '../utils/serializer';
+import Appearance from './Appearance';
 import queryString from 'query-string';
 
 
@@ -7,25 +8,25 @@ const liftsInOrder = ['Squat 1', 'Squat 2', 'Squat 3', 'Bench 1', 'Bench 2', 'Be
 
 class Attempt {
 	constructor(attemptJson, appearance, liftsInOrder) {
-		if (!appearance) appearance = attemptJson._appearance;
+		if (!appearance) appearance = new Appearance(attemptJson._appearance);
 		this._id = attemptJson._id;
 		this._lifter = appearance._lifter;
 		this._appearance = appearance;
 		this._competition = appearance._competition;
-		this.firstNameFrame = attemptJson.firstNameFrame;
-		this.lastNameFrame = attemptJson.lastNameFrame;
+		this.firstNameTime = attemptJson.firstNameTime;
+		this.lastNameTime = attemptJson.lastNameTime;
 		this.attemptName = attemptJson.attemptName;
 		this.liftName = this.attemptName.split(' ')[0];
 		this.attemptNumber = this.attemptName.split(' ')[1];
-		this.lightsFrame = attemptJson.lightsFrame;
+		this.lightsTime = attemptJson.lightsTime;
 		this.result = attemptJson.result;
 		this.weight = attemptJson.weight;
 		this.records = attemptJson.records;
 		this.numStars = attemptJson.numStars || 0;
 
-		if (this.lastNameFrame && this.firstNameFrame) {
-			if (this.lastNameFrame - this.firstNameFrame > 30 * 120) {
-				this.firstNameFrame = this.lastNameFrame;
+		if (this.lastNameTime && this.firstNameTime) {
+			if (this.lastNameTime - this.firstNameTime > 120) {
+				this.firstNameTime = this.lastNameTime;
 			}
 		}
 	}
@@ -39,7 +40,7 @@ class Attempt {
 	}
 
 	hasFrame() {
-		return !!this.firstNameFrame || !!this.lastNameFrame || !!this.lightsFrame;
+		return !!this.firstNameTime || !!this.lastNameTime || !!this.lightsTime;
 	}
 
 	prevAttempt() {
@@ -70,10 +71,10 @@ class Attempt {
 	frameWhenClickedOn() {
 		if (!this.hasFrame()) return false;
 		let frame;
-		if (!!this.lightsFrame && (this.lightsFrame - this.lastNameFrame) < (40 * 30)) { // todo framerate
-			frame = this.lightsFrame - 25 * 30; //todo
-		} else if (!!this.firstNameFrame) {
-			frame = parseInt((this.firstNameFrame + this.lastNameFrame) / 2, 10);
+		if (!!this.lightsTime && (this.lightsTime - this.lastNameTime) < 40) { // todo framerate
+			frame = Math.max(this.lightsTime - 25, this.firstNameTime); //todo
+		} else if (!!this.firstNameTime) {
+			frame = parseInt((this.firstNameTime + this.lastNameTime) / 2, 10);
 		} else {
 			return false;
 		}

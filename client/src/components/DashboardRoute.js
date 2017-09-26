@@ -11,7 +11,11 @@ class DashboardRoute extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			filters: {},
+			filters: {
+				sortBy: 'weight',
+				lift: 'Squat',
+				style: 'Raw'
+			},
 			topAttempts: [],
 			loading: false
 		};
@@ -38,7 +42,7 @@ class DashboardRoute extends Component {
 			.then(json => {
 				// make sure this is for the most recent request
 				if (!deepEqual(this.state.filters, filters)) return;
-				
+
 				const attempts = [];
 				if (json) {
 					json.forEach((attemptJson) => {
@@ -49,15 +53,18 @@ class DashboardRoute extends Component {
 			});
 	}
 
-	recordFilters = (filters) => {
-		console.log('updating to filters', filters);
-		this.setState({filters});
+	optionChange = (optType, val) => {
+		const newFilters = Object.assign({}, this.state.filters);
+		newFilters[optType] = val;
+		this.setState({filters: newFilters});
 	}
 
 	render() {
 		return (
 			<div className='attempts'>
-				<AttemptOptions recordFilters={this.recordFilters} />
+				<AttemptOptions 
+					optionChange={this.optionChange} 
+					filters={this.state.filters}/>
 				<AttemptList 
 					attempts={this.state.topAttempts}
 					starredAttempts={this.props.starredAttempts}
