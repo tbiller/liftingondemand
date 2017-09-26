@@ -29,6 +29,7 @@ class LifterRoute extends Component {
 			dummyContainerHeight: 0
 		}
 	}
+
 	componentDidMount = () => {
 		this.updateBasedOnNewProps(this.props);
 		window.addEventListener('scroll', this.handleScroll);
@@ -62,7 +63,7 @@ class LifterRoute extends Component {
 
 	getLifter = (lifterId) => {
 		this.setState({loading: true});
-		fetch('/lifter/' + lifterId)
+		fetch('/lifterData/' + lifterId)
 			.then(res => res.json())
 			.then(json => {
 				const lifter = new Lifter(json);

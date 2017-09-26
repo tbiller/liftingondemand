@@ -6,7 +6,7 @@ module.exports = function(app) {
   app.route('/lifters')
     .get(lifter.get_all_lifters)
 
-  app.route('/lifter/:lifterId')
+  app.route('/lifterData/:lifterId')
     .get(lifter.get_a_lifter)
 
   app.route('/lifterByParams')
