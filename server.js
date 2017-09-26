@@ -17,7 +17,7 @@ var lifterRoutes = require('./api/routes/LifterRoutes');
 var appearanceRoutes = require('./api/routes/AppearanceRoutes'); 
 var attemptRoutes = require('./api/routes/AttemptRoutes'); 
 
-app.use(express.static(path.resolve(__dirname, '../client/build')))
+app.use(express.static(path.join(__dirname, './client/build')))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -31,8 +31,9 @@ mongoose.Promise = global.Promise;
 // mongoose.connect('mongodb://localhost:27017/powerlifting', { useMongoClient: true }); 
 mongoose.connect('mongodb://admintb:EKTtesDH9Eyx@ds161443.mlab.com:61443/powerlifting', { useMongoClient: true }); 
 
-app.use(function(req, res) {
-	res.status(404).send({url: req.originalUrl + ' not found'})
+// All remaining requests return the React app, so it can handle routing.
+app.get('*', function(request, response) {
+  response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
 app.listen(port);
