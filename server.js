@@ -17,7 +17,7 @@ var lifterRoutes = require('./api/routes/LifterRoutes');
 var appearanceRoutes = require('./api/routes/AppearanceRoutes'); 
 var attemptRoutes = require('./api/routes/AttemptRoutes'); 
 
-app.use(express.static(path.join(__dirname, './client/build')))
+app.use(express.static(path.resolve(__dirname, '../client/build')))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
