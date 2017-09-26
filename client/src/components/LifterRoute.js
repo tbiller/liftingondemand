@@ -63,7 +63,7 @@ class LifterRoute extends Component {
 
 	getLifter = (lifterId) => {
 		this.setState({loading: true});
-		fetch('/lifterData/' + lifterId)
+		fetch('/api/lifter/' + lifterId)
 			.then(res => res.json())
 			.then(json => {
 				const lifter = new Lifter(json);

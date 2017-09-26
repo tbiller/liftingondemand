@@ -12,7 +12,7 @@ class TopAttempts extends Component {
 		};
 	}
 	componentDidMount() {
-		fetch('/attempts/top')
+		fetch('/api/attempts/top')
 			.then(res => res.json())
 			.then(json => {
 				const attempts = [];

@@ -41,7 +41,7 @@ class App extends Component {
 		window.addEventListener('scroll', this.handleScroll);
 		this.setState({loadingCompetitions: true, loadingLifters: true});
 		//console.log(this.props);
-		fetch('/competitions')
+		fetch('/api/competitions')
 			.then(res => res.json())
 			.then(json => {
 				this.setState({
@@ -49,7 +49,7 @@ class App extends Component {
 					loadingCompetitions: false
 				});
 			});
-		fetch('/lifters')
+		fetch('/api/lifters')
 			.then(res => res.json())
 			.then(json => {
 				const lifters = [];

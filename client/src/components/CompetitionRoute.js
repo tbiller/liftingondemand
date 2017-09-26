@@ -126,7 +126,7 @@ class CompetitionRoute extends Component {
 
 		this.setState({loading: true});
 
-		fetch('/appearances?' + queryString.stringify(params))
+		fetch('/api/appearances?' + queryString.stringify(params))
 			.then(res => res.json())
 			.then(json => {
 				//console.log("yooo");

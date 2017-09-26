@@ -37,7 +37,7 @@ class DashboardRoute extends Component {
 		this.setState({loading: true});
 		const filters = this.state.filters;
 
-		fetch('/attempts/top?' + queryString.stringify(this.state.filters))
+		fetch('/api/attempts/top?' + queryString.stringify(this.state.filters))
 			.then(res => res.json())
 			.then(json => {
 				// make sure this is for the most recent request
