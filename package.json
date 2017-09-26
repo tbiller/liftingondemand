@@ -1,6 +1,6 @@
 {
   "name": "lifting-on-demand",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A new way to watch powerlifting",
   "main": "server.js",
   "scripts": {
