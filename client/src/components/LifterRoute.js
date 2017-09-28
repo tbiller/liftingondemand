@@ -10,6 +10,7 @@ import CurrentLifterInfo from './CurrentLifterInfo';
 import queryString from 'query-string';
 import Serializer from '../utils/serializer';
 import deepEqual from 'deep-equal';
+import { Helmet } from "react-helmet";
 import { CookiesProvider, withCookies, Cookies } from 'react-cookie';
 
 const liftsInOrder = ['Squat 1', 'Squat 2', 'Squat 3', 'Bench 1', 'Bench 2', 'Bench 3',
@@ -230,48 +231,62 @@ class LifterRoute extends Component {
 		if (this.state.loading === true) {
 			return <Spinner />
 		}
+
+		let ogTitle = this.state.lifter.name;
+		let ogDescription = 'Watch all attempts';
+		let ogImageUrl = 'https://img.youtube.com/vi/'; //9Iw-LU26Atg/hqdefault.jpg'
+		if (this.state.currentAttempt) {
+			ogTitle += ': ' + this.state.currentAttempt.kgString() + ' ' + this.state.currentAttempt.liftName;
+			ogImageUrl += this.state.currentAttempt._appearance.videoId + '/hqdefault.jpg';
+			ogDescription = this.state.currentAttempt._appearance._competition.name;
+		}
 		return (
 			<div>
-			
-			<div>
-				<LifterHeader lifter={this.state.lifter} />
-				<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
-				</div>
-				<div className='pinOnScroll' ref='pinOnScroll'>
-					<CurrentLifterInfo 
+				<Helmet>
+					<meta name='og:title' content={ogTitle} />
+					<meta name='og:description' content={ogDescription} />
+					<meta name='og:type' content='website' />
+					<meta name='og:image' content={ogImageUrl} />
+				</Helmet>
+				<div>
+					<LifterHeader lifter={this.state.lifter} />
+					<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
+					</div>
+					<div className='pinOnScroll' ref='pinOnScroll'>
+						<CurrentLifterInfo 
+							currentAttempt={this.state.currentAttempt}
+							lifterRoute={true}
+							selectLiftAttempt={this.selectLiftAttempt}
+							starredAttempts={this.props.starredAttempts}
+							starAttempt={this.starCurrentAttempt}
+						/>
+	 					<PlayerControls 
+	 						className='dark-text'
+							currentAttempt={this.state.currentAttempt}
+				    		sortedAttemptData={this.state.sortedAttemptData}
+							incrementLifter={this.incrementLifter}
+							advanceBySeconds={this.advanceBySeconds}
+							selectLiftAttempt={this.selectLiftAttempt}
+							>				        
+							<YoutubePlayer
+					        	attemptToBeSelected={this.state.attemptToBeSelected}
+					        	secondsToAdvance={this.state.secondsToAdvance}
+					        	playerUpdated={this.playerUpdated}
+					        	recordTime={this.timeChange}
+					        	resetPlayer={this.state.resetPlayer}
+					        	boolStopVideo={this.state.boolStopVideo}
+					        	showMessage={!this.state.loading}
+					        />
+					    </PlayerControls>
+					   
+					</div>
+					<LifterTable 
+						appearances={this.state.lifter ? this.state.lifter.appearances : []}
+						tdClick={this.attemptClick}
+						competitionClick={this.competitionClick}
 						currentAttempt={this.state.currentAttempt}
-						lifterRoute={true}
-						selectLiftAttempt={this.selectLiftAttempt}
-						starredAttempts={this.props.starredAttempts}
-						starAttempt={this.starCurrentAttempt}
 					/>
- 					<PlayerControls 
- 						className='dark-text'
-						currentAttempt={this.state.currentAttempt}
-			    		sortedAttemptData={this.state.sortedAttemptData}
-						incrementLifter={this.incrementLifter}
-						advanceBySeconds={this.advanceBySeconds}
-						selectLiftAttempt={this.selectLiftAttempt}
-						>				        
-						<YoutubePlayer
-				        	attemptToBeSelected={this.state.attemptToBeSelected}
-				        	secondsToAdvance={this.state.secondsToAdvance}
-				        	playerUpdated={this.playerUpdated}
-				        	recordTime={this.timeChange}
-				        	resetPlayer={this.state.resetPlayer}
-				        	boolStopVideo={this.state.boolStopVideo}
-				        	showMessage={!this.state.loading}
-				        />
-				    </PlayerControls>
-				   
 				</div>
-				<LifterTable 
-					appearances={this.state.lifter ? this.state.lifter.appearances : []}
-					tdClick={this.attemptClick}
-					competitionClick={this.competitionClick}
-					currentAttempt={this.state.currentAttempt}
-				/>
-			</div>
 			</div>
 		);
 	}
