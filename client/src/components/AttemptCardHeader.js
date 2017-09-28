@@ -14,6 +14,7 @@ class AttemptCardHeader extends Component {
 			attempt,
 			starAttempt,
 			isStarred,
+			isActive
 		} = this.props;
 		return (
 			<div className='header'>
@@ -58,7 +59,7 @@ class AttemptCardHeader extends Component {
 							e.stopPropagation();
 						}} isStarred={isStarred} />
 						<div className='divider'>&nbsp;</div>
-						<ShareIcon />
+						<ShareIcon isActive={isActive} attempt={attempt}/>
 					</div>
 				</div>
 			</div>

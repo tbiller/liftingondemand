@@ -23,6 +23,7 @@ class AttemptCard extends Component {
 					attempt={attempt}
 					starAttempt={starAttempt}
 					isStarred={isStarred}
+					isActive={isActive}
 					/>
 				<AttemptCardPlayer
 					attempt={attempt}

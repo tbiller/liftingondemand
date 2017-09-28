@@ -5,6 +5,7 @@ import Light from './Light';
 import Lights from './Lights';
 import AttemptStars from './AttemptStars';
 import CurrentAttempt from './CurrentAttempt';
+import ShareIcon from './ShareIcon';
 import '../styles/components/CurrentLifterInfo.css';
 
 export default function({ 
@@ -54,6 +55,8 @@ export default function({
 						starAttempt={starAttempt} 
 						isStarred={isStarred} 
 					/>
+					<div className='divider'>&nbsp;</div>
+					<ShareIcon isActive={true} attempt={currentAttempt}/>
 				</div>
 		   	
 		   	</div>
@@ -61,9 +64,7 @@ export default function({
 	} else {
 		DOM = (
 			<div className='currentLifterInfo'>
-				{ activeWeightClass && 
-					<div className='current-lifter-name'>{activeWeightClass + ' ' + weightClassSuffix + ' - ' + capitalize(activeDivision)}</div>
-				}
+				
 
 			</div>
 		);
@@ -73,9 +74,11 @@ export default function({
 }
 
 
-
-// {prevAttempt ?
-// 						<div 
+// { activeWeightClass && 
+// 					// <div className='current-lifter-name'>{activeWeightClass + ' ' + weightClassSuffix + ' - ' + capitalize(activeDivision)}</div>
+// 				}
+// // {prevAttempt ?
+// // 						<div 
 // 							onClick={() => {
 // 								if(!prevAttempt) return;
 // 								selectLiftAttempt({attempt: prevAttempt});

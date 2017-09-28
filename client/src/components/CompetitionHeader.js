@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import OptionSelect from './OptionSelect';
 import queryString from 'query-string';
 import { capitalize } from '../utils/general';
+
 import '../styles/components/CompetitionHeader.css';
 
 

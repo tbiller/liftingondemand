@@ -68,8 +68,8 @@ class LifterRoute extends Component {
 			.then(json => {
 				const lifter = new Lifter(json);
 				//check to make sure a more recent request has not gone out in the meantime
-				if (lifter._id !== this.props.match.params.lifterId) return false;
-
+				if (lifter._id !== this.props.match.params.lifterId) return;
+				console.log('lifter', lifter);
 				this.setState({lifter, loading: false});
 
 				const urlParams = Serializer.deserializeParams(queryString.parse(this.props.location.search));

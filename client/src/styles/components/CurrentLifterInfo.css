@@ -47,6 +47,14 @@
   /*color: white;*/
 }
 
+.currentLifterInfo .divider {
+  border-left: 1px solid #dadada;
+  margin-left: 5px;
+  font-size: 1px;
+  height: 18px;
+  padding-right: 5px;
+}
+
 
 .currentLifterInfo .center-container .current-attempt {
   display: flex;
