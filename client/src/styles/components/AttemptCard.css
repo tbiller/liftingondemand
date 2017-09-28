@@ -30,6 +30,13 @@
 	z-index: 1;
 }
 
+.attempt-card .divider {
+	border-left: 1px solid #dadada;
+	margin-left: 5px;
+	font-size: 1px;
+	height: 18px;
+	padding-right: 5px;
+}
 
 /*
 <div className='lifter-name'>{attempt._lifter.name}</div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import AttemptStars from './AttemptStars';
+import ShareIcon from './ShareIcon';
 
 class AttemptCardHeader extends Component {
 	shouldComponentUpdate(nextProps, nextState) {
@@ -41,15 +42,23 @@ class AttemptCardHeader extends Component {
 							attempt._appearance.divisionLong() }
 						</div>
 						{attempt.records &&
-						    <div className='records'>
-						    	{attempt.recordsLong()}
-						    </div>
+							<div>
+								<div className='divider'>&nbsp;</div>
+								
+							    <div className='records'>
+							    	{attempt.recordsLong()}
+							    </div>
+							</div>
 					    }
+
+						<div className='divider'>&nbsp;</div>
 
 					    <AttemptStars attempt={attempt} starAttempt={(e)=> {
 							starAttempt(attempt);
 							e.stopPropagation();
 						}} isStarred={isStarred} />
+						<div className='divider'>&nbsp;</div>
+						<ShareIcon />
 					</div>
 				</div>
 			</div>

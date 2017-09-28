@@ -29,6 +29,12 @@ class Attempt {
 				this.firstNameTime = this.lastNameTime;
 			}
 		}
+
+		if (this.lightsTime && this.lightsTime < this.firstNameTime) {
+			this.lightsTime = null;
+			this.firstNameTime = null;
+			this.lastNameTime = null;
+		}
 	}
 
 	attemptIdx() {
