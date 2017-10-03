@@ -50,7 +50,7 @@ export default function({
 
 	const maleWeightclassOptsObj = createOptions(maleWeightclasses, filters['weightclass'], ' kg', true);
 	const femaleWeightclassOptsObj = createOptions(femaleWeightclasses, filters['weightclass'], ' kg', true);
-	const sortOptsObj = createOptions(['Weight', 'Popularity'], filters['sortBy'], '', false, false);
+	const sortOptsObj = createOptions(['Weight', 'Stars'], filters['sortBy'], '', false, false);
 	return (
 		<div className='attempt-options-container'>
 			<div className='attempt-options'>
