@@ -15,6 +15,7 @@ class Attempt {
 		this._competition = appearance._competition;
 		this.firstNameTime = attemptJson.firstNameTime;
 		this.lastNameTime = attemptJson.lastNameTime;
+		this.endOfAttempt = attemptJson.endOfAttempt;
 		this.attemptName = attemptJson.attemptName;
 		this.liftName = this.attemptName.split(' ')[0];
 		this.attemptNumber = this.attemptName.split(' ')[1];
@@ -35,6 +36,26 @@ class Attempt {
 			this.firstNameTime = null;
 			this.lastNameTime = null;
 		}
+
+		// if (this.lightsTime && this.endOfAttempt) {
+		// 	if (this.endOfAttempt > this.lightsTime + 30) {
+		// 		this.endOfAttempt = this.lightsTime + 30;
+		// 	}		
+		// }
+
+		if (this.lightsTime > 0) {
+			if (this.endOfAttempt) {
+				this.endOfAttempt = Math.min(this.endOfAttempt, this.lightsTime + 30);
+			} else {
+				this.endOfAttempt = this.lightsTime + 30;
+			}
+		} 
+		if (!this.endOfAttempt) {
+			if (this.lastNameTime > 0) {
+				this.endOfAttempt = this.lastNameTime + 60;
+			}
+		}
+	
 	}
 
 	attemptIdx() {

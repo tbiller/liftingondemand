@@ -13,11 +13,13 @@ export default class YoutubePlayer extends Component {
 				height: '360',
 				width: '640',
 			},
+			attemptOver: false,
+			stopAt: null
 		}
 	}
 
-	shouldComponentUpdate(nextProps) {
-		return !deepEqual(nextProps, this.props);
+	shouldComponentUpdate(nextProps, nextState) {
+		return !deepEqual(nextProps, this.props) || !deepEqual(this.state, nextState);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -38,6 +40,10 @@ export default class YoutubePlayer extends Component {
 		}
 		if (props.attemptToBeSelected || props.secondsToAdvance) {
 			if (props.attemptToBeSelected) {
+				if (props.stopAtEndOfAttempt === true) {
+					console.log('settingstop at', props.attemptToBeSelected);
+					this.setState({stopAt: props.attemptToBeSelected.endOfAttempt});
+				}
 				this.selectLiftAttempt(props.attemptToBeSelected, props.boolStopVideo, props.muteVideo);
 			}
 			if (props.secondsToAdvance) {
@@ -82,6 +88,7 @@ export default class YoutubePlayer extends Component {
 		//console.log('videoId', videoId)
 		//console.log('seconds', seconds)
 
+		this.setState({attemptSelected: attempt, attemptOver: false})
 		if (seconds > 0) {
 			this.ensureVideoIsPlaying(videoId, boolStopVideo, seconds, muteVideo);
 			// debugger;
@@ -96,11 +103,17 @@ export default class YoutubePlayer extends Component {
 	}
 
 	recordCurrentTime(repeat=true, frequency=2000) {
-		if (!this.props.recordTime) return false;
 		window.clearTimeout(this.recordCurrentTimeTimeout);
 		if (this.player) {
-			const currentTime = this.player.getCurrentTime();
-			if (currentTime) this.props.recordTime(currentTime);
+			var currentTime = this.player.getCurrentTime();
+			if (currentTime && this.props.recordTime) this.props.recordTime(currentTime);
+
+			console.log('stopAt', this.state.stopAt)
+			console.log('currentTime', currentTime);
+			if (this.state.stopAt > 0 && currentTime > this.state.stopAt) {
+				this.player.pauseVideo();
+				this.setState({attemptOver: true});
+			}
 		}
 
 		if (repeat) {
@@ -169,6 +182,16 @@ export default class YoutubePlayer extends Component {
 		return Math.floor(frame / this.props.framerate);
 	}
 
+	replayAttempt = () => {
+		this.setState({attemptOver: false});
+
+		this.selectLiftAttempt(this.state.attemptSelected)
+	}
+
+	keepWatching = () => {
+		this.setState({stopAt: null, attemptOver: false});
+		if (this.player) this.player.playVideo();
+	}
 
 	render = () => {
 		//console.log('in ytplayer render');
@@ -176,7 +199,7 @@ export default class YoutubePlayer extends Component {
 		// if (this.props.resetPlayer) { return null; }
 		return (
 				<div className='youtube-pane'>
-				{this.props.editMode &&
+					{this.props.editMode &&
 						<div className='editTools'>
 			    			<div className='button' onClick={()=>this.props.recordEdit('firstNameTime', this.player.getCurrentTime())}>
 			    				firstNameFrame
@@ -189,7 +212,7 @@ export default class YoutubePlayer extends Component {
 			    			</div>
 			    		</div>
 			    	}
-			    	
+				    	
 					<YouTube
 						className='youtube-player'
 						opts={this.state.playerOpts}
@@ -197,8 +220,15 @@ export default class YoutubePlayer extends Component {
 						onStateChange={this.onPlayerStateChange}
 						onError={this.onError}
 					/>
-					
-			    </div>
+
+					{this.state.attemptOver &&
+						<div className='attempt-over'>
+							<div onClick={this.replayAttempt} className='button'>Replay Attempt</div>
+							<div onClick={this.keepWatching} className='button'>Continue Watching</div>
+						</div>
+					}
+						
+				  </div>
 		);
 	}
 }

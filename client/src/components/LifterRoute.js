@@ -276,6 +276,7 @@ class LifterRoute extends Component {
 					        	resetPlayer={this.state.resetPlayer}
 					        	boolStopVideo={this.state.boolStopVideo}
 					        	showMessage={!this.state.loading}
+					        	stopAtEndOfAttempt={true}
 					        />
 					    </PlayerControls>
 					   

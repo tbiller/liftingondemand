@@ -26,6 +26,8 @@
 	background-color: black;
 }
 
+
+
 .attempt-card .youtube-player {
 	z-index: 1;
 }
@@ -37,6 +39,8 @@
 	height: 18px;
 	padding-right: 5px;
 }
+
+
 
 /*
 <div className='lifter-name'>{attempt._lifter.name}</div>

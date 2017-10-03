@@ -118,7 +118,7 @@ export default function({
 					<div className='seek-button right clickable'>
 						<Link to={'/lifter/' + attemptForWatchMore._lifter._id + '?att=' + attemptForWatchMore._id}> 
 							<div className='title-container'>
-								<div className='title'>Watch More</div>
+								<div className='title'>More Of Lifter</div>
 								<img className='arrow right' src= {require('../images/arrow-right.png')} />
 							</div>
 						</Link>

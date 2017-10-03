@@ -521,6 +521,7 @@ a.visible-link {
       display: flex;
       flex-direction: column;
       background-color: black;
+      position: relative;
     }
     .controls-and-player {
       padding: 0px 0px 4px 0px;
@@ -540,7 +541,27 @@ a.visible-link {
         width: 640px;
         height: 360px;
         position:relative;
-
+        .attempt-over {
+          height: 360px;
+          width: 640px;
+          z-index: 2;
+          position: absolute;
+          top: 0;
+          left: 0;
+          background-color: rgba(255,255,255,0.8);
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-around;
+          .button {
+            width: 30%;
+            height: 50px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #999;
+          }
+        }
+        
         .no-data {
           color: white;
           font-weight: normal;
@@ -659,6 +680,7 @@ a.visible-link {
   background-color: #E6E6E6;
   border: 1px solid #dadada;
   display:flex;
+  justify-content: center;
   align-items: center;
   border-radius: 2px;
   &.seek-button {

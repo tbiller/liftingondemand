@@ -17,6 +17,7 @@ var AttemptSchema = new Schema({
     firstNameTime: Number,
     lastNameTime: Number,
     lightsTime: Number,
+    endOfAttempt: Number,
     lights: Schema.Types.Mixed,
     division: String,
     weightclass: String,

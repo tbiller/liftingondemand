@@ -127,7 +127,7 @@ export default function({
 				const lifterAppearance = rowInfo.original;
 
 				if (currentAttempt && lifterAppearance.videoId !== currentAttempt._appearance.videoId) {
-					//className += ' hidden';
+					className += ' hidden';
 				}
 				if (currentAttempt) { 
 					// const liftAttempt = column

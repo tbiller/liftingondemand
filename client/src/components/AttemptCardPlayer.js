@@ -8,7 +8,8 @@ class AttemptCardPlayer extends Component {
 		super(props);
 		this.state = {
 			attemptToBeSelected: props.attempt,
-			secondsToAdvance: null
+			secondsToAdvance: null,
+			attemptOver: false
 		}
 
 	}
@@ -23,7 +24,7 @@ class AttemptCardPlayer extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.isActive && !this.props.isActive) {
-			this.setState({attemptToBeSelected: this.props.attempt});
+			this.setState({attemptToBeSelected: this.props.attempt, attemptOver: false});
 		}
 	}
 	
@@ -47,11 +48,23 @@ class AttemptCardPlayer extends Component {
 		});
 	}
 
+	recordTime = (time) => {
+		if (this.props.attempt.endOfAttempt) {
+			if (time > this.props.attempt.endOfAttempt) {
+				this.setState({attemptOver: true})
+			}
+		}
+	}
+
+
+
 	render() {
 		const { 
-			isActive,
+			isActive
 		} = this.props;
 
+		const attemptOverOverlay = this.state.attemptOver ? <div className='attempt-over'/> : null;
+						
 		//console.log('atttemptforwatchmore', this.props.attempt);
 
 		return (
@@ -65,14 +78,18 @@ class AttemptCardPlayer extends Component {
 						className='dark-text'
 						advanceBySeconds={this.advanceBySeconds}
 					>
+
 					    <YoutubePlayer 
 					    	attemptToBeSelected={this.state.attemptToBeSelected}
 					    	muteVideo={true}
 							secondsToAdvance={this.state.secondsToAdvance}
 							playerUpdated={this.playerUpdated}
 							showMessage={false}
+							stopAtEndOfAttempt={true}
+							recordTime={this.recordTime}
 							/>
 					</PlayerControls>
+				
 				}
 			</div>
 		);
