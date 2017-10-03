@@ -43,7 +43,7 @@ class AttemptCardHeader extends Component {
 							attempt._appearance.divisionLong() }
 						</div>
 						{attempt.records &&
-							<div>
+							<div className='flex-row'>
 								<div className='divider'>&nbsp;</div>
 								
 							    <div className='records'>

@@ -48,13 +48,13 @@ class AttemptCardPlayer extends Component {
 		});
 	}
 
-	recordTime = (time) => {
-		if (this.props.attempt.endOfAttempt) {
-			if (time > this.props.attempt.endOfAttempt) {
-				this.setState({attemptOver: true})
-			}
-		}
-	}
+	// recordTime = (time) => {
+	// 	if (this.props.attempt.endOfAttempt) {
+	// 		if (time > this.props.attempt.endOfAttempt) {
+	// 			this.setState({attemptOver: true})
+	// 		}
+	// 	}
+	// }
 
 
 
@@ -86,7 +86,6 @@ class AttemptCardPlayer extends Component {
 							playerUpdated={this.playerUpdated}
 							showMessage={false}
 							stopAtEndOfAttempt={true}
-							recordTime={this.recordTime}
 							/>
 					</PlayerControls>
 				
