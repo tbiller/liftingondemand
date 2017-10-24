@@ -1,94 +1,86 @@
 .competition-header {
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	min-height: 38px;
-	color: #333;
-	padding: 4px 4px 0px 4px;
-	z-index: 15;
-	font-size: 0.9em;
-    color: #999;
-    background-color: #fbfbfb;
-}
-
-.competition-header  .left {
-    position: absolute;
-    left: 12px;
-}
-
-.competition-header .competition-title {
-	font-weight: bold;
-	color: black;
-	font-size: 30px;
-}
-
-.competition-header .right {
-	position: absolute;
-	right: 6px;
-}
+  position: relative;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 2fr 1fr;
+  min-height: 38px;
+  color: #333;
+  padding: 4px 4px 0px 4px;
+  z-index: 15;
+  font-size: 0.9em;
+  color: #999;
+  background-color: #fbfbfb; }
+  .competition-header .competition-title {
+    font-weight: bold;
+    color: black;
+    font-size: 30px; }
+  .competition-header .center {
+    justify-self: center;
+    text-align: center; }
+  .competition-header .right {
+    justify-self: end; }
+  @media screen and (max-width: 940px) {
+    .competition-header {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+      border-bottom: 1px solid #dadada;
+      padding-bottom: 4px; }
+      .competition-header .left {
+        display: none; }
+      .competition-header .center {
+        font-size: 24px;
+        padding: 3px 0px; }
+      .competition-header .right {
+        justify-self: center; } }
 
 .competition-header .options {
-	display: flex;
-	flex-direction: row;
-}
+  display: flex;
+  flex-direction: row; }
 
-.competition-header .options .option-select{
-	margin-left: 6px;
-}
-
+.competition-header .options .option-select {
+  margin-left: 6px; }
 
 .competition-header .option-select {
-	min-width: 70px;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	align-items: center;
-	font-size: 0.85em;
-}
+  min-width: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 0.85em; }
 
 .competition-header .option-select .Select {
-	width: 100%;
-
-}
+  width: 100%; }
 
 .competition-header .option-select .option-title {
-	margin-top: -5px;
-	font-size: 0.9em;
-	font-weight: 300;
-}
+  margin-top: -5px;
+  font-size: 0.9em;
+  font-weight: 300; }
 
 .competition-header .Select-control {
-    height: 24px;
+  height: 24px; }
 
-}
 .competition-header .Select-control .Select-placeholder {
-  	line-height: 22px;
-}
+  line-height: 22px; }
 
 .competition-header .Select-control .Select-value {
-	font-weight: bold;
-	padding: 0px 7px !important;
-    line-height: 22px !important;
-}
+  font-weight: bold;
+  padding: 0px 7px !important;
+  line-height: 22px !important; }
+
 .competition-header .Select-control .Select-value .Select-value-label {
-    line-height: 22px;
-}
+  line-height: 22px; }
 
 .competition-header .Select-control .Select-input {
-	height: 22px;
-}
+  height: 22px; }
 
 .competition-header .Select-menu-outer {
-max-height: 1000px;
-}
+  max-height: 1000px; }
 
 .competition-header .Select-arrow-zone {
-	width: 14px !important;
-	padding-right: 0px !important;
-}
+  width: 14px !important;
+  padding-right: 0px !important; }
 
 .Select-menu {
-max-height: 998px;
-}
+  max-height: 998px; }
+
+/*# sourceMappingURL=CompetitionHeader.css.map */

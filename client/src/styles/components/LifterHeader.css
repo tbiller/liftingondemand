@@ -1,0 +1,35 @@
+.lifter-header {
+  position: relative;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 2fr 1fr;
+  min-height: 38px;
+  color: #333;
+  padding: 4px 4px 0px 4px;
+  z-index: 15;
+  font-size: 0.9em;
+  color: #999;
+  background-color: #fbfbfb; }
+  .lifter-header .center {
+    justify-self: center;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+    font-size: 30px; }
+  .lifter-header .right {
+    justify-self: end; }
+  .lifter-header .yob {
+    color: gray; }
+  @media screen and (max-width: 940px) {
+    .lifter-header {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+      border-bottom: 1px solid #dadada;
+      padding-bottom: 4px; }
+      .lifter-header .right {
+        display: none; }
+      .lifter-header .center {
+        font-size: 24px;
+        padding: 3px 0px; } }
+
+/*# sourceMappingURL=LifterHeader.css.map */

@@ -1,0 +1,44 @@
+.leaderboard {
+  position: relative;
+  padding-left: 3px;
+  overflow: auto; }
+  .leaderboard .leaderboard-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 6px 0px 3px 0px; }
+    .leaderboard .leaderboard-header .leaderboard-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-right: 50px; }
+    .leaderboard .leaderboard-header .legend {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: 0.8em; }
+      .leaderboard .leaderboard-header .legend .legend-entries {
+        padding: 1px 2px;
+        margin: 0px 10px;
+        display: flex;
+        border: 1px solid #dadada; }
+        .leaderboard .leaderboard-header .legend .legend-entries span {
+          display: inline-block;
+          margin: 0px 10px; }
+          .leaderboard .leaderboard-header .legend .legend-entries span:first-child {
+            margin-left: 2px; }
+          .leaderboard .leaderboard-header .legend .legend-entries span:last-child {
+            margin-right: 2px; }
+    .leaderboard .leaderboard-header .options {
+      display: flex;
+      flex-direction: row; }
+      .leaderboard .leaderboard-header .options .leaderboardType {
+        width: 100px;
+        padding: 0px 4px;
+        margin-left: 3px; }
+      @media screen and (max-width: 800px) {
+        .leaderboard .leaderboard-header .options .option.leaderboardType {
+          width: 80px;
+          font-size: 0.7em; } }
+
+/*# sourceMappingURL=Leaderboard.css.map */

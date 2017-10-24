@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ResultsTable from './ResultsTable';
 import Option from './Option';
+import '../styles/components/Leaderboard.css';
 
 export default function({
 	player,
@@ -103,7 +104,7 @@ export default function({
 		const unorderedResults = [];
 		for (let lifterName in results) {
 			if (results.hasOwnProperty(lifterName)) {
-				unorderedResults.push(results[lifterName]);
+				if (results[lifterName].videoId) unorderedResults.push(results[lifterName]);
 			}
 		}
 

@@ -1,0 +1,186 @@
+.player-center {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  position: relative;
+}
+.controls-and-player {
+  padding: 0px 0px 0px 0px;
+  // display: flex;
+  // flex-direction: row;
+  // justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+
+  @media screen and (max-width: 940px) {
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-template-rows: auto auto;
+    .controls.left {
+      grid-row: 2;
+      width: 100%;
+    }
+    .controls.right {
+      grid-row: 2;
+      width: 100%;
+    }
+    .player-center {
+      grid-row: 1;
+      grid-column-end: span 2;
+    }
+  }
+
+
+
+  background-color: white;
+  color: rgba(255,255,255,0.6);
+  &.dark-text {
+    color: rgba(0,0,0, 0.6);
+    .title {
+      color: rgba(0,0,0, 0.6);
+    }
+  }
+  text-align: center;
+  .youtube-pane {
+    width: 640px;
+    margin-bottom: -5px;
+    position:relative;
+    @media screen and (max-width: 640px) {
+      width: 100%;
+    }
+    .attempt-over {
+      height:100%;
+      width: 100%;
+      z-index: 2;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(255,255,255,0.8);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+      .button {
+        width: 30%;
+        height: 50px;
+        text-align: center;
+        font-weight: bold;
+        border: 1px solid #999;
+      }
+    }
+    
+    .no-data {
+      color: white;
+      font-weight: normal;
+      text-decoration: italic;
+      font-size: 0.8em;
+      &.overlay {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 10;
+      }
+    }
+  }
+
+  
+  .controls {
+    display: flex;
+    flex-direction: column;
+    // flex: 1;
+    width: 140px;
+    min-width: 95px;
+
+    // max-width: 160px;
+    
+
+
+    .lifter-name, .attempt {
+      font-size: 0.9em;
+      margin-top: 7px;
+    }
+    .arrow {
+      // width: 40px;
+      height: 15px;
+      margin-right: -8px;
+      // margin-left: -3px;
+      &.left {
+        transform: rotate(180deg);
+        margin-left: -8px;
+        margin-right: 0px;
+      }
+    }
+  }
+
+  .lift-button, .seek-button {
+    background-color: rgba(0,0,0,0);
+    border-top: 1px solid #dadada;
+    font-size: 0.8em;
+    padding: 2px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    &.clickable:hover {
+      cursor: pointer;
+      font-weight: bold;
+      // background-color: #efefef;
+    }
+
+    &.right {
+      align-items:flex-end;
+      padding-right: 10px;
+    }
+
+
+  }
+  .lift-button {
+    position: relative;
+    flex: 0;
+    &.clickable {
+      flex: 3;
+    }
+  }
+  .seek-button {
+    position: relative;
+    height: 40px;
+  }
+  .title-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .title-container.left {
+    justify-content: flex-start;
+  }
+  .title {
+    // position: absolute;
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    margin: 0px 8px
+    // top: 5pxs;
+  }
+  .lift-button.current-lifter {
+    flex: 5;
+    border-top: none;
+  }
+
+  .seek-button .title-container {
+    position: static;
+  }
+}
+
+@media screen and (max-width: 670px) {
+  .pinned .controls {
+    display: none;
+  } 
+  .dummyContainer {
+    margin-bottom: -40px;
+  }
+}

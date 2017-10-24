@@ -29,22 +29,24 @@ export default function({
 
 		DOM = (
 			<div className='currentLifterInfo'>
-				{ lifterRoute ?
-					<Link to={'/comp/' + currentAttempt._appearance._competition.name}>
-				    	<div className='current-competition-name'>{currentAttempt._appearance._competition.name}</div>
-				    </Link>
-				:
-					<Link to={'/lifter/' + currentAttempt._lifter._id}>
-				    	<div className='current-lifter-name'>{currentAttempt._lifter.name}</div>
-				    </Link>
-				}
-				<div className='center-container'>
+				<div className='left'>
+					{ lifterRoute ?
+						<Link to={'/comp/' + currentAttempt._appearance._competition.name}>
+					    	<div className='current-competition-name'>{currentAttempt._appearance._competition.name}</div>
+					    </Link>
+					:
+						<Link to={'/lifter/' + currentAttempt._lifter._id}>
+					    	<div className='current-lifter-name'>{currentAttempt._lifter.name}</div>
+					    </Link>
+					}
+				</div>
+				<div className='center'>
 					<div className='attempt-name'>
 						{currentAttempt.longName()}:
 					</div>
 					<CurrentAttempt attempt={currentAttempt} />
 				</div>
-				<div className='right-container'>
+				<div className='right'>
 					{currentAttempt.records &&
 					    <div className='records'>
 					    	{currentAttempt.recordsLong()}

@@ -10,12 +10,12 @@ export default class YoutubePlayer extends Component {
 
 		this.state = {
 			playerOpts: {
-				height: '360',
-				width: '640',
+				width: Math.min(640, window.innerWidth - 10)
 			},
 			attemptOver: false,
 			stopAt: null
 		}
+		this.state.playerOpts.height = this.state.playerOpts.width / 640.0 * 360;
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {

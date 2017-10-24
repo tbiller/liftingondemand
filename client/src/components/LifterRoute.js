@@ -211,7 +211,7 @@ class LifterRoute extends Component {
 
 	handleScroll = (event) => {
 		if (this.state.loading === true) return false;
-		let scrollTop = event.srcElement.body.scrollTop;
+		let scrollTop = document.documentElement.scrollTop;
         if (scrollTop >= 70) {
         	if (this.state.dummyContainerHeight === 0) {
 	        	this.setState({dummyContainerHeight: this.refs.pinOnScroll.clientHeight});

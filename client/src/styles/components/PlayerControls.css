@@ -1,0 +1,133 @@
+.player-center {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  position: relative; }
+
+.controls-and-player {
+  padding: 0px 0px 0px 0px;
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  background-color: white;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center; }
+  @media screen and (max-width: 940px) {
+    .controls-and-player {
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 20px;
+      grid-template-rows: auto auto; }
+      .controls-and-player .controls.left {
+        grid-row: 2;
+        width: 100%; }
+      .controls-and-player .controls.right {
+        grid-row: 2;
+        width: 100%; }
+      .controls-and-player .player-center {
+        grid-row: 1;
+        grid-column-end: span 2; } }
+  .controls-and-player.dark-text {
+    color: rgba(0, 0, 0, 0.6); }
+    .controls-and-player.dark-text .title {
+      color: rgba(0, 0, 0, 0.6); }
+  .controls-and-player .youtube-pane {
+    width: 640px;
+    margin-bottom: -5px;
+    position: relative; }
+    @media screen and (max-width: 640px) {
+      .controls-and-player .youtube-pane {
+        width: 100%; } }
+    .controls-and-player .youtube-pane .attempt-over {
+      height: 100%;
+      width: 100%;
+      z-index: 2;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around; }
+      .controls-and-player .youtube-pane .attempt-over .button {
+        width: 30%;
+        height: 50px;
+        text-align: center;
+        font-weight: bold;
+        border: 1px solid #999; }
+    .controls-and-player .youtube-pane .no-data {
+      color: white;
+      font-weight: normal;
+      text-decoration: italic;
+      font-size: 0.8em; }
+      .controls-and-player .youtube-pane .no-data.overlay {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 10; }
+  .controls-and-player .controls {
+    display: flex;
+    flex-direction: column;
+    width: 140px;
+    min-width: 95px; }
+    .controls-and-player .controls .lifter-name, .controls-and-player .controls .attempt {
+      font-size: 0.9em;
+      margin-top: 7px; }
+    .controls-and-player .controls .arrow {
+      height: 15px;
+      margin-right: -8px; }
+      .controls-and-player .controls .arrow.left {
+        transform: rotate(180deg);
+        margin-left: -8px;
+        margin-right: 0px; }
+  .controls-and-player .lift-button, .controls-and-player .seek-button {
+    background-color: rgba(0, 0, 0, 0);
+    border-top: 1px solid #dadada;
+    font-size: 0.8em;
+    padding: 2px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; }
+    .controls-and-player .lift-button.clickable:hover, .controls-and-player .seek-button.clickable:hover {
+      cursor: pointer;
+      font-weight: bold; }
+    .controls-and-player .lift-button.right, .controls-and-player .seek-button.right {
+      align-items: flex-end;
+      padding-right: 10px; }
+  .controls-and-player .lift-button {
+    position: relative;
+    flex: 0; }
+    .controls-and-player .lift-button.clickable {
+      flex: 3; }
+  .controls-and-player .seek-button {
+    position: relative;
+    height: 40px; }
+  .controls-and-player .title-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end; }
+  .controls-and-player .title-container.left {
+    justify-content: flex-start; }
+  .controls-and-player .title {
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    margin: 0px 8px; }
+  .controls-and-player .lift-button.current-lifter {
+    flex: 5;
+    border-top: none; }
+  .controls-and-player .seek-button .title-container {
+    position: static; }
+
+@media screen and (max-width: 670px) {
+  .pinned .controls {
+    display: none; }
+
+  .dummyContainer {
+    margin-bottom: -40px; } }
+
+/*# sourceMappingURL=PlayerControls.css.map */

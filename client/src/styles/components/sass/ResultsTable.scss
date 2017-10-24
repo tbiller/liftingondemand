@@ -1,0 +1,289 @@
+$blue1: #00A8E8;
+$shamrock: #66A182;
+$sangria: #92140C;
+
+
+.ReactTable {
+  border: none;
+  overflow: visible;
+
+  .rt-noData {
+    padding: 3px 6px;
+    top: 50px;
+    font-size: 0.8em;
+  }
+
+  .-loading {
+    font-size: 0.9em;
+  }
+
+}
+
+.lifter-table {
+  // margin-top: 4px;
+}
+
+.rt-table {
+  overflow: auto;
+  min-height: max-content;
+  font-size: 12px;
+  border: none;
+
+  
+  .rt-tbody {
+    // padding-bottom:30px;
+  }
+  .rt-thead {
+    background-color: #efefef;
+    box-shadow: none;
+    &.-header {
+      box-shadow: none;
+    }
+  }
+
+
+
+
+  .rt-thead .rt-th, .rt-tbody .rt-td {
+    // background-color: #efefef;
+    &.border-left {
+      border-left: 1px solid black;
+    }
+    &.border-right {
+      border-right: 1px solid black;
+    }
+  }
+
+  .rt-thead {
+    box-shadow: none;
+    -webkit-box-shadow:none;
+    background-color: #e6e6e6;
+  }
+
+  .rt-th {
+    font-weight: bold;
+  }
+
+  .rt-td {
+    position: relative;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding: 4px 5px;
+    overflow: visible;
+
+    .auto-playing {
+      position:absolute;
+      right: 0px;
+      top: 0px;
+      font-size: 10px;
+      background-color: black;
+      color: white;
+      padding: 1px 2px;
+    }
+
+
+    .records {
+      position:absolute;
+      width: 14px;
+      text-align: center;
+      top: 0px;
+      right: 0px;
+      padding: 0px 2px;
+      font-size: 8px;
+    }
+
+    &.lift.has-frame {
+      // background-color: $clickable;
+    }
+
+  }
+
+  .-headerGroups {
+    border: none;
+    color: white;
+    font-size: 1.2em;
+
+    .rt-th:first-child, .rt-th:last-child {
+      background-color: white;
+      border-width: 0px 1px 1px 1px
+    }
+  }
+
+  .rt-tr-group {
+    border-bottom: none;
+  }
+  .rt-tbody .rt-tr:hover {
+    background-color: #dadada;
+    // transition:0.2s;
+  }
+
+  .rt-td.lift.has-frame:hover{ //, .rt-td.lifter-name:hover {
+    cursor: pointer;
+    background-color: white;
+  }
+
+
+  .rt-tr.current-lifter {
+    border: 2px solid black;
+    border-width: 2px 0px;
+    // background-color: ;
+    // color: white;
+    font-weight: bold;
+
+    .rt-td span{
+      // color: white;
+    }
+
+    .rt-td:hover {
+      // background-color: white;
+      // transition:0.2s;
+
+    }
+
+    .rt-td.current-lift {
+      background-color: black;
+      span {
+        color: white;
+        // text-decoration:none;
+        font-weight: bold;
+      }
+      &:hover {
+        background-color: black;
+      }
+    }
+  }
+
+  .rt-td.lifter-name:hover, .rt-td.comp-name:hover {
+    cursor: pointer;
+    background-color: white;
+    color: $blue1;
+  }
+
+  span.weight-cell, span.total {
+    display: block;
+    width: 100%;
+    text-align: center;
+    &.total {
+      color: black;
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    font-size: 11px;
+    .rt-td {
+      padding: 7px 3px;
+    }
+  }
+}
+
+
+.mouse-overlay {
+  z-index: 100;
+  position: absolute;
+  background-color: white;
+}
+
+.good-lift {
+  color: $shamrock;
+}
+.no-lift {
+  color: $sangria;
+  text-decoration: line-through;
+}
+.uncompleted {
+  color: #555;
+  text-decoration: none;
+}
+.no-frame {
+  color: #ccc;
+}
+
+.rt-td .records {
+  
+}
+
+.lights {
+  display:none;
+  clear: both;
+  width: 100%;
+  position: relative;
+}
+
+
+
+.lights.small {
+  display: none;
+  height: 5px;
+  position: absolute;
+  bottom: 0px;
+  left: 25%;
+  width: 50%;
+  /*margin: 0 ;*/
+}
+
+.lightAndReasonContainer {
+  margin: 5px;
+  height:100%;
+  float: left;
+  position: relative;
+}
+
+.lightAndReasonContainer.small {
+  margin: 0px;
+  width: 31%;
+  margin: 0px 1%
+  /*background-color: steelblue;*/
+}
+
+.light.round {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid gray;
+}
+
+.light.small {
+  width: 100%;
+  height:100%;
+  float:left;
+  position: absolute;
+  bottom: 10px;
+}
+
+.lightReason.small {
+  width: 100%;
+  height: 100%;
+  float: left;
+  position: absolute;
+  bottom: 0px;
+}
+
+.lightReason {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #dadada;
+}
+
+
+.lightReason.white {
+  border: none;
+  background-color: rgba(0,0,0,0)
+}
+
+.white {
+  background-color: white;
+}
+
+.red {
+  background-color: red;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.blue {
+  background-color: blue;
+}

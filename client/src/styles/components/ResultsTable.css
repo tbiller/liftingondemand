@@ -1,0 +1,182 @@
+.ReactTable {
+  border: none;
+  overflow: visible; }
+  .ReactTable .rt-noData {
+    padding: 3px 6px;
+    top: 50px;
+    font-size: 0.8em; }
+  .ReactTable .-loading {
+    font-size: 0.9em; }
+
+.rt-table {
+  overflow: auto;
+  min-height: max-content;
+  font-size: 12px;
+  border: none; }
+  .rt-table .rt-thead {
+    background-color: #efefef;
+    box-shadow: none; }
+    .rt-table .rt-thead.-header {
+      box-shadow: none; }
+  .rt-table .rt-thead .rt-th.border-left, .rt-table .rt-tbody .rt-td.border-left {
+    border-left: 1px solid black; }
+  .rt-table .rt-thead .rt-th.border-right, .rt-table .rt-tbody .rt-td.border-right {
+    border-right: 1px solid black; }
+  .rt-table .rt-thead {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    background-color: #e6e6e6; }
+  .rt-table .rt-th {
+    font-weight: bold; }
+  .rt-table .rt-td {
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 4px 5px;
+    overflow: visible; }
+    .rt-table .rt-td .auto-playing {
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      font-size: 10px;
+      background-color: black;
+      color: white;
+      padding: 1px 2px; }
+    .rt-table .rt-td .records {
+      position: absolute;
+      width: 14px;
+      text-align: center;
+      top: 0px;
+      right: 0px;
+      padding: 0px 2px;
+      font-size: 8px; }
+  .rt-table .-headerGroups {
+    border: none;
+    color: white;
+    font-size: 1.2em; }
+    .rt-table .-headerGroups .rt-th:first-child, .rt-table .-headerGroups .rt-th:last-child {
+      background-color: white;
+      border-width: 0px 1px 1px 1px; }
+  .rt-table .rt-tr-group {
+    border-bottom: none; }
+  .rt-table .rt-tbody .rt-tr:hover {
+    background-color: #dadada; }
+  .rt-table .rt-td.lift.has-frame:hover {
+    cursor: pointer;
+    background-color: white; }
+  .rt-table .rt-tr.current-lifter {
+    border: 2px solid black;
+    border-width: 2px 0px;
+    font-weight: bold; }
+    .rt-table .rt-tr.current-lifter .rt-td.current-lift {
+      background-color: black; }
+      .rt-table .rt-tr.current-lifter .rt-td.current-lift span {
+        color: white;
+        font-weight: bold; }
+      .rt-table .rt-tr.current-lifter .rt-td.current-lift:hover {
+        background-color: black; }
+  .rt-table .rt-td.lifter-name:hover, .rt-table .rt-td.comp-name:hover {
+    cursor: pointer;
+    background-color: white;
+    color: #00A8E8; }
+  .rt-table span.weight-cell, .rt-table span.total {
+    display: block;
+    width: 100%;
+    text-align: center; }
+    .rt-table span.weight-cell.total, .rt-table span.total.total {
+      color: black; }
+  @media screen and (max-width: 800px) {
+    .rt-table {
+      font-size: 11px; }
+      .rt-table .rt-td {
+        padding: 7px 3px; } }
+
+.mouse-overlay {
+  z-index: 100;
+  position: absolute;
+  background-color: white; }
+
+.good-lift {
+  color: #66A182; }
+
+.no-lift {
+  color: #92140C;
+  text-decoration: line-through; }
+
+.uncompleted {
+  color: #555;
+  text-decoration: none; }
+
+.no-frame {
+  color: #ccc; }
+
+.lights {
+  display: none;
+  clear: both;
+  width: 100%;
+  position: relative; }
+
+.lights.small {
+  display: none;
+  height: 5px;
+  position: absolute;
+  bottom: 0px;
+  left: 25%;
+  width: 50%;
+  /*margin: 0 ;*/ }
+
+.lightAndReasonContainer {
+  margin: 5px;
+  height: 100%;
+  float: left;
+  position: relative; }
+
+.lightAndReasonContainer.small {
+  margin: 0px;
+  width: 31%;
+  margin: 0px 1%; }
+
+.light.round {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid gray; }
+
+.light.small {
+  width: 100%;
+  height: 100%;
+  float: left;
+  position: absolute;
+  bottom: 10px; }
+
+.lightReason.small {
+  width: 100%;
+  height: 100%;
+  float: left;
+  position: absolute;
+  bottom: 0px; }
+
+.lightReason {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #dadada; }
+
+.lightReason.white {
+  border: none;
+  background-color: rgba(0, 0, 0, 0); }
+
+.white {
+  background-color: white; }
+
+.red {
+  background-color: red; }
+
+.yellow {
+  background-color: yellow; }
+
+.blue {
+  background-color: blue; }
+
+/*# sourceMappingURL=ResultsTable.css.map */

@@ -60,6 +60,7 @@ class ShareIcon extends Component {
 
 
 	render() {
+		return null;
 		return (
 			<div className='share-container'>
 				<img onClick={this.handleOpenModal} className='share-arrow' src= {require('../images/share-arrow.png')} />

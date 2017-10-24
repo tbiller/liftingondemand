@@ -11,7 +11,6 @@ class Lifter {
 		if (fromJson == true) {
 			if (json.appearances && json.appearances.length > 0) {
 				if (typeof(json.appearances[0]) === 'object') {
-					console.log('jsonappearances', json.appearances)
 					this.appearances = json.appearances.map((appearanceJson) => {
 						return new Appearance(appearanceJson, this);
 					});

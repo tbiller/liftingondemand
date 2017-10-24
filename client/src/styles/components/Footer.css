@@ -1,3 +1,27 @@
-
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-size: 0.7em;
+  color: gray; }
+  .footer div {
+    padding: 3px 30px;
+    border-left: 1px solid #efefef; }
+    .footer div:first-child {
+      border-left: none; }
+  @media screen and (max-width: 670px) {
+    .footer {
+      display: grid;
+      grid-template-rows: auto auto; }
+      .footer div {
+        padding: 2px;
+        justify-self: center;
+        border-left: none; } }
 
 /*# sourceMappingURL=Footer.css.map */

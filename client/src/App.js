@@ -37,10 +37,7 @@ class App extends Component {
 	}
 
 	componentDidMount = () => {
-		// this.app = ReactDOM.findDOMNode(this.refs.content);
-		window.addEventListener('scroll', this.handleScroll);
 		this.setState({loadingCompetitions: true, loadingLifters: true});
-		//console.log(this.props);
 		fetch('/api/competitions')
 			.then(res => res.json())
 			.then(json => {
@@ -61,10 +58,6 @@ class App extends Component {
 					loadingLifters: false
 				})
 			});
-	}
-
-	componentWillUnmount() {
-		window.removeEventListener('scroll', this.handleScroll);
 	}
 
 	toggleMenu = (boolOpen) => {

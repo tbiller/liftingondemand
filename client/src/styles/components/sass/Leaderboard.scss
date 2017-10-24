@@ -1,0 +1,66 @@
+.leaderboard {
+  position: relative;
+  // min-height: 800px;
+  // padding-top: 5px;
+  // border-to`p: 1px dashed #dadada;
+  padding-left:3px;
+  overflow: auto;
+  .leaderboard-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 6px 0px 3px 0px;
+    .leaderboard-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-right: 50px;
+    }
+    .legend {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: 0.8em;
+      // .note {
+      //   color: gray;
+      //   tet-: italic;
+      // }
+      .legend-entries {
+        padding: 1px 2px;
+        margin: 0px 10px;
+        display: flex;      
+        border: 1px solid #dadada;
+        span {
+          display: inline-block;
+          margin: 0px 10px;
+          &:first-child {
+            margin-left: 2px;
+          }
+          &:last-child {
+            margin-right: 2px;
+          }
+        }
+      }
+    }
+   
+    .options {
+      display: flex;
+      flex-direction: row;
+      .leaderboardType {
+        width: 100px;
+        padding: 0px 4px;
+        margin-left: 3px;
+      }
+     @media screen and (max-width: 800px) {
+       .option.leaderboardType {
+          width: 80px;
+          font-size: 0.7em;
+       }
+     }
+      // margin-right: 4px;
+    }
+  }
+
+
+    
+}

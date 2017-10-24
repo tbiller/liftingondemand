@@ -17,7 +17,7 @@
 
   .searchbox {
     align-self: center;
-    margin-left: 50px;
+    // margin-left: 50px;
     padding: 0px 4px;
     border-left: 1px solid #dddddd;
     z-index: 999;
@@ -51,10 +51,12 @@
 
     .app-title {
       font-size: 23px;
-      justify-self: center;
     }
     .searchbox {
       grid-column-end: span 1;
+      input {
+        padding: 1px 0px;
+      }
     }
   }
 }
@@ -69,7 +71,6 @@
     height: 26px;
     line-height: 26px;
     font-size: 0.8em;
-    padding: 1px 6px;
     transition: 0.2s;
 }
 
