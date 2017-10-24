@@ -22,12 +22,17 @@ class Attempt {
 		this.lightsTime = attemptJson.lightsTime;
 		this.result = attemptJson.result;
 		this.weight = attemptJson.weight;
+		if (this.weight === '') {
+			this.weight = 'X'
+		} else if (this.weight.indexOf('.') === -1) {
+			this.weight = this.weight + '.0'
+		}
 		this.records = attemptJson.records;
 		this.numStars = attemptJson.numStars || 0;
 
 		if (this.lastNameTime && this.firstNameTime) {
 			if (this.lastNameTime - this.firstNameTime > 120) {
-				this.firstNameTime = this.lastNameTime;
+				this.firstNameTime = this.lastNameTime - 120;
 			}
 		}
 
@@ -101,7 +106,7 @@ class Attempt {
 		if (!!this.lightsTime && (this.lightsTime - this.lastNameTime) < 40) { // todo framerate
 			frame = Math.max(this.lightsTime - 25, this.firstNameTime); //todo
 		} else if (!!this.firstNameTime) {
-			frame = parseInt((this.firstNameTime + this.lastNameTime) / 2, 10);
+			frame = Math.max(this.firstNameTime + 10, parseInt((this.firstNameTime + this.lastNameTime) / 2.0, 10));
 		} else {
 			return false;
 		}

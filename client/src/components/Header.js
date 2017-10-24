@@ -19,11 +19,8 @@ export default function({
 
 	return (
 		<div className='app-header'>
-			<div className='burger-and-title'>
-				
-				<div className="app-title">
-					<Link to='/'>Lifting On Demand</Link>
-				</div>
+			<div className="app-title">
+				<Link to='/'>Lifting On Demand</Link>
 			</div>
 			<RouteIndicator />
 			<Searchbox 

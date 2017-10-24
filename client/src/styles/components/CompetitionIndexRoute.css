@@ -1,5 +1,6 @@
 .competition-list {
-	width: 60%;
+	/*width: ;*/
+	max-width: 600px;
 	margin: 20px auto;	
 }
 

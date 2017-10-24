@@ -23,12 +23,14 @@ exports.get_appearances = function(req, res) {
 		console.log(req.query._competition);
 	}
 	if (req.query.division) {
-		params['division'] = req.query.division.toLowerCase();
+		params['divisions'] = req.query.division.toLowerCase();
 	}
 	if (req.query.weightClass) {
 		params['weightClass'] = req.query.weightClass.toLowerCase();
 		console.log(req.query.weightClass);
 	}
+
+	console.log(params)
 
 	appearance
 		.find(params)

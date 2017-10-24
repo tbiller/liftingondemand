@@ -15,7 +15,8 @@ export default function({
 	autoPlayingLifters,
 	leaderboardType,
 	currentTotalForLifter,
-	loading
+	loading,
+	division
 }) {
 	const minAttemptWidth = 50;
 	const live = (leaderboardType === 'live');
@@ -24,7 +25,7 @@ export default function({
 	// 	var currentAttempt = currentLifter.attempts[currentAttemptName];
 	// }
 	const columns = [
-		{Header: 'Pl.', id: 'place', accessor: (d) => d.place === '-' ? '-' : +d.place, minWidth: 25, show: !live},
+		{Header: 'Pl.', id: 'place', accessor: (d) => d.place(division)/** === '-' ? '-' : +d.place**/, minWidth: 25, show: !live},
 		{Header: 'Flt.', accessor: 'flight', sortMethod: sortStrings, minWidth: 25, show: false},
 		{Header: 'Lot', accessor: 'lot', sortMethod: sortStrings, minWidth: 25, show:false},
 		{Header: 'Lifter', accessor: '_lifter.name', id: 'name', sortMethod: sortStrings, minWidth: 150, Cell:nameCell},

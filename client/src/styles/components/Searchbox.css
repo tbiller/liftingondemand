@@ -11,8 +11,8 @@
 }
 
 .searchbox input:focus {
-  width: 280px;
-  transition: 0.2s;
+  /*width: 280px;*/
+  /*transition: 0.2s;*/
   outline-offset: 0px;
 }
 

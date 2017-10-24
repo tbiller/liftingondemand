@@ -12,6 +12,7 @@ export default function({
 	autoPlayingLifters,
 	clearAutoPlayingLifters,
 	autoPlayTopLifters,
+	division,
 	...tableProps 
 }) {
 	// if (currentLifter) {
@@ -112,7 +113,7 @@ export default function({
 			});
 		} else {
 			return unorderedResults.sort((lifterA, lifterB) => {
-				return sortResultStrings(lifterA.place, lifterB.place)
+				return sortResultStrings(lifterA.place(division), lifterB.place(division))
 			});
 		}
 	}
@@ -133,6 +134,7 @@ export default function({
 				currentAttempt={currentAttempt}
 				leaderboardType={leaderboardType}
 				autoPlayingLifters={autoPlayingLifters}
+				division={division}
 				results={orderedResults()}
 			/>
 		</div>

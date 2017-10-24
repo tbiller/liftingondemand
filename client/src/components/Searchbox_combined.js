@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { capitalize, title } from '../utils/general';
 import { Link } from 'react-router-dom'
-import '../styles/components/Searchbox_combined.css';
 
 class Searchbox extends Component {
 	constructor(props) {

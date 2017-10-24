@@ -631,6 +631,7 @@ class CompetitionRoute extends Component {
 				     		autoPlayingLifters={this.state.watchContinuousLifters}
 				     		clearAutoPlayingLifters={this.clearAutoPlayingLifters}
 				     		autoPlayTopLifters={this.autoPlayTopLifters}
+				     		division={this.state.division}
 				 		/>
 				 	</div>
 				 	</div>

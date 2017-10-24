@@ -8,7 +8,7 @@ $minWidthForSideOptions: 0px;
 $carminePink: #EF6F6C;
 $independence: #465775;
 $clickable: #FFFFFF;
-$appWidth: 960px;
+$appWidth: 100%;
 $menuOpenTime: 0.2s;
 $menuCloseTime: 0.3s;
 $menuWidth: 240px;
@@ -16,6 +16,7 @@ $menuWidth: 240px;
 html, body {
   // background-color: #dadada;
   height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
   // box-sizing: border-box;
@@ -35,6 +36,7 @@ html, body {
 
 #root {
   min-height: 100%;
+  width: 100%;
   display: flex;
 }
 a {
@@ -68,7 +70,7 @@ a.visible-link {
   flex-direction: column;
   flex-y: 1;
   // margin: 0 auto;
-  width: $appWidth;
+  width: 100%;
   // min-height: 800px;
   position: relative;
   min-height: 100%;

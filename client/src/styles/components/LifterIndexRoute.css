@@ -1,6 +1,6 @@
 .lifter-list {
-	width: 60%;
-	margin: 20px auto;	
+	max-width: 600px;
+	margin: 20px auto;		
 }
 
 .lifter-list .title {

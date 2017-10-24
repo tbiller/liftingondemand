@@ -1,0 +1,127 @@
+.app-header {
+  display: grid;
+  grid-template-columns: 300px 1fr 300px;
+  grid-template-rows: 40px;
+  border-bottom: 1px solid #dadada;
+  position: fixed;
+  padding: 0px 4px;
+  width: 100%;
+  z-index: 100;
+  background-color: #f2f2f2;
+  
+  .app-title {
+    align-self: center;
+    font-size: 26px;
+    font-weight: bold;
+  }
+
+  .searchbox {
+    align-self: center;
+    margin-left: 50px;
+    padding: 0px 4px;
+    border-left: 1px solid #dddddd;
+    z-index: 999;
+    position: relative;
+  }
+  
+  @media screen and (max-width: 940px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 40px 30px;
+    .app-title {
+      justify-self: center;
+    }
+    .searchbox {
+      border-left: none;
+      margin-left: 0px;
+      width: 80%;
+      text-align: center;
+      justify-self: center;
+      grid-column-end: span 2;
+
+      input::placeholder {
+        text-align: center;
+      }
+    }
+  }
+
+  @media screen and (max-width: 670px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 30px 30px 30px;
+    // position: unset;
+
+    .app-title {
+      font-size: 23px;
+      justify-self: center;
+    }
+    .searchbox {
+      grid-column-end: span 1;
+    }
+  }
+}
+
+
+.app-header .searchbox input {
+    background-color: rgba(0,0,0,0);
+    width: 100%;
+    border: none;
+    outline: 0px;
+    outline-offset: 0px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 0.8em;
+    padding: 1px 6px;
+    transition: 0.2s;
+}
+
+.app-header .searchbox input::placeholder {
+  font-size: 1em;
+  color: #aaa;
+}
+
+.app-header .searchbox .searchbox-overlay {
+    display: block;
+    top: 28px;
+    position: absolute;
+    background-color: white;
+    /*width: 292px;*/
+    width: 94%;
+    margin: 0px 4px;
+    z-index: 10000;
+    font-size: 0.9em;
+    border: 1px solid #dadada;
+}
+.searchbox-overlay .searchbox-title {
+    margin-top: 6px;
+    padding: 2px 6px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: gray;
+}
+.searchbox-overlay .divider {
+  margin: 0px 6px;
+  border-top: 1px solid #dadada;
+}
+.searchbox-overlay .searchbox-note {
+  padding: 4px 6px;
+  color: #ccc;
+}
+.searchbox-overlay .searchbox-option {
+  height: 30px;
+  padding: 4px 6px;
+  font-size: 0.9em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.searchbox-overlay .sideKey {
+  font-size: 0.9em;
+  color: #999;
+}
+
+.searchbox-overlay:hover {
+  cursor: pointer;
+  background-color: #dadada;
+  transition: 0.2s;
+}

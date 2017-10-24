@@ -128,7 +128,8 @@ class LifterRoute extends Component {
 
 	competitionClick = (appearance) => {
 		const compName = appearance._competition.name;
-		const { division, weightClass } = appearance;
+		const weightClass = appearance.weightClass;
+		const division = appearance.divisions[0];
 		const lifter = appearance._lifter.name;
 
 		Serializer.navigateTo(this.props.history, '/comp/' + compName, {division, weightClass, lifter});

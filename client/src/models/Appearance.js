@@ -9,18 +9,21 @@ class Appearance {
 	constructor(appearanceJson, lifter) {
 		this._lifter = lifter || new Lifter(appearanceJson._lifter, false);
 		this.bodyweight = appearanceJson.bodyweight;
-		this.place = appearanceJson.place;
+		this.places = appearanceJson.places;
 		this.team = appearanceJson.team;
 		this.videoId = appearanceJson.videoId;
 		this.wilks = appearanceJson.wilks;
 		this.total = appearanceJson.total;
-		this.place = appearanceJson.place;
 		this.lot = appearanceJson.lot;
-		this.division = appearanceJson.division;
+		this.places = appearanceJson.places;
+		this.divisions = appearanceJson.divisions;
 		this.weightClass = appearanceJson.weightClass;
 		this._competition = appearanceJson._competition;
 		this._id = appearanceJson._id;
-		this.attempts = {} 
+		this.attempts = {};
+
+		// if (this.divisions) this.division = this.divisions[0];
+		// if (this.places) this.place = this.places[0];
 
 		if (appearanceJson.attempts) {
 			for (let i = 0; i < appearanceJson.attempts.length; i++) {
@@ -32,12 +35,48 @@ class Appearance {
 		}
 	}
 
+	place(division) {
+		let place = ''
+		if (!division) {
+			const places = this.divisions.map((division) => {
+				return this.places[division];
+			});
+			return places.join(', ');
+		} else {
+			return this.places[division.toLowerCase()] || '';
+		}
+	}
 	weightclassLong() {
 		return title(this.weightClass) + ' ' + this._competition.options.weightClassSuffix;
 	}
 
 	divisionLong() {
-		return title(this.division);
+		return title(this.divisions[0]);
+	}
+
+	division(division) {
+		// return title(this.division);
+		let shortDivisions = [];
+		if (division) {
+			shortDivisions = [division];
+		} else {
+			shortDivisions = this.divisions;
+		}
+
+		const longDivisions = shortDivisions.map((division) => {
+			const newDiv = division.toLowerCase().replace('teen ', 'T').replace('masters ', 'M').replace('m', 'M');
+			switch (newDiv) {
+				case 'open':
+					return 'O';
+				case 'junior':
+					return 'J';
+				default:
+					return newDiv;
+			}
+		});
+
+		return longDivisions.join(', ')
+		
 	}
 
 	nextAttemptWithFrameData(currentAttemptName, direction=1) {

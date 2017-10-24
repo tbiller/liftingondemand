@@ -1,27 +1,23 @@
 
 .attempt-options-container {
-	width: 680px;
-	padding: 0px 140px;
-	/*height: 40px;*/
-	/*box-shadow: 0px 3px 3px 0px #EFEFEF;*/
+	width: 100%;
 	background-color: #fbfbfb;
 	border-bottom: 1px solid #dadada;
 	position: fixed;
 	z-index: 10;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 }
+
 .attempt-options {
 	display: flex;
-	/*width: 80px;*/
-	/*padding: 0px 100px;*/
-
 	margin: 0 auto;
-	/*padding-bottom: 6px;*/
+	width: 680px;
 	padding: 6px;
-	/*min-width: px;*/
 	flex-direction: row;
 	justify-content: space-between;
 	z-index: 10;
-	/*background-color: white;*/
 	font-size: 0.85em;
 }
 
@@ -31,34 +27,6 @@
 	padding-left: 10px;
 }
 
-/*.attempt-options .option-group {
-	display: flex;
-	flex-direction: column;
-	margin: 10px 0px;
-}
-
-.attempt-options .option-group .title {
-	font-weight: bold;
-	font-size: 0.8em;
-	margin-left: 4px;
-	margin-bottom: 2px;
-	border-bottom: 1px solid black;
-}
-
-.attempt-options .option-list {
-	display: flex;
-	flex-direction: row;
-}
-
-.attempt-options .option {
-	margin: 0px 2px;
-	font-size: 0.8em;
-	width: unset;
-	padding: 2px 5px;
-	height: unset;
-	line-height: unset;
-}
-*/
 .attempt-options .options {
 	display: flex;
 	flex-direction: row;

@@ -1,78 +1,92 @@
 .app-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 1px 5px;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 300px 1fr 300px;
+  grid-template-rows: 40px;
   border-bottom: 1px solid #dadada;
   position: fixed;
-  width: 950px;
-  height: 39px;
+  padding: 0px 4px;
+  width: 100%;
   z-index: 100;
-  background-color: #f2f2f2;
-}
-.app-header .burger-and-title {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.app-header .burger-and-title .app-title {
-  margin-left: 2px;
-  font-weight: bold;
-  font-size: 26px;
-}
-
-.app-header .searchbox {
-  margin-right: 2px;
-  padding-left: 4px;
-  border-left: 1px solid #dddddd;
-  z-index: 999;
-}
+  background-color: #f2f2f2; }
+  .app-header .app-title {
+    align-self: center;
+    font-size: 26px;
+    font-weight: bold; }
+  .app-header .searchbox {
+    align-self: center;
+    margin-left: 50px;
+    padding: 0px 4px;
+    border-left: 1px solid #dddddd;
+    z-index: 999;
+    position: relative; }
+  @media screen and (max-width: 940px) {
+    .app-header {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 40px 30px; }
+      .app-header .app-title {
+        justify-self: center; }
+      .app-header .searchbox {
+        border-left: none;
+        margin-left: 0px;
+        width: 80%;
+        text-align: center;
+        justify-self: center;
+        grid-column-end: span 2; }
+        .app-header .searchbox input::placeholder {
+          text-align: center; } }
+  @media screen and (max-width: 670px) {
+    .app-header {
+      grid-template-columns: 1fr;
+      grid-template-rows: 30px 30px 30px; }
+      .app-header .app-title {
+        font-size: 23px;
+        justify-self: center; }
+      .app-header .searchbox {
+        grid-column-end: span 1; } }
 
 .app-header .searchbox input {
-    background-color: rgba(0,0,0,0);
-    width: 200px;
-    border: none;
-    outline: 0px;
-    outline-offset: 0px;
-    height: 26px;
-    line-height: 26px;
-    font-size: 0.8em;
-    padding: 1px 6px;
-    transition: 0.2s;
-}
+  background-color: rgba(0, 0, 0, 0);
+  width: 100%;
+  border: none;
+  outline: 0px;
+  outline-offset: 0px;
+  height: 26px;
+  line-height: 26px;
+  font-size: 0.8em;
+  padding: 1px 6px;
+  transition: 0.2s; }
 
 .app-header .searchbox input::placeholder {
   font-size: 1em;
-  color: #aaa;
-}
+  color: #aaa; }
 
 .app-header .searchbox .searchbox-overlay {
-    display: block;
-    top: 34px;
-    position: absolute;
-    background-color: white;
-    width: 292px;
-    z-index: 10000;
-    font-size: 0.9em;
-    border: 1px solid #dadada;
-}
+  display: block;
+  top: 28px;
+  position: absolute;
+  background-color: white;
+  /*width: 292px;*/
+  width: 94%;
+  margin: 0px 4px;
+  z-index: 10000;
+  font-size: 0.9em;
+  border: 1px solid #dadada; }
+
 .searchbox-overlay .searchbox-title {
-      margin-top: 6px;
-      padding: 2px 6px;
-      font-weight: bold;
-      text-transform: uppercase;
-      color: gray;
-}
+  margin-top: 6px;
+  padding: 2px 6px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: gray; }
+
 .searchbox-overlay .divider {
   margin: 0px 6px;
-  border-top: 1px solid #dadada;
-}
+  border-top: 1px solid #dadada; }
+
 .searchbox-overlay .searchbox-note {
   padding: 4px 6px;
-  color: #ccc;
-}
+  color: #ccc; }
+
 .searchbox-overlay .searchbox-option {
   height: 30px;
   padding: 4px 6px;
@@ -80,16 +94,15 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-}
+  align-items: center; }
 
 .searchbox-overlay .sideKey {
   font-size: 0.9em;
-  color: #999;
-}
+  color: #999; }
 
 .searchbox-overlay:hover {
   cursor: pointer;
   background-color: #dadada;
-  transition: 0.2s;
-}
+  transition: 0.2s; }
+
+/*# sourceMappingURL=Header.css.map */
