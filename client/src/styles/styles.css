@@ -217,7 +217,13 @@ a.visible-link:hover {
     background-color: #66A182; }
 
 .content {
-  padding-top: 41px; }
+  padding-top: 40px; }
+  @media screen and (max-width: 940px) {
+    .content {
+      padding-top: 70px; } }
+  @media screen and (max-width: 670px) {
+    .content {
+      padding-top: 90px; } }
 
 .lifter-header {
   position: relative;

@@ -27,9 +27,6 @@ a:hover .competition-option {
   color: #999;
 }
 
-.competition-option .date {
-  font-style: italic;
-}
 
 .competition-option:hover {
   background-color: #efefef;
