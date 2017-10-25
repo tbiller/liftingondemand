@@ -5,9 +5,9 @@ import '../styles/components/RouteIndicator.css';
 
 export default withRouter(function({location}) {
 	const routes = [
-		['Best Lifts', '', ''], 
-		['Competitions', 'comp', 'competitions'],
+		['Competitions', 'comp', ''],
 		['Lifters', 'lifter', 'lifters'],
+		['Best Lifts', 'lifts', 'lifts'], 
 		['About', 'about', 'about']
 	];
 	//console.log(location);

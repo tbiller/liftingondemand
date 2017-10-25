@@ -133,7 +133,7 @@ class App extends Component {
 				    />
 					<div className='content'>
 						<Switch>
-							<Route exact path='/competitions' render={(props)=> {
+							<Route exact path='/' render={(props)=> {
 								return <CompetitionIndexRoute competitions={this.state.competitions} 
 									loading={this.state.loadingCompetitions} {...props} />;
 							}} /> 
@@ -157,7 +157,7 @@ class App extends Component {
 							<Route exact path='/about' render={(props)=> {
 								return <AboutRoute {...props} />
 							}} /> 
-							<Route exact path='/' render={(props)=> {
+							<Route exact path='/lifts' render={(props)=> {
 								return <DashboardRoute {...props} 
 									starAttempt={this.starAttempt} 
 									starredAttempts={this.state.starredAttempts}/>;
