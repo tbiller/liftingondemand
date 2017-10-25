@@ -16,6 +16,10 @@
       grid-template-columns: 1fr 1fr;
       grid-column-gap: 20px;
       grid-template-rows: auto auto; }
+      .controls-and-player .controls .lift-button {
+        display: none; }
+      .controls-and-player .controls .seek-button {
+        height: 28px; }
       .controls-and-player .controls.left {
         grid-row: 2;
         width: 100%; }
@@ -122,12 +126,5 @@
     border-top: none; }
   .controls-and-player .seek-button .title-container {
     position: static; }
-
-@media screen and (max-width: 670px) {
-  .pinned .controls {
-    display: none; }
-
-  .dummyContainer {
-    margin-bottom: -40px; } }
 
 /*# sourceMappingURL=PlayerControls.css.map */

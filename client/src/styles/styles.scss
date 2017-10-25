@@ -244,8 +244,7 @@ a.visible-link {
     position:fixed;
     top: 0px;
     width: $appWidth;
-  transition: 0.4s;
-
+    transition: 0.4s top;
   }
 }
 .dummyContainer {

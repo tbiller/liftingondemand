@@ -28,7 +28,7 @@ export default function({
 	// 	var currentAttempt = currentLifter.attempts[currentAttemptName];
 	// }
 	const columns = [
-		{Header: 'Pl.', id: 'place', accessor: (d) => d.place(division)/** === '-' ? '-' : +d.place**/, minWidth: 15, show: !live && !showCompressed},
+		{Header: 'Pl.', id: 'place', accessor: (d) => d.place(division)/** === '-' ? '-' : +d.place**/, minWidth: 20, show: !live && !showCompressed},
 		{Header: 'Flt.', accessor: 'flight', sortMethod: sortStrings, minWidth: 25, show: false},
 		{Header: 'Lot', accessor: 'lot', sortMethod: sortStrings, minWidth: 25, show:false},
 		{Header: 'Lifter', accessor: '_lifter.name', id: 'name', sortMethod: sortStrings, minWidth: 110, Cell:nameCell},

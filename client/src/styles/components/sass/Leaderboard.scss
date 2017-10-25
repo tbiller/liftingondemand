@@ -1,8 +1,7 @@
 .leaderboard {
   position: relative;
-  // min-height: 800px;
-  // padding-top: 5px;
-  // border-to`p: 1px dashed #dadada;
+  max-width: 960px;
+  margin: 0 auto;
   padding-left:3px;
   overflow: auto;
   .leaderboard-header {

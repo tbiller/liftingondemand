@@ -23,7 +23,7 @@
     .competition-header {
       grid-template-columns: 1fr;
       grid-template-rows: auto auto;
-      border-bottom: 1px solid #dadada;
+      border-bottom: 1px solid #efefef;
       padding-bottom: 4px; }
       .competition-header .left {
         display: none; }

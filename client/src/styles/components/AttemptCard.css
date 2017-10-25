@@ -1,5 +1,5 @@
 .attempt-card {
-	width: 640px;
+	/*width: 640px;*/
 
 	min-height: 80px;
 	/*background-color: whitesmoke;*/
@@ -12,7 +12,9 @@
 	flex-direction: column;
 }
 .attempt-card .header {
+	width: 640px;
 	padding-bottom: 4px;
+	margin: 0 auto;
 	/*margin-bottom: 4px;*/
 	/*border-bottom: 1px solid #dadada;*/
 	display: unset;
@@ -21,7 +23,7 @@
 
 .attempt-card .player-container {
 	height: 360px;
-	width: 640px;
+	/*width: 640px;*/
 	z-index: 0;
 	background-color: black;
 }

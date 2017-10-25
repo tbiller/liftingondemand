@@ -44,12 +44,14 @@ class LifterRoute extends Component {
 	}
 
 	componentDidUpdate = (prevProps, prevState) => {
-		// if (prevState.competition !== this.state.competition ||
-		// 	prevState.division !== this.state.division || 
-		// 	prevState.weightClass !== this.state.weightClass) {
-		// 	this.getCompData(this.state.competition, this.state.division, this.state.weightClass);
-		//  	this.updateUrlParams({weightClass: this.state.weightClass, division: this.state.division});
-		// }
+
+		if (prevState.loading === true && this.state.loading === false) {
+			this.pinTop = this.refs.pinOnScroll.offsetTop + 
+				document.documentElement.scrollTop - 
+				this.refs.lifterHeader.clientHeight + 15;
+		} else {
+			if (!this.pinTop) this.pinTop = 70;
+		}
 	} 
 	componentWillUnmount() {
 		window.removeEventListener('scroll', this.handleScroll);
@@ -111,7 +113,7 @@ class LifterRoute extends Component {
 			for (let j = 0; j < liftsInOrder.length; j++) {
 				const attempt = lifter.appearances[i].attempts[liftsInOrder[j]];
 				if (attempt && attempt.hasFrame()) {
-					this.selectLiftAttempt({attempt, boolStopVideo: false})
+					this.selectLiftAttempt({attempt, boolStopVideo: true})
 					return true;
 				}
 			}
@@ -214,7 +216,7 @@ class LifterRoute extends Component {
 		let scrollTop = document.documentElement.scrollTop;
         if (scrollTop >= 70) {
         	if (this.state.dummyContainerHeight === 0) {
-	        	this.setState({dummyContainerHeight: this.refs.pinOnScroll.clientHeight});
+	        	this.setState({dummyContainerHeight: this.refs.pinOnScroll.clientHeight- this.refs.lifterHeader.clientHeight});
 	        	this.refs.pinOnScroll.className = 'pinOnScroll pinned';
 	        }
         } else if (this.state.dummyContainerHeight > 0) {
@@ -250,7 +252,9 @@ class LifterRoute extends Component {
 					<meta name='og:image' content={ogImageUrl} />
 				</Helmet>
 				<div>
-					<LifterHeader lifter={this.state.lifter} />
+					<div ref='lifterHeader'>
+						<LifterHeader lifter={this.state.lifter} />
+					</div>
 					<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
 					</div>
 					<div className='pinOnScroll' ref='pinOnScroll'>

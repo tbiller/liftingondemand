@@ -28,7 +28,7 @@ attemptRoutes(app);
 
 mongoose.Promise = global.Promise;
 
-if ( app.get('env') === 'development' ) {
+if (app.get('env') === 'development' ) {
     mongoose.connect('mongodb://localhost:27017/powerlifting', { useMongoClient: true }); 
 } else {
 	mongoose.connect('mongodb://admintb:EKTtesDH9Eyx@ds161443.mlab.com:61443/powerlifting', { useMongoClient: true }); 

@@ -16,6 +16,12 @@
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;
     grid-template-rows: auto auto;
+    .controls .lift-button {
+      display:none;
+    }
+    .controls .seek-button {
+      height: 28px;
+    }
     .controls.left {
       grid-row: 2;
       width: 100%;
@@ -178,9 +184,9 @@
 
 @media screen and (max-width: 670px) {
   .pinned .controls {
-    display: none;
+    // display: none;
   } 
   .dummyContainer {
-    margin-bottom: -40px;
+    // margin-bottom: -40px;
   }
 }

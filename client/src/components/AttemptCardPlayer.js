@@ -86,6 +86,7 @@ class AttemptCardPlayer extends Component {
 							playerUpdated={this.playerUpdated}
 							showMessage={false}
 							stopAtEndOfAttempt={true}
+							boolStopVideo={true}
 							/>
 					</PlayerControls>
 				

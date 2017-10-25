@@ -62,6 +62,14 @@ class CompetitionRoute extends Component {
 		 	Serializer.updateUrlParams(this.props.history, this.props.location,
 		 		{weightClass: this.state.weightClass, division: this.state.division}, addToHistory);
 		}
+
+		if (prevState.loading === true && this.state.loading === false) {
+			this.pinTop = this.refs.pinOnScroll.offsetTop + 
+				document.documentElement.scrollTop - 
+				this.refs.competitionHeader.clientHeight - 10;
+		} else {
+			if (!this.pinTop) this.pinTop = 70;
+		}
 	}
 
 	componentWillUnmount() {
@@ -163,10 +171,13 @@ class CompetitionRoute extends Component {
 	handleScroll = (event) => {
 		if (this.state.loading === true) return false;
 		let scrollTop = document.documentElement.scrollTop; //event.srcElement.body.scrollTop;
-		console.log('scrolling', scrollTop);
-        if (scrollTop >= 70) {
+		// let scrollTop = 70;
+		console.log('pinTop', this.pinTop);
+		console.log('scrollTop', scrollTop);
+
+        if (scrollTop >= this.pinTop) {
         	if (this.state.dummyContainerHeight === 0) {
-	        	this.setState({dummyContainerHeight: this.refs.pinOnScroll.clientHeight});
+	        	this.setState({dummyContainerHeight: this.refs.pinOnScroll.clientHeight - this.refs.competitionHeader.clientHeight});
 	        	this.refs.pinOnScroll.className = 'pinOnScroll pinned';
 	        }
         } else if (this.state.dummyContainerHeight > 0) {
@@ -448,7 +459,7 @@ class CompetitionRoute extends Component {
 		if (firstAttempt == null) {
 			this.setState({resetPlayer: true});
 		}
-		this.selectLiftAttempt({attempt: firstAttempt, boolStopVideo: false});
+		this.selectLiftAttempt({attempt: firstAttempt, boolStopVideo: true});
 	}
 
 	toggleOptions = (boolOpen) => {
@@ -567,22 +578,23 @@ class CompetitionRoute extends Component {
 		const weightClassSuffix = this.state.competition ? this.state.competition.options.weightClassSuffix : 'kg';
 	    return (
 			<div onClick={this.closeOptions}>
-				<CompetitionHeader 
-					competition={this.state.competition} 
-					division={this.state.division}
-					weightClass={this.state.weightClass}
-					boolShowOptions={true} 
-					toggleOptions={this.toggleOptions}
-					optionsShown={this.state.optionsShown}
-					optionChange={this.optionChange}
-				/>
+				<div ref='competitionHeader'>
+					<CompetitionHeader 
+						competition={this.state.competition} 
+						division={this.state.division}
+						weightClass={this.state.weightClass}
+						boolShowOptions={true} 
+						toggleOptions={this.toggleOptions}
+						optionsShown={this.state.optionsShown}
+						optionChange={this.optionChange}
+					/>
+				</div>
 		
 				{this.state.loading === false ?
 			  		<div>
 					<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
 					</div>
 					<div className='pinOnScroll' ref='pinOnScroll'>
-				    	
 						<CurrentLifterInfo 
 				    		currentAttempt={this.state.currentAttempt}
 				    		selectLiftAttempt={this.selectLiftAttempt} 
