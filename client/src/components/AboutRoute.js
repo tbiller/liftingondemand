@@ -13,12 +13,10 @@ class AboutRoute extends Component {
 				<div className='title'>About</div>
 				<div className='about-content'>
 					<p>
-						Lifting On Demand is a new way to watch powerlifting. 
+						Lifting On Demand is a different way to watch powerlifting. 
 					</p>
 					<p>
-						We want to make upcoming powerlifting competitions easier to watch and past competitions easier to access.</p>
-					<p> 
-						We use a computer script to automatically detect when lifters are on competition livestreams. That saves us from recording all
+						We use a computer script to help us detect when lifters are on competition livestreams. That saves us from recording all
 						the timestamps by hand. However, computer identification does mean that we will get it wrong from time to time.
 					</p>
 					<p>
