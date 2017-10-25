@@ -41,13 +41,6 @@ class Attempt {
 			this.firstNameTime = null;
 			this.lastNameTime = null;
 		}
-
-		// if (this.lightsTime && this.endOfAttempt) {
-		// 	if (this.endOfAttempt > this.lightsTime + 30) {
-		// 		this.endOfAttempt = this.lightsTime + 30;
-		// 	}		
-		// }
-
 		if (this.lightsTime > 0) {
 			if (this.endOfAttempt) {
 				this.endOfAttempt = Math.min(this.endOfAttempt, this.lightsTime + 30);

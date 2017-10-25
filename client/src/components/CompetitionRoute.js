@@ -64,9 +64,7 @@ class CompetitionRoute extends Component {
 		}
 
 		if (prevState.loading === true && this.state.loading === false) {
-			this.pinTop = this.refs.pinOnScroll.offsetTop + 
-				document.documentElement.scrollTop - 
-				this.refs.competitionHeader.clientHeight - 10;
+			this.pinTop = this.refs.pinOnScroll.offsetTop + 3;
 		} else {
 			if (!this.pinTop) this.pinTop = 70;
 		}
@@ -177,7 +175,7 @@ class CompetitionRoute extends Component {
 
         if (scrollTop >= this.pinTop) {
         	if (this.state.dummyContainerHeight === 0) {
-	        	this.setState({dummyContainerHeight: this.refs.pinOnScroll.clientHeight - this.refs.competitionHeader.clientHeight});
+	        	this.setState({dummyContainerHeight: this.refs.pinOnScroll.clientHeight});
 	        	this.refs.pinOnScroll.className = 'pinOnScroll pinned';
 	        }
         } else if (this.state.dummyContainerHeight > 0) {
@@ -578,75 +576,75 @@ class CompetitionRoute extends Component {
 		const weightClassSuffix = this.state.competition ? this.state.competition.options.weightClassSuffix : 'kg';
 	    return (
 			<div onClick={this.closeOptions}>
-				<div ref='competitionHeader'>
-					<CompetitionHeader 
-						competition={this.state.competition} 
-						division={this.state.division}
-						weightClass={this.state.weightClass}
-						boolShowOptions={true} 
-						toggleOptions={this.toggleOptions}
-						optionsShown={this.state.optionsShown}
-						optionChange={this.optionChange}
-					/>
-				</div>
 		
 				{this.state.loading === false ?
 			  		<div>
-					<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
-					</div>
-					<div className='pinOnScroll' ref='pinOnScroll'>
-						<CurrentLifterInfo 
-				    		currentAttempt={this.state.currentAttempt}
-				    		selectLiftAttempt={this.selectLiftAttempt} 
-				    		activeDivision={this.state.division}
-				    		activeWeightClass={this.state.weightClass}
-				    		weightClassSuffix={weightClassSuffix}
-				    		starAttempt={this.starCurrentAttempt}
-				    		starredAttempts={this.props.starredAttempts}
-				    		lifterRoute={false}
-				    	/>
-					    <PlayerControls 
-					    	className='dark-text'
-							currentAttempt={this.state.currentAttempt}
-				    		sortedAttemptData={this.state.sortedAttemptData}
-				    		selectLiftAttempt={this.selectLiftAttempt}
-							incrementLiftersLift={this.incrementLiftersLift}
-							nextAttempt={this.nextAttempt(1)}
-							previousAttempt={this.nextAttempt(-1)}
-							advanceBySeconds={this.advanceBySeconds}
-							editMode={this.state.editMode}
-							>
-							<YoutubePlayer
-								attemptToBeSelected={this.state.attemptToBeSelected}
-								secondsToAdvance={this.state.secondsToAdvance}
-								boolStopVideo={this.state.boolStopVideo}
-								playerUpdated={this.playerUpdated}
-								recordTime={this.timeChange}
-								boolStopVideo={this.state.boolStopVideo}
+						<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
+						</div>
+						<div className='pinOnScroll' ref='pinOnScroll'>
+							<div ref='competitionHeader'>
+								<CompetitionHeader 
+									competition={this.state.competition} 
+									division={this.state.division}
+									weightClass={this.state.weightClass}
+									boolShowOptions={true} 
+									toggleOptions={this.toggleOptions}
+									optionsShown={this.state.optionsShown}
+									optionChange={this.optionChange}
+								/>
+							</div>
+							<CurrentLifterInfo 
+					    		currentAttempt={this.state.currentAttempt}
+					    		selectLiftAttempt={this.selectLiftAttempt} 
+					    		activeDivision={this.state.division}
+					    		activeWeightClass={this.state.weightClass}
+					    		weightClassSuffix={weightClassSuffix}
+					    		starAttempt={this.starCurrentAttempt}
+					    		starredAttempts={this.props.starredAttempts}
+					    		lifterRoute={false}
+					    	/>
+						    <PlayerControls 
+						    	className='dark-text'
+								currentAttempt={this.state.currentAttempt}
+					    		sortedAttemptData={this.state.sortedAttemptData}
+					    		selectLiftAttempt={this.selectLiftAttempt}
+								incrementLiftersLift={this.incrementLiftersLift}
+								nextAttempt={this.nextAttempt(1)}
+								previousAttempt={this.nextAttempt(-1)}
+								advanceBySeconds={this.advanceBySeconds}
 								editMode={this.state.editMode}
-								showMessage={!this.state.loading}
-								recordEdit={this.recordEdit}
-								resetPlayer={this.state.resetPlayer}
-							/>
-					    </PlayerControls>
-					</div>
-					<div ref='continueToScroll'>
-				     	<Leaderboard 
-				     		loading={this.state.loading}
-				     		player={this.player}
-				     		liftsInOrder={this.liftsInOrder}
-				     		leaderboardType={this.state.leaderboardType}
-				     		results={this.state.lifterAppearances}
-				     		tdClick={this.selectLiftAttempt}
-				     		lifterClick={this.lifterClick}
-				     		optionClick={this.optionChange}
-				     		currentAttempt={this.state.currentAttempt}
-				     		autoPlayingLifters={this.state.watchContinuousLifters}
-				     		clearAutoPlayingLifters={this.clearAutoPlayingLifters}
-				     		autoPlayTopLifters={this.autoPlayTopLifters}
-				     		division={this.state.division}
-				 		/>
-				 	</div>
+								>
+								<YoutubePlayer
+									attemptToBeSelected={this.state.attemptToBeSelected}
+									secondsToAdvance={this.state.secondsToAdvance}
+									boolStopVideo={this.state.boolStopVideo}
+									playerUpdated={this.playerUpdated}
+									recordTime={this.timeChange}
+									boolStopVideo={this.state.boolStopVideo}
+									editMode={this.state.editMode}
+									showMessage={!this.state.loading}
+									recordEdit={this.recordEdit}
+									resetPlayer={this.state.resetPlayer}
+								/>
+						    </PlayerControls>
+						</div>
+						<div ref='continueToScroll'>
+					     	<Leaderboard 
+					     		loading={this.state.loading}
+					     		player={this.player}
+					     		liftsInOrder={this.liftsInOrder}
+					     		leaderboardType={this.state.leaderboardType}
+					     		results={this.state.lifterAppearances}
+					     		tdClick={this.selectLiftAttempt}
+					     		lifterClick={this.lifterClick}
+					     		optionClick={this.optionChange}
+					     		currentAttempt={this.state.currentAttempt}
+					     		autoPlayingLifters={this.state.watchContinuousLifters}
+					     		clearAutoPlayingLifters={this.clearAutoPlayingLifters}
+					     		autoPlayTopLifters={this.autoPlayTopLifters}
+					     		division={this.state.division}
+					 		/>
+					 	</div>
 				 	</div>
 				:
 				 	<Spinner />

@@ -3,7 +3,6 @@
   grid-template-columns: 300px 1fr 300px;
   grid-template-rows: 40px;
   border-bottom: 1px solid #dadada;
-  position: fixed;
   padding: 0px 4px;
   width: 100%;
   z-index: 100;
@@ -24,13 +23,17 @@
       grid-template-rows: 40px 30px; }
       .app-header .app-title {
         justify-self: center; }
+      .app-header .route-indicator {
+        grid-row: 2;
+        grid-column-end: span 2; }
       .app-header .searchbox {
+        grid-row: 1;
+        grid-column: 2;
         border-left: none;
         margin-left: 0px;
         width: 80%;
         text-align: center;
-        justify-self: center;
-        grid-column-end: span 2; }
+        justify-self: center; }
         .app-header .searchbox input::placeholder {
           text-align: center; } }
   @media screen and (max-width: 670px) {
@@ -39,8 +42,12 @@
       grid-template-rows: 30px 30px 30px; }
       .app-header .app-title {
         font-size: 23px; }
-      .app-header .searchbox {
+      .app-header .route-indicator {
+        grid-row: 2;
         grid-column-end: span 1; }
+      .app-header .searchbox {
+        grid-row: 3;
+        grid-column: 1; }
         .app-header .searchbox input {
           padding: 1px 0px; } }
 
@@ -54,10 +61,6 @@
   line-height: 26px;
   font-size: 0.8em;
   transition: 0.2s; }
-
-.app-header .searchbox input::placeholder {
-  font-size: 1em;
-  color: #aaa; }
 
 .app-header .searchbox .searchbox-overlay {
   display: block;
@@ -78,6 +81,9 @@
   text-transform: uppercase;
   color: gray; }
 
+.searchbox-overlay a:hover {
+  color: unset; }
+
 .searchbox-overlay .divider {
   margin: 0px 6px;
   border-top: 1px solid #dadada; }
@@ -94,6 +100,9 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center; }
+
+.searchbox-overlay .searchbox-option:hover {
+  background-color: #dadada; }
 
 .searchbox-overlay .sideKey {
   font-size: 0.9em;

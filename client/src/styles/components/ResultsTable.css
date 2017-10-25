@@ -1,6 +1,10 @@
 .ReactTable {
   border: none;
+  max-width: 960px;
+  margin: 0 auto;
   overflow: visible; }
+  .ReactTable.lifter-table {
+    margin-top: 5px; }
   .ReactTable .rt-noData {
     padding: 3px 6px;
     top: 50px;

@@ -44,13 +44,10 @@ class LifterRoute extends Component {
 	}
 
 	componentDidUpdate = (prevProps, prevState) => {
-
 		if (prevState.loading === true && this.state.loading === false) {
-			this.pinTop = this.refs.pinOnScroll.offsetTop + 
-				document.documentElement.scrollTop - 
-				this.refs.lifterHeader.clientHeight + 15;
+			this.pinTop = this.refs.pinOnScroll.offsetTop + 3;
 		} else {
-			if (!this.pinTop) this.pinTop = 70;
+			if (!this.pinTop) this.pinTop = 40;
 		}
 	} 
 	componentWillUnmount() {
@@ -216,7 +213,7 @@ class LifterRoute extends Component {
 		let scrollTop = document.documentElement.scrollTop;
         if (scrollTop >= 70) {
         	if (this.state.dummyContainerHeight === 0) {
-	        	this.setState({dummyContainerHeight: this.refs.pinOnScroll.clientHeight- this.refs.lifterHeader.clientHeight});
+	        	this.setState({dummyContainerHeight: this.refs.pinOnScroll.clientHeight});
 	        	this.refs.pinOnScroll.className = 'pinOnScroll pinned';
 	        }
         } else if (this.state.dummyContainerHeight > 0) {
@@ -252,12 +249,10 @@ class LifterRoute extends Component {
 					<meta name='og:image' content={ogImageUrl} />
 				</Helmet>
 				<div>
-					<div ref='lifterHeader'>
-						<LifterHeader lifter={this.state.lifter} />
-					</div>
 					<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
 					</div>
 					<div className='pinOnScroll' ref='pinOnScroll'>
+						<LifterHeader lifter={this.state.lifter} />
 						<CurrentLifterInfo 
 							currentAttempt={this.state.currentAttempt}
 							lifterRoute={true}

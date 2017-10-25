@@ -52,7 +52,8 @@ class LifterIndexRoute extends Component {
 	
 		return (
 			<div className='lifter-list'>
-				<div className='title'>Lifters
+				<div className='title'>
+					<span>Lifters</span>
 					<Searchbox 
 						allOptions={lifters} 
 						minCharacters={2}

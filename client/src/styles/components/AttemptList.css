@@ -1,13 +1,12 @@
 .attempt-list {
-	/*width: 960px;*/
-	margin-top: 44px;
-	position: relative;
-	display: flex;
-	flex-direction: column;
-}
+  margin-top: 5px;
+  position: relative;
+  display: flex;
+  flex-direction: column; }
 
 .attempt-list .no-data {
-	margin: 30px auto;
-	font-size: 0.9em;
-	font-style: italic;
-}
+  margin: 30px auto;
+  font-size: 0.9em;
+  font-style: italic; }
+
+/*# sourceMappingURL=AttemptList.css.map */

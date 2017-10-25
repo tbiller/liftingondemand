@@ -1,0 +1,12 @@
+.attempt-list {
+	margin-top: 44px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+
+.attempt-list .no-data {
+	margin: 30px auto;
+	font-size: 0.9em;
+	font-style: italic;
+}

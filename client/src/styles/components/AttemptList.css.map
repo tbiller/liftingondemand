@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,aAAc;EACb,UAAU,EAAE,IAAI;EAChB,QAAQ,EAAE,QAAQ;EAClB,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;;AAGvB,sBAAuB;EACtB,MAAM,EAAE,SAAS;EACjB,SAAS,EAAE,KAAK;EAChB,UAAU,EAAE,MAAM",
+"sources": ["sass/AttemptList.scss"],
+"names": [],
+"file": "AttemptList.css"
+}

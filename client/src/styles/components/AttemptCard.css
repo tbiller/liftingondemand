@@ -1,134 +1,116 @@
 .attempt-card {
-	/*width: 640px;*/
-
-	min-height: 80px;
-	/*background-color: whitesmoke;*/
-	/*border: 1px solid #dadada;*/
-	position: relative;
-	margin: 15px auto;
-	transition: 0.4s;
-	/*padding: 4px;*/
-	display: flex;
-	flex-direction: column;
-}
-.attempt-card .header {
-	width: 640px;
-	padding-bottom: 4px;
-	margin: 0 auto;
-	/*margin-bottom: 4px;*/
-	/*border-bottom: 1px solid #dadada;*/
-	display: unset;
-
-}
-
-.attempt-card .player-container {
-	height: 360px;
-	/*width: 640px;*/
-	z-index: 0;
-	background-color: black;
-}
-
-
+  min-height: 80px;
+  position: relative;
+  margin: 15px auto 30px auto;
+  display: flex;
+  flex-direction: column; }
+  .attempt-card .player-container {
+    min-height: 360px;
+    z-index: 0;
+    background-color: #dadada;
+    outline: 1px solid #999;
+    transition: 0.5s; }
+    @media screen and (max-width: 640px) {
+      .attempt-card .player-container {
+        min-height: 56vw; } }
+  .attempt-card .header {
+    width: 640px;
+    padding-bottom: 4px;
+    margin: 0 auto;
+    display: unset; }
+    @media screen and (max-width: 640px) {
+      .attempt-card .header {
+        width: 100%; } }
+  .attempt-card.active {
+    margin-bottom: 5px;
+    outline: 1px solid #ccc;
+    box-shadow: 3px 2px 4px #dadada; }
+    .attempt-card.active .controls-and-player {
+      outline: none;
+      box-shadow: none; }
+    .attempt-card.active .player-container {
+      background-color: black;
+      outline: none;
+      transition: 0.5s; }
 
 .attempt-card .youtube-player {
-	z-index: 1;
-}
+  z-index: 1; }
 
 .attempt-card .divider {
-	border-left: 1px solid #dadada;
-	margin-left: 5px;
-	font-size: 1px;
-	height: 18px;
-	padding-right: 5px;
-}
-
-
-
-/*
-<div className='lifter-name'>{attempt._lifter.name}</div>
-			<div className='lift'>{attempt.liftName}</div>
-			<div className='weight'>{attempt.weight}</div>
-			<div className='competition-name'*/
+  border-left: 1px solid #dadada;
+  margin-left: 5px;
+  font-size: 1px;
+  height: 18px;
+  padding-right: 5px; }
 
 .attempt-card .lifter-info {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	position: relative;
-	border: none;
-	padding: 2px 4px;
-}
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  border: none;
+  padding: 2px 4px; }
 
 .attempt-card .attempt-info .right-container {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-}
+  display: flex;
+  flex-direction: row;
+  align-items: center; }
 
-/*.attempt-card .attempt-info .records {
-	margin-right: 15px;
-}
-*/
 .attempt-card .weightclass-division {
-	font-size: 0.9em;
-	margin-right: 6px;
-}
+  font-size: 0.9em;
+  margin-right: 6px; }
 
 .attempt-card .lifter-info .lifter-name {
-	font-weight: bold;
-	font-size: 1.1em;
-}
+  font-weight: bold;
+  font-size: 1.1em; }
+
 .attempt-card .lifter-info .bodyweight {
-	color: #999;
-	font-size: 0.9em;
-}
+  color: #999;
+  font-size: 0.9em; }
+
 .attempt-card .competition-name {
-	font-weight: 300;
-}
+  font-weight: 300; }
+
 .attempt-card .records {
-	/*position: absolute;*/
-	/*font-size: 0.8em;*/
-	font-size: 12px;
-	padding: 2px 5px;
-	/*top: 0px;*/
-	/*right: 0px;*/
-}
+  /*position: absolute;*/
+  /*font-size: 0.8em;*/
+  font-size: 12px;
+  padding: 2px 5px;
+  /*top: 0px;*/
+  /*right: 0px;*/ }
 
 .attempt-card .attempt-info {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0px 4px;
-	font-weight: 300;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 4px;
+  font-weight: 300; }
 
-
-}
 .attempt-card .attempt-info .attempt {
-	/*text-transform: uppercase;*/
-	/*margin: -3px 0px;*/
-	/*font-size: 14px;*/
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	border: none;
-}
+  /*text-transform: uppercase;*/
+  /*margin: -3px 0px;*/
+  /*font-size: 14px;*/
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: none; }
 
-.attempt-card .attempt-info .competition-name{
-	/*text-transform: uppercase;*/
-	/*margin: -3px 0px;*/
-	/*font-size: 14px;*/
-	/*padding: 3px;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	border: none;*/
-}
+.attempt-card .attempt-info .competition-name {
+  /*text-transform: uppercase;*/
+  /*margin: -3px 0px;*/
+  /*font-size: 14px;*/
+  /*padding: 3px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: none;*/ }
 
 .attempt-card .attempt-info .kg-weight {
-	font-weight: bold;
-	font-size: 1.05em;
-	margin: 0px 12px;
-}
+  font-weight: bold;
+  font-size: 1.05em;
+  margin: 0px 12px; }
+
+/*# sourceMappingURL=AttemptCard.css.map */

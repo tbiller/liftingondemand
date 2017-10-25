@@ -213,13 +213,7 @@ a.visible-link:hover {
     background-color: #66A182; }
 
 .content {
-  padding: 40px 0px 20px 0px; }
-  @media screen and (max-width: 940px) {
-    .content {
-      padding-top: 70px; } }
-  @media screen and (max-width: 670px) {
-    .content {
-      padding-top: 90px; } }
+  padding-bottom: 30px; }
 
 .flex-row {
   display: flex;

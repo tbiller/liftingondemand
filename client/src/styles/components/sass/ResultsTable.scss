@@ -5,7 +5,13 @@ $sangria: #92140C;
 
 .ReactTable {
   border: none;
+  max-width: 960px;
+  margin: 0 auto;
   overflow: visible;
+
+  &.lifter-table {
+    margin-top: 5px;
+  }
 
   .rt-noData {
     padding: 3px 6px;

@@ -65,7 +65,7 @@ export default function({
 
 	return (
 		<div>
-			<div className='competition-header'>
+			<div className='competition-header three-piece-header'>
 	    		<div className='left competition-date'>
 		    		{competition ? competition.dates : ''}
 	    		</div>

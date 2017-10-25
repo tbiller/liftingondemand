@@ -18,7 +18,7 @@ class AttemptCard extends Component {
 		if (!attempt) return null;
 		//console.log('renderinrg attempt card');
 		return (
-			<div ref={cardRef} className='attempt-card' onClick={onClick}>
+			<div ref={cardRef} className={['attempt-card', isActive ? 'active' : ''].join(' ')} onClick={onClick}>
 				<AttemptCardHeader 
 					attempt={attempt}
 					starAttempt={starAttempt}

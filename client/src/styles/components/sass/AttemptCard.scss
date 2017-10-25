@@ -1,0 +1,137 @@
+.attempt-card {
+	min-height: 80px;
+	position: relative;
+	margin: 15px auto 30px auto;
+	display: flex;
+	flex-direction: column;
+
+
+	.player-container {
+		min-height: 360px;
+		@media screen and (max-width: 640px) {
+			min-height: 56vw; // 340/640px
+		}
+		z-index: 0;
+		background-color: #dadada;
+		outline: 1px solid #999;
+		transition: 0.5s;
+	}
+
+	.header {
+		width: 640px;
+		@media screen and (max-width: 640px) {
+			width: 100%;
+		}
+		padding-bottom: 4px;
+		margin: 0 auto;
+		display: unset;
+	}
+
+	&.active {
+		margin-bottom: 5px;
+		outline: 1px solid #ccc;
+  		box-shadow: 3px 2px 4px #dadada;
+
+  		.controls-and-player {
+  			outline: none;
+  			box-shadow: none;
+  		}
+
+		.player-container {
+			background-color: black;
+			outline: none;
+			transition: 0.5s;
+		}
+	}
+} 
+
+.attempt-card .youtube-player {
+	z-index: 1;
+}
+
+.attempt-card .divider {
+	border-left: 1px solid #dadada;
+	margin-left: 5px;
+	font-size: 1px;
+	height: 18px;
+	padding-right: 5px;
+}
+
+.attempt-card .lifter-info {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+	border: none;
+	padding: 2px 4px;
+}
+
+.attempt-card .attempt-info .right-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.attempt-card .weightclass-division {
+	font-size: 0.9em;
+	margin-right: 6px;
+}
+
+.attempt-card .lifter-info .lifter-name {
+	font-weight: bold;
+	font-size: 1.1em;
+}
+.attempt-card .lifter-info .bodyweight {
+	color: #999;
+	font-size: 0.9em;
+}
+.attempt-card .competition-name {
+	font-weight: 300;
+}
+.attempt-card .records {
+	/*position: absolute;*/
+	/*font-size: 0.8em;*/
+	font-size: 12px;
+	padding: 2px 5px;
+	/*top: 0px;*/
+	/*right: 0px;*/
+}
+
+.attempt-card .attempt-info {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0px 4px;
+	font-weight: 300;
+
+
+}
+.attempt-card .attempt-info .attempt {
+	/*text-transform: uppercase;*/
+	/*margin: -3px 0px;*/
+	/*font-size: 14px;*/
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border: none;
+}
+
+.attempt-card .attempt-info .competition-name{
+	/*text-transform: uppercase;*/
+	/*margin: -3px 0px;*/
+	/*font-size: 14px;*/
+	/*padding: 3px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	border: none;*/
+}
+
+.attempt-card .attempt-info .kg-weight {
+	font-weight: bold;
+	font-size: 1.05em;
+	margin: 0px 12px;
+}

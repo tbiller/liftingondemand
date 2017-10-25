@@ -1,92 +1,82 @@
-
 .attempt-options-container {
-	width: 100%;
-	background-color: #fbfbfb;
-	border-bottom: 1px solid #dadada;
-	position: fixed;
-	z-index: 10;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-}
+  background-color: #fbfbfb;
+  border-bottom: 1px solid #dadada;
+  /*position: fixed;*/
+  z-index: 10;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; }
+  @media screen and (max-width: 790px) {
+    .attempt-options-container {
+      display: grid;
+      grid-template-columns: auto;
+      grid-template-rows: repeat(3, auto); }
+      .attempt-options-container .vertical-divider {
+        display: none; }
+      .attempt-options-container .attempt-options {
+        border-bottom: 1px dashed #efefef; }
+        .attempt-options-container .attempt-options:last-child {
+          border-bottom: none; } }
 
 .attempt-options {
-	display: flex;
-	margin: 0 auto;
-	width: 680px;
-	padding: 6px;
-	flex-direction: row;
-	justify-content: space-between;
-	z-index: 10;
-	font-size: 0.85em;
-}
+  display: flex;
+  flex-direction: row;
+  padding: 6px;
+  z-index: 10;
+  font-size: 0.85em; }
 
 .vertical-divider {
-	border-left: 1px solid #dadada;
-	margin-left: 10px;
-	padding-left: 10px;
-}
-
-.attempt-options .options {
-	display: flex;
-	flex-direction: row;
-}
+  border-left: 1px solid #dadada;
+  height: 30px;
+  margin-left: 10px;
+  padding-left: 10px; }
 
 .attempt-options .options .option-select {
-	/*margin: 0px 0px;*/
-}
-
+  /*margin: 0px 0px;*/ }
 
 .attempt-options .option-select {
-	min-width: 90px;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	/*align-items: center;*/
-	font-size: 0.85em;
-}
+  min-width: 90px;
+  margin: 0px 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /*align-items: center;*/
+  font-size: 0.85em; }
 
 .attempt-options .option-select .Select {
-	width: 100%;
-
-}
+  width: 100%; }
 
 .attempt-options .option-select .option-title {
-	/*margin-top: -5px;*/
-	font-size: 0.9em;
-	font-weight: 300;
-}
+  /*margin-top: -5px;*/
+  font-size: 0.9em;
+  font-weight: 300; }
 
 .attempt-options .Select-control {
-    height: 24px;
+  height: 24px; }
 
-}
 .attempt-options .Select-control .Select-placeholder {
-  	line-height: 22px;
-}
+  line-height: 22px; }
 
 .attempt-options .Select-control .Select-value {
-	font-weight: bold;
-	padding: 0px 7px !important;
-    line-height: 22px !important;
-}
+  font-weight: bold;
+  padding: 0px 7px !important;
+  line-height: 22px !important; }
+
 .attempt-options .Select-control .Select-value .Select-value-label {
-    line-height: 22px;
-}
+  line-height: 22px; }
 
 .attempt-options .Select-control .Select-input {
-	height: 22px;
-}
+  height: 22px; }
 
 .attempt-options .Select-menu-outer {
-max-height: 1000px;
-}
+  max-height: 1000px; }
 
 .attempt-options .Select-arrow-zone {
-	width: 14px !important;
-	padding-right: 0px !important;
-}
+  width: 14px !important;
+  padding-right: 0px !important; }
 
 .Select-menu {
-max-height: 998px;
-}
+  max-height: 998px; }
+
+/*# sourceMappingURL=AttemptOptions.css.map */

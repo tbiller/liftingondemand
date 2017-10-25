@@ -68,7 +68,9 @@ export default function({
 					options={styleOptsObj.selectOptions} 
 					initialValue={styleOptsObj.selectedValue}
 				/>
-				<div className='vertical-divider'>&nbsp;</div>			
+			</div>
+			<div className='vertical-divider'>&nbsp;</div>			
+			<div className='attempt-options'>
 				<OptionSelect 
 					optionChange={optionChange} 
 					optionType='weightclass' 
@@ -90,7 +92,9 @@ export default function({
 					options={divisionOptsObj.selectOptions} 
 					initialValue={divisionOptsObj.selectedValue}
 				/>
-				<div className='vertical-divider'>&nbsp;</div>			
+			</div>
+			<div className='vertical-divider'>&nbsp;</div>			
+			<div className='attempt-options'>
 				<OptionSelect 
 					optionChange={optionChange} 
 					optionType='sortBy' 

@@ -6,35 +6,16 @@
 }
 .controls-and-player {
   padding: 0px 0px 0px 0px;
+  max-width: 960px;
+  z-index: 11;
+  margin: 0px auto;
+  outline: 1px solid #ccc;
+  box-shadow: 3px 2px 4px #dadada;
   // display: flex;
   // flex-direction: row;
   // justify-content: center;
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
-
-  @media screen and (max-width: 940px) {
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 20px;
-    grid-template-rows: auto auto;
-    .controls .lift-button {
-      display:none;
-    }
-    .controls .seek-button {
-      height: 28px;
-    }
-    .controls.left {
-      grid-row: 2;
-      width: 100%;
-    }
-    .controls.right {
-      grid-row: 2;
-      width: 100%;
-    }
-    .player-center {
-      grid-row: 1;
-      grid-column-end: span 2;
-    }
-  }
 
 
 
@@ -96,8 +77,7 @@
     display: flex;
     flex-direction: column;
     // flex: 1;
-    width: 140px;
-    min-width: 95px;
+    width: 100%;
 
     // max-width: 160px;
     
@@ -133,8 +113,11 @@
 
     &.clickable:hover {
       cursor: pointer;
-      font-weight: bold;
-      // background-color: #efefef;
+      background-color: #efefef;
+    }
+
+    @media screen and (max-width: 640px) {
+      background-color: rgba(0,0,0,0);
     }
 
     &.right {
@@ -180,13 +163,39 @@
   .seek-button .title-container {
     position: static;
   }
-}
 
-@media screen and (max-width: 670px) {
-  .pinned .controls {
-    // display: none;
-  } 
-  .dummyContainer {
-    // margin-bottom: -40px;
+
+  @media screen and (max-width: 940px) {
+    grid-template-columns: 1fr 1fr;
+    // grid-column-gap: 20px;
+    grid-template-rows: auto auto;
+    .controls {
+      min-width: 160px;
+    }
+    .controls .lift-button {
+      display:none;
+    }
+    .controls .seek-button {
+      height: 28px;
+    }
+    .controls.left {
+      grid-row: 2;
+      width: 50%;
+      // margin-right: 10px;
+    }
+    .controls.right {
+      grid-row: 2;
+      width: 50%;
+      justify-self: end;
+      // margin-left: 10px;
+      .lift-button, .seek-button {
+        // align-items: flex-end;
+      }
+    }
+    .player-center {
+      grid-row: 1;
+      grid-column-end: span 2;
+    }
   }
+
 }
