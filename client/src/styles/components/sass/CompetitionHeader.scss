@@ -14,6 +14,9 @@
 	font-size: 0.9em;
     color: #999;
     background-color: #fbfbfb;
+    	@media screen and (max-width: 640px) {
+			// font-size: 0.8em;
+		}
 
     .competition-title {
 		font-weight: bold;
@@ -41,13 +44,14 @@
 	    	display: none;
 	    }
 	    .center {
-	    	font-size: 24px;
+	    	font-size: 22px;
 	    	padding: 3px 0px;
 	    }
 	    .right {
 	    	justify-self:center;
 	    }
 	}
+
 
 }
 
