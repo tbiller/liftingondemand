@@ -249,9 +249,6 @@ class LifterRoute extends Component {
 					<meta name='og:image' content={ogImageUrl} />
 				</Helmet>
 				<div>
-					<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
-					</div>
-					<div className='pinOnScroll' ref='pinOnScroll'>
 						<LifterHeader lifter={this.state.lifter} />
 						<CurrentLifterInfo 
 							currentAttempt={this.state.currentAttempt}
@@ -260,6 +257,9 @@ class LifterRoute extends Component {
 							starredAttempts={this.props.starredAttempts}
 							starAttempt={this.starCurrentAttempt}
 						/>
+					<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
+					</div>
+					<div className='pinOnScroll' ref='pinOnScroll'>
 	 					<PlayerControls 
 	 						className='dark-text'
 							currentAttempt={this.state.currentAttempt}

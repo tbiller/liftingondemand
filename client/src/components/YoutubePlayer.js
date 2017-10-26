@@ -41,7 +41,7 @@ export default class YoutubePlayer extends Component {
 		if (props.attemptToBeSelected || props.secondsToAdvance) {
 			if (props.attemptToBeSelected) {
 				if (props.stopAtEndOfAttempt === true) {
-					console.log('settingstop at', props.attemptToBeSelected);
+					// console.log('settingstop at', props.attemptToBeSelected);
 					this.setState({stopAt: props.attemptToBeSelected.endOfAttempt});
 				}
 				this.selectLiftAttempt(props.attemptToBeSelected, props.boolStopVideo, props.muteVideo);
@@ -108,8 +108,8 @@ export default class YoutubePlayer extends Component {
 			var currentTime = this.player.getCurrentTime();
 			if (currentTime && this.props.recordTime) this.props.recordTime(currentTime);
 
-			console.log('stopAt', this.state.stopAt)
-			console.log('currentTime', currentTime);
+			// console.log('stopAt', this.state.stopAt)
+			// console.log('currentTime', currentTime);
 			if (this.state.stopAt > 0 && currentTime > this.state.stopAt) {
 				this.player.pauseVideo();
 				this.setState({attemptOver: true});

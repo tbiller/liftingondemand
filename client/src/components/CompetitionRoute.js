@@ -96,7 +96,9 @@ class CompetitionRoute extends Component {
 
 		division = queryParams.division;
 		weightClass = queryParams.weightClass;
+		const editMode = queryParams.editMode === 'true';
 
+		if (editMode) this.setState({videoId: queryParams.videoId});
 		if (activeCompetition &&
 			(!weightClass || !division)) {
 			division = activeCompetition.options['default'].division;
@@ -116,19 +118,26 @@ class CompetitionRoute extends Component {
 			if (division !== this.state.division) this.setState({division});
 			if (weightClass !== this.state.weightClass) this.setState({weightClass});
 		}
-		this.setState({editMode: queryParams.editMode === 'true'});
+		this.setState({editMode});
 	}
 
 	getCompData = (competition, division, weightClass) => {
 		if (!competition) return false;
 
 		//console.log('fetching data');
-
-		const params = {
-			_competition: competition._id,
-			division: division,
-			weightClass: weightClass
-		};
+		let params = {};
+		if (this.state.editMode && this.state.videoId) {
+			params = {
+				videoId: this.state.videoId
+			};
+		} else {
+			params = {
+				_competition: competition._id,
+				division: division,
+				weightClass: weightClass,
+			};
+		}
+		
 
 		this.setState({loading: true});
 
@@ -170,8 +179,8 @@ class CompetitionRoute extends Component {
 		if (this.state.loading === true) return false;
 		let scrollTop = document.documentElement.scrollTop; //event.srcElement.body.scrollTop;
 		// let scrollTop = 70;
-		console.log('pinTop', this.pinTop);
-		console.log('scrollTop', scrollTop);
+		// console.log('pinTop', this.pinTop);
+		// console.log('scrollTop', scrollTop);
 
         if (scrollTop >= this.pinTop) {
         	if (this.state.dummyContainerHeight === 0) {
@@ -493,7 +502,7 @@ class CompetitionRoute extends Component {
 			this.edits[key][attemptName]['lastNameTime'] = +(seconds).toFixed(0);
 		}
 
-		//console.log(JSON.stringify(this.edits));
+		console.log(JSON.stringify(this.edits));
 	}
 
 
@@ -580,9 +589,6 @@ class CompetitionRoute extends Component {
 		
 				{this.state.loading === false ?
 			  		<div>
-						<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
-						</div>
-						<div className='pinOnScroll' ref='pinOnScroll'>
 							<div ref='competitionHeader'>
 								<CompetitionHeader 
 									competition={this.state.competition} 
@@ -604,6 +610,9 @@ class CompetitionRoute extends Component {
 					    		starredAttempts={this.props.starredAttempts}
 					    		lifterRoute={false}
 					    	/>
+						<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
+						</div>
+						<div className='pinOnScroll' ref='pinOnScroll'>
 						    <PlayerControls 
 						    	className='dark-text'
 								currentAttempt={this.state.currentAttempt}

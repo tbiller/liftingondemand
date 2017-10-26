@@ -29,6 +29,10 @@ exports.get_appearances = function(req, res) {
 		params['weightClass'] = req.query.weightClass.toLowerCase();
 		console.log(req.query.weightClass);
 	}
+	if (req.query.videoId) {
+		params['videoId'] = req.query.videoId;
+		console.log('videoId', req.query.videoId);
+	}
 
 	console.log(params)
 
