@@ -23,6 +23,7 @@ class AboutRoute extends Component {
 						Something wrong with a timestamp or video? Contact us at 
 						<span className='email-address'>support@liftingondemand.com</span>to report any errors, or if you have any other questions or ideas for the site.
 					</p>
+					<p>On a mobile device? Mobile browsers can be finicky, visit the site on desktop if things aren't working right.</p>
 				</div>
 			</div>
 

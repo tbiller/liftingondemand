@@ -1,10 +1,12 @@
 .attempt-card {
 	min-height: 80px;
 	position: relative;
-	margin: 15px auto 30px auto;
+	margin: 15px auto 15px auto;
 	display: flex;
 	flex-direction: column;
-
+	@media screen and (max-width: 940px) {
+		margin-bottom: 61px;
+	}
 
 	.player-container {
 		min-height: 360px;
@@ -12,25 +14,39 @@
 			min-height: 56vw; // 340/640px
 		}
 		z-index: 0;
-		background-color: #dadada;
-		outline: 1px solid #999;
+		background-color: #999;
+		// outline: 1px solid #dadada;
 		transition: 0.5s;
+		display:flex;
+		justify-content: center;
+		align-items:center;
+		&:hover {
+			cursor: pointer;
+			background-color: #666;
+		}
+		.play-button {
+
+		}
 	}
 
 	.header {
-		width: 640px;
+		width: 636px;
 		@media screen and (max-width: 640px) {
 			width: 100%;
 		}
+		padding: 0px 2px;
 		padding-bottom: 4px;
+
 		margin: 0 auto;
 		display: unset;
 	}
 
 	&.active {
-		margin-bottom: 5px;
-		outline: 1px solid #ccc;
-  		box-shadow: 3px 2px 4px #dadada;
+		margin-bottom: 0px;
+		// outline: 1px solid #eee;
+  		box-shadow: 0px 1px 5px #dadada;
+		// background-color: #f3f3f3;
+
 
   		.controls-and-player {
   			outline: none;

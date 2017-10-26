@@ -416,7 +416,8 @@ class CompetitionRoute extends Component {
 		
 
 		this.setState({
-			[optType]: val
+			[optType]: val,
+			dummyContainerHeight: 0
 		});
 
 	}

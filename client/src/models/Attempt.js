@@ -22,19 +22,19 @@ class Attempt {
 		this.lightsTime = attemptJson.lightsTime;
 		this.result = attemptJson.result;
 		this.weight = attemptJson.weight;
-		if (this.weight === '') {
-			this.weight = 'X'
+		if (this.weight === '' || this.weight.toLowerCase() == 'x') {
+			this.weight = 'X';
 		} else if (this.weight.indexOf('.') === -1) {
-			this.weight = this.weight + '.0'
+			this.weight = this.weight + '.0';
 		}
 		this.records = attemptJson.records;
 		this.numStars = attemptJson.numStars || 0;
 
-		if (this.lastNameTime && this.firstNameTime) {
-			if (this.lastNameTime - this.firstNameTime > 120) {
-				this.firstNameTime = this.lastNameTime - 120;
-			}
-		}
+		// if (this.lastNameTime && this.firstNameTime) {
+		// 	if (this.lastNameTime - this.firstNameTime > 120) {
+		// 		this.firstNameTime = this.lastNameTime - 120;
+		// 	}
+		// }
 
 		if (this.lightsTime && this.lightsTime < this.firstNameTime) {
 			this.lightsTime = null;
@@ -65,7 +65,7 @@ class Attempt {
 	}
 
 	hasFrame() {
-		return !!this.firstNameTime || !!this.lastNameTime || !!this.lightsTime;
+		return this.weight !== 'X' && (!!this.firstNameTime || !!this.lastNameTime || !!this.lightsTime);
 	}
 
 	prevAttempt() {

@@ -23,7 +23,6 @@
   display: flex;
   flex-direction: row;
   padding: 6px;
-  z-index: 10;
   font-size: 0.85em; }
 
 .vertical-divider {

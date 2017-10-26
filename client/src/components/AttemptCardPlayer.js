@@ -14,6 +14,10 @@ class AttemptCardPlayer extends Component {
 
 	}
 
+	componentDidMount() {
+		// this.setState({attemptToBeSelected: this.props.attempt});
+	}
+
 
 	shouldComponentUpdate(nextProps, nextState) {
 		return this.props.attempt !== nextProps.attempt || 
@@ -24,8 +28,11 @@ class AttemptCardPlayer extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.isActive && !this.props.isActive) {
-			this.setState({attemptToBeSelected: this.props.attempt, attemptOver: false});
+			this.setState({attemptToBeSelected: this.props.attempt, attemptOver: false, boolStopVideo: false});
 		}
+		// if (!nextProps.isActive) {
+		// 	this.setState({attemptToBeSelected: this.props.attempt});
+		// }
 	}
 	
 	playerUpdated = () => {
@@ -69,7 +76,7 @@ class AttemptCardPlayer extends Component {
 
 		return (
 			<div className='player-container'>
-				{isActive &&
+				{isActive ?
 					<PlayerControls
 						showReplay={true}
 						replayAttempt={this.replayAttempt}
@@ -86,10 +93,11 @@ class AttemptCardPlayer extends Component {
 							playerUpdated={this.playerUpdated}
 							showMessage={false}
 							stopAtEndOfAttempt={true}
-							boolStopVideo={true}
+							boolStopVideo={this.state.boolStopVideo}
 							/>
 					</PlayerControls>
-				
+				:
+					<img className='play-button' src= {require('../images/play_button_128.png')} />
 				}
 			</div>
 		);

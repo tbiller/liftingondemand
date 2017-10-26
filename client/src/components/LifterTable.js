@@ -59,7 +59,7 @@ export default function({
 	function shouldShow(liftName, attemptNumber) {
 		if (!showCompressed) return true;
 		if (!currentAttempt) return liftName.toLowerCase() === 'squat';
-		if (+attemptNumber === 1) return true;
+		if (+attemptNumber === 3) return true;
 		return currentAttempt.liftName.toLowerCase() === liftName.toLowerCase();
 	}
 

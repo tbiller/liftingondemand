@@ -35,7 +35,7 @@
 	// width: 680px;
 	padding: 6px;
 	// justify-content: space-between;
-	z-index: 10;
+	// z-index: 10;
 	font-size: 0.85em;
 }
 
@@ -63,8 +63,13 @@
 
 .attempt-options .option-select .Select {
 	width: 100%;
+	.Select-menu-outer {
+	// z-index: 200;
+	}
+
 
 }
+
 
 .attempt-options .option-select .option-title {
 	/*margin-top: -5px;*/

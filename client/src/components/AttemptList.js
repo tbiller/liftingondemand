@@ -33,22 +33,22 @@ class AttemptList extends Component {
 	}
 
 	handleScroll = (event) => {
-		const windowHeight =  window.innerHeight
-			|| document.documentElement.clientHeight
-			|| document.body.clientHeight;
+		// const windowHeight =  window.innerHeight
+		// 	|| document.documentElement.clientHeight
+		// 	|| document.body.clientHeight;
 
-		let scrollTop = event.srcElement.body.scrollTop;
-      	for (let i = 0; i < this.attemptCardEls.length; i++) {
-      		const {attempt, cardEl} = this.attemptCardEls[i];
-      		const viewportOffset = cardEl.getBoundingClientRect();
-			const cardTop = viewportOffset.top;
-			const cardHeight = viewportOffset.height;
-			const cardMiddle = cardTop + cardHeight / 2.0;
-			if (cardMiddle > 30) {
-				if (attempt !== this.state.activeAttempt) this.setState({activeAttempt: attempt});
-				break;
-			}
-      	}
+		// let scrollTop = event.srcElement.body.scrollTop;
+  //     	for (let i = 0; i < this.attemptCardEls.length; i++) {
+  //     		const {attempt, cardEl} = this.attemptCardEls[i];
+  //     		const viewportOffset = cardEl.getBoundingClientRect();
+		// 	const cardTop = viewportOffset.top;
+		// 	const cardHeight = viewportOffset.height;
+		// 	const cardMiddle = cardTop + cardHeight / 2.0;
+		// 	if (cardMiddle > 30) {
+		// 		if (attempt !== this.state.activeAttempt) this.setState({activeAttempt: attempt});
+		// 		break;
+		// 	}
+  //     	}
 	}
 
 

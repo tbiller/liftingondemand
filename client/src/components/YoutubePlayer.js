@@ -227,12 +227,13 @@ export default class YoutubePlayer extends Component {
 							<div onClick={this.keepWatching} className='button'>Continue Watching</div>
 						</div>
 					}
+
+					{(!this.state.currentVideoId && (this.props.showMessage !== false)) &&
+			    		<div className='no-data overlay'>No video available</div>
+			    	}
 						
 				  </div>
 		);
 	}
 }
 
-// {(!this.state.currentVideoId && (this.props.showMessage !== false)) &&
-// 			    		<div className='no-data overlay'>No video data found</div>
-// 			    	}
