@@ -58,6 +58,7 @@
   outline: 0px;
   outline-offset: 0px;
   height: 26px;
+  max-width: unset;
   line-height: 26px;
   font-size: 0.8em;
   transition: 0.2s; }

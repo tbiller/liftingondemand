@@ -10,6 +10,15 @@
 	font-size: 0.8em;
 	color: #888;
 	align-self: center;
+
+}
+@media screen and (max-width: 640px) {
+	.route-option:first-child {
+		margin-left: 4px;
+	}
+	.route-option:last-child {
+		margin-right: 4px;
+	}
 }
 
 .route-option.active {

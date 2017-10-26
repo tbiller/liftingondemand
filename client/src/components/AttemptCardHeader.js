@@ -34,6 +34,7 @@ class AttemptCardHeader extends Component {
 					<div className='attempt'>
 						<div className='lift-name'>{attempt.longName()}:</div>
 						<div className='kg-weight'>{attempt.kgString()}</div>
+						<div className='divider'>&nbsp;</div>
 						<div className='lb-weight'>{attempt.lbString()}</div>
 					</div>
 					<div className='right-container'>
@@ -52,14 +53,13 @@ class AttemptCardHeader extends Component {
 							</div>
 					    }
 
-						<div className='divider'>&nbsp;</div>
+						
 
 					    <AttemptStars attempt={attempt} starAttempt={(e)=> {
 							starAttempt(attempt);
 							e.stopPropagation();
 						}} isStarred={isStarred} />
-						<div className='divider'>&nbsp;</div>
-						<ShareIcon isActive={isActive} attempt={attempt}/>
+						
 					</div>
 				</div>
 			</div>
@@ -68,3 +68,6 @@ class AttemptCardHeader extends Component {
 }
 
 export default AttemptCardHeader;
+
+// <div className='divider'>&nbsp;</div>
+// 						<ShareIcon isActive={isActive} attempt={attempt}/>

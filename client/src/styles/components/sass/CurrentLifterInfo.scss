@@ -16,6 +16,7 @@
   font-size: 20px;
   border-bottom: 1px solid #dadada;
 
+
   .center {
     font-weight: 300;
     display: flex;
@@ -89,8 +90,9 @@
       }
   }
   @media screen and (max-width: 670px) {
+    font-size: 0.9em;
     .center, .right {
-      font-size: 0.85em;
+      font-size: 0.9em;
     }
   }
 }

@@ -62,13 +62,14 @@ export default function({
 
 	function shouldShow(liftName, attemptNumber) {
 		if (!showCompressed) return true;
-		if (!currentAttempt) return liftName.toLowerCase() === 'squat';
+		if (!currentAttempt && liftName.toLowerCase() === 'squat') return true;
 		if (live) {
-			return +attemptNumber === 1;
+			if(+attemptNumber === 1) return true;
 		} else {
-			return +attemptNumber === 3;
+			if(+attemptNumber === 3) return true;
 		}
-		return currentAttempt.liftName.toLowerCase() === liftName.toLowerCase();
+		if (currentAttempt) if (currentAttempt.liftName.toLowerCase() === liftName.toLowerCase()) return true;
+		return false;
 	}
 
 

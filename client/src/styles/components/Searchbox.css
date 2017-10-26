@@ -11,6 +11,7 @@
     transition: 0.2s;
 }
 
+
 .searchbox input:focus {
   /*width: 280px;*/
   /*transition: 0.2s;*/

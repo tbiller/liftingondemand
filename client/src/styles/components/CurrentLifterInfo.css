@@ -59,7 +59,9 @@
       .currentLifterInfo .center {
         justify-content: flex-start; } }
   @media screen and (max-width: 670px) {
-    .currentLifterInfo .center, .currentLifterInfo .right {
-      font-size: 0.85em; } }
+    .currentLifterInfo {
+      font-size: 0.9em; }
+      .currentLifterInfo .center, .currentLifterInfo .right {
+        font-size: 0.9em; } }
 
 /*# sourceMappingURL=CurrentLifterInfo.css.map */

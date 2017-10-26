@@ -7,7 +7,7 @@ export default withRouter(function({location}) {
 	const routes = [
 		['Competitions', 'comp', ''],
 		['Lifters', 'lifter', 'lifters'],
-		['Best Lifts', 'lifts', 'lifts'], 
+		['Top Lifts', 'lifts', 'lifts'], 
 		['About', 'about', 'about']
 	];
 	//console.log(location);

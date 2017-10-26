@@ -67,7 +67,7 @@
 
 .attempt-card .divider {
 	border-left: 1px solid #dadada;
-	margin-left: 5px;
+	margin-left: 8px;
 	font-size: 1px;
 	height: 18px;
 	padding-right: 5px;
@@ -92,6 +92,9 @@
 .attempt-card .weightclass-division {
 	font-size: 0.9em;
 	margin-right: 6px;
+	@media screen and (max-width: 640px) {
+		display:none;
+	}
 }
 
 .attempt-card .lifter-info .lifter-name {
@@ -101,9 +104,16 @@
 .attempt-card .lifter-info .bodyweight {
 	color: #999;
 	font-size: 0.9em;
+	@media screen and (max-width: 640px) {
+		display:none;
+	}
+
 }
 .attempt-card .competition-name {
 	font-weight: 300;
+	@media screen and (max-width: 640px) {
+		font-size: 0.8em;
+	}
 }
 .attempt-card .records {
 	/*position: absolute;*/
@@ -112,6 +122,9 @@
 	padding: 2px 5px;
 	/*top: 0px;*/
 	/*right: 0px;*/
+	@media screen and (max-width: 640px) {
+		display:none;
+	}
 }
 
 .attempt-card .attempt-info {
@@ -121,6 +134,10 @@
 	align-items: center;
 	padding: 0px 4px;
 	font-weight: 300;
+	@media screen and (max-width: 640px) {
+		font-size: 0.8em;
+	}
+
 
 
 }
@@ -149,5 +166,5 @@
 .attempt-card .attempt-info .kg-weight {
 	font-weight: bold;
 	font-size: 1.05em;
-	margin: 0px 12px;
+	margin-left: 12px;
 }
