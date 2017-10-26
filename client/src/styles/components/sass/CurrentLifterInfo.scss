@@ -90,9 +90,12 @@
       }
   }
   @media screen and (max-width: 670px) {
-    font-size: 18px;
+    font-size: 20px;
     .center, .right {
-      font-size: 0.85em;
+      font-size: 18px;
     }
+    // .right {
+    //   font-size: 16px;
+    // }
   }
 }
