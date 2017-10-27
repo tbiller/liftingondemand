@@ -12,6 +12,12 @@
   .ReactTable .-loading {
     font-size: 0.9em; }
 
+.squat + .bench {
+  border-left: 1px solid black; }
+
+.bench + .deadlift {
+  border-left: 1px solid black; }
+
 .rt-table {
   overflow: auto;
   min-height: max-content;

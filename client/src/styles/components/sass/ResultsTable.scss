@@ -29,6 +29,14 @@ $sangria: #92140C;
   // margin-top: 4px;
 }
 
+.squat + .bench {
+  border-left: 1px solid black;
+}
+
+.bench + .deadlift {
+  border-left: 1px solid black;
+}
+
 .rt-table {
   overflow: auto;
   min-height: max-content;
@@ -58,6 +66,10 @@ $sangria: #92140C;
     &.border-right {
       border-right: 1px solid black;
     }
+    // &.squat + &.bench {
+    //   border-left: 1px solid black;
+    //   background-color: blue;
+    // }
   }
 
   .rt-thead {
