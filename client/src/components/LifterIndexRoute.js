@@ -28,7 +28,7 @@ class LifterIndexRoute extends Component {
 					<div className='item'>
 						<div className='lifter-name'>{name}</div>
 						<div className='aside'>
-							<div className='weightClass'>{match.appearances[0].weightClass + ' kg'}</div>
+							<div className='weightClass'>{match.appearances[0].weightclassLong()}</div>
 						</div>
 					</div>
 				</Link>
