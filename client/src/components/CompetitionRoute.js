@@ -45,7 +45,7 @@ class CompetitionRoute extends Component {
 
 	componentDidMount = () => {
 		this.updateBasedOnURL(this.props);
-		window.addEventListener('scroll', this.handleScroll);
+		// window.addEventListener('scroll', this.handleScroll);
 	}
 
 	componentWillReceiveProps = (nextProps) => {
@@ -71,7 +71,7 @@ class CompetitionRoute extends Component {
 	}
 
 	componentWillUnmount() {
-	  window.removeEventListener('scroll', this.handleScroll);
+	  // window.removeEventListener('scroll', this.handleScroll);
 	}
 
 	updateBasedOnURL = (props) => {
@@ -176,6 +176,7 @@ class CompetitionRoute extends Component {
 
 
 	handleScroll = (event) => {
+		return false;
 		if (this.state.loading === true) return false;
 		let scrollTop = document.documentElement.scrollTop; //event.srcElement.body.scrollTop;
 		// let scrollTop = 70;

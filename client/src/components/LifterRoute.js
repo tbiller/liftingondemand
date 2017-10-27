@@ -33,7 +33,7 @@ class LifterRoute extends Component {
 
 	componentDidMount = () => {
 		this.updateBasedOnNewProps(this.props);
-		window.addEventListener('scroll', this.handleScroll);
+		// window.addEventListener('scroll', this.handleScroll);
 	}
 
 	componentWillReceiveProps = (nextProps) => {
@@ -51,7 +51,7 @@ class LifterRoute extends Component {
 		}
 	} 
 	componentWillUnmount() {
-		window.removeEventListener('scroll', this.handleScroll);
+		// window.removeEventListener('scroll', this.handleScroll);
 	}
 
 	updateBasedOnNewProps = (props) => {
@@ -209,6 +209,7 @@ class LifterRoute extends Component {
 	}
 
 	handleScroll = (event) => {
+		return false;
 		if (this.state.loading === true) return false;
 		let scrollTop = document.documentElement.scrollTop;
         if (scrollTop >= 70) {
