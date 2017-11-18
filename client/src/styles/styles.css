@@ -5,6 +5,11 @@ html, body {
   padding: 0;
   font-family: 'Open Sans', sans-serif; }
 
+.headerContainer {
+  width: 100%;
+  background-color: #fbfbfb;
+  border-bottom: 1px solid #dadada; }
+
 #root {
   min-height: 100%;
   width: 100%;
@@ -50,10 +55,10 @@ a.visible-link:hover {
 .editTools {
   display: flex;
   flex-direction: row;
-  z-index: 99999;
+  z-index: 99999999;
   background-color: black;
-  height: 25px;
-  margin-top: -10px;
+  height: 40px;
+  margin: 5px;
   justify-content: center; }
 
 .options-pane {

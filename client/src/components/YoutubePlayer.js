@@ -97,7 +97,7 @@ export default class YoutubePlayer extends Component {
 			}
 
 			return true;
-		} 
+		}
 		this.recordCurrentTime();
 		return false;
 	}
@@ -121,7 +121,7 @@ export default class YoutubePlayer extends Component {
 				this.recordCurrentTime(true, frequency)
 			}, frequency);
 		}
-	}	
+	}
 
 	onPlayerReady = (ev) => {
 		//console.log('player ready');
@@ -137,7 +137,7 @@ export default class YoutubePlayer extends Component {
 		// this.watchCurrentLiftAttempt(); // must be called before ensureVideoIsPlaying / selectFirstLifter is called
 		// this.ensureVideoIsPlaying(null, true);
 	}
-	
+
 	onPlayerStateChange = (ev) => {
 		if (ev.data === 1) { // 1 = playing
 			// if (this.state.initializeWatchContinousOnNextRender) {
@@ -164,7 +164,7 @@ export default class YoutubePlayer extends Component {
 			// //console.log('player not readyssssssssssssssss');
 			return false;
 		}
-// 
+//
 		//console.log('seeking to frame');
 		this.player.seekTo(seconds, true);
 		this.player.playVideo();
@@ -192,27 +192,38 @@ export default class YoutubePlayer extends Component {
 		this.setState({stopAt: null, attemptOver: false});
 		if (this.player) this.player.playVideo();
 	}
-
+	weightChange = (e) => {
+		console.log('inweightsubmit', e);
+		this.setState({weightInput: e.target.value});
+	}
 	render = () => {
 		//console.log('in ytplayer render');
 		//console.log(this.props.resetPlayer);
 		// if (this.props.resetPlayer) { return null; }
 		return (
+			<div>{this.props.editMode &&
+				<div className='editTools'>
+						<div className='button' onClick={()=>this.props.recordEdit('firstNameTime', this.player.getCurrentTime())}>
+							firstNameFrame
+						</div>
+						<div className='button' onClick={()=>this.props.recordEdit('lastNameTime', this.player.getCurrentTime())}>
+							lastNameFrame
+						</div>
+						<div className='button' onClick={()=>this.props.recordEdit('lightsTime', this.player.getCurrentTime())}>
+							lightsFrame
+						</div>
+						<div className='button' onClick={()=> {
+							console.log(this.state.weightInput);
+							this.props.recordEdit('weight', this.state.weightInput)
+						}}>
+							weight
+						</div>
+						<input type='text' onChange={this.weightChange}/>
+					</div>
+				}
 				<div className='youtube-pane'>
-					{this.props.editMode &&
-						<div className='editTools'>
-			    			<div className='button' onClick={()=>this.props.recordEdit('firstNameTime', this.player.getCurrentTime())}>
-			    				firstNameFrame
-			    			</div>
-			    			<div className='button' onClick={()=>this.props.recordEdit('lastNameTime', this.player.getCurrentTime())}>
-			    				lastNameFrame
-			    			</div>
-			    			<div className='button' onClick={()=>this.props.recordEdit('lightsTime', this.player.getCurrentTime())}>
-			    				lightsFrame
-			    			</div>
-			    		</div>
-			    	}
-				    	
+
+
 					<YouTube
 						className='youtube-player'
 						opts={this.state.playerOpts}
@@ -231,9 +242,9 @@ export default class YoutubePlayer extends Component {
 					{(!this.state.currentVideoId && (this.props.showMessage !== false)) &&
 			    		<div className='no-data overlay'>No video available</div>
 			    	}
-						
+
 				  </div>
+				</div>
 		);
 	}
 }
-

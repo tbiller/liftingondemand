@@ -8,47 +8,45 @@ import '../styles/components/ResultsTable.css';
 // import ResultsTableBody from './ResultsTableBody';
 
 export default function({
-	results, 
-	tdClick, 
-	lifterClick, 
+	results,
+	tdClick,
+	lifterClick,
 	currentAttempt,
 	shouldShowResult,
 	autoPlayingLifters,
 	leaderboardType,
 	currentTotalForLifter,
 	loading,
-	division
+	division,
+	hasFinishedResults
 }) {
 	const showCompressed = window.innerWidth < 800;
-
 	const minAttemptWidth = showCompressed ? 40 : 50;
 	const live = (leaderboardType === 'live');
-	//console.log('RENDER: Results Table');
-	// if (currentLifter) {
-	// 	var currentAttempt = currentLifter.attempts[currentAttemptName];
-	// }
+	// const hasFinishedResults = results[0].hasFinishedResults(division);
+
 	const columns = [
-		{Header: 'Pl.', id: 'place', accessor: (d) => d.place(division)/** === '-' ? '-' : +d.place**/, minWidth: 20, show: !live && !showCompressed},
+		{Header: 'Pl.', id: 'place', accessor: (d) => d.place(division), minWidth: 20, show: hasFinishedResults && !live && !showCompressed},
 		{Header: 'Flt.', accessor: 'flight', sortMethod: sortStrings, minWidth: 25, show: false},
 		{Header: 'Lot', accessor: 'lot', sortMethod: sortStrings, minWidth: 25, show:false},
 		{Header: 'Lifter', accessor: '_lifter.name', id: 'name', sortMethod: sortStrings, minWidth: 110, Cell:nameCell},
-		{Header: 'Team', accessor: 'team', sortMethod: sortStrings, minWidth: 40, show:showTeam()},
-		{Header: 'Bwt.', id:'bodyweight', accessor: (d) => (+d.bodyweight).toFixed(1), minWidth: 40, show: !showCompressed},
+		{Header: 'Team', accessor: 'team', sortMethod: sortStrings, minWidth: 40, show: showTeam() },
+		{Header: 'Bwt.', id:'bodyweight', accessor: (d) => (+d.bodyweight).toFixed(1), minWidth: 40, show: hasFinishedResults && !showCompressed},
 		{Header: formatAttemptHeader('SQ #1'), className: 'border-left squat', headerClassName: 'border-left squat', accessor: 'attempts.Squat 1', minWidth: minAttemptWidth, Cell: attemptCell, show:shouldShow('Squat', 1)},
-		{Header: formatAttemptHeader('SQ #2'), className: 'squat', headerClassName:'squat', accessor: 'attempts.Squat 2', minWidth: minAttemptWidth, Cell: attemptCell, show:shouldShow('Squat', 2)}, 
-		{Header: formatAttemptHeader('SQ #3'), className: 'squat',  headerClassName:'squat', accessor: 'attempts.Squat 3', minWidth: minAttemptWidth, Cell: attemptCell, show:shouldShow('Squat', 3)}, 
+		{Header: formatAttemptHeader('SQ #2'), className: 'squat', headerClassName:'squat', accessor: 'attempts.Squat 2', minWidth: minAttemptWidth, Cell: attemptCell, show:shouldShow('Squat', 2)},
+		{Header: formatAttemptHeader('SQ #3'), className: 'squat',  headerClassName:'squat', accessor: 'attempts.Squat 3', minWidth: minAttemptWidth, Cell: attemptCell, show:shouldShow('Squat', 3)},
 		{Header: formatAttemptHeader('BP #1'), className: 'border-left bench', headerClassName: 'border-left bench', accessor: 'attempts.Bench 1', minWidth: minAttemptWidth, Cell: attemptCell,  show:shouldShow('Bench', 1)},
-		{Header: formatAttemptHeader('BP #2'), className: 'bench',  headerClassName:'bench', accessor: 'attempts.Bench 2', minWidth: minAttemptWidth, Cell: attemptCell, show:shouldShow('Bench', 2)}, 
-		{Header: formatAttemptHeader('BP #3'), className: 'bench',  headerClassName:'bench', accessor: 'attempts.Bench 3', minWidth: minAttemptWidth, Cell: attemptCell, show:shouldShow('Bench', 3)}, 
+		{Header: formatAttemptHeader('BP #2'), className: 'bench',  headerClassName:'bench', accessor: 'attempts.Bench 2', minWidth: minAttemptWidth, Cell: attemptCell, show:shouldShow('Bench', 2)},
+		{Header: formatAttemptHeader('BP #3'), className: 'bench',  headerClassName:'bench', accessor: 'attempts.Bench 3', minWidth: minAttemptWidth, Cell: attemptCell, show:shouldShow('Bench', 3)},
 		{Header: formatAttemptHeader('DL #1'), className: 'border-left deadlift', headerClassName: 'border-left deadlift', accessor: 'attempts.Deadlift 1', minWidth: minAttemptWidth, Cell: attemptCell, show:shouldShow('Deadlift', 1)},
-		{Header: formatAttemptHeader('DL #2'), className: 'deadlift',  headerClassName:'deadlift', accessor: 'attempts.Deadlift 2', minWidth: minAttemptWidth, Cell: attemptCell, show:shouldShow('Deadlift', 2)}, 
-		{Header: formatAttemptHeader('DL #3'), headerClassName: 'border-right deadlift', className: 'border-right deadlift', accessor: 'attempts.Deadlift 3', minWidth: minAttemptWidth, Cell: attemptCell, show:shouldShow('Deadlift', 3)}, 
-		{Header: live ? (showCompressed ? 'Tot.' : 'Current') : 'Total', id: 'total', accessor: '', minWidth: minAttemptWidth, Cell: totalCell},
-		{Header: 'Proj.', accessor: '', id: 'projected', minWidth: minAttemptWidth, Cell:  projectedTotalCell, show:live && !showCompressed}
+		{Header: formatAttemptHeader('DL #2'), className: 'deadlift',  headerClassName:'deadlift', accessor: 'attempts.Deadlift 2', minWidth: minAttemptWidth, Cell: attemptCell, show:shouldShow('Deadlift', 2)},
+		{Header: formatAttemptHeader('DL #3'), headerClassName: 'border-right deadlift', className: 'border-right deadlift', accessor: 'attempts.Deadlift 3', minWidth: minAttemptWidth, Cell: attemptCell, show:shouldShow('Deadlift', 3)},
+		{Header: live ? (showCompressed ? 'Tot.' : 'Current') : 'Total', id: 'total', accessor: '', minWidth: minAttemptWidth, Cell: totalCell, show: hasFinishedResults},
+		{Header: 'Proj.', accessor: '', id: 'projected', minWidth: minAttemptWidth, Cell:  projectedTotalCell, show:live && !showCompressed && hasFinishedResults}
 	];
 	function formatAttemptHeader(header) {
 		if (!showCompressed) return header;
-		
+
 		return header.replace('#', '');
 	}
 	function showTeam() {
@@ -78,7 +76,7 @@ export default function({
 			return weightStr;
 		}
 	}
-	
+
 	function nameCell(props) {
 		let lifter = props.original;
 		let autoPlaying = false;
@@ -117,13 +115,13 @@ export default function({
 
 	function attemptCell(cell) {
 		const attempt = cell.value;
-		const lifter = attempt.lifterObj;
+		if (!attempt) return null;
 		const hasBeenCompleted = !live ? true : attempt.hasOccurredAsOf(currentAttempt);
 		const hasBeenSubmitted = !live ? true : attempt.hasBeenSubmittedAsOf(currentAttempt);
 		const shouldShow = hasBeenCompleted || hasBeenSubmitted;
 		const showRecords = !!attempt.records;
 		let className = 'weight-cell ' + attempt.result + (!hasBeenCompleted ? ' uncompleted' : '');
-		
+
 		if (!shouldShow) {
 			return <span className={className}></span>;
 		}
@@ -132,14 +130,14 @@ export default function({
 
 		return weightCell(attempt.weight, attempt.records, className, showRecords);
 	}
-		
+
 	function weightCell(weight, records, className, showRecords=false) {
 		return (
 			<div>
 				{showRecords &&
 					<div className='records'>{records}</div>
 				}
-				<span className={className}>{weight}</span> 
+				<span className={className}>{weight}</span>
 			</div>
 		);
 	}
@@ -157,7 +155,7 @@ export default function({
 				if (currentAttempt && lifterAppearance.videoId !== currentAttempt._appearance.videoId) {
 					className += ' hidden';
 				}
-				if (currentAttempt) { 
+				if (currentAttempt) {
 					// const liftAttempt = column
 					if (currentAttempt._appearance === lifterAppearance) {
 						className += ' current-lifter';
@@ -187,7 +185,7 @@ export default function({
 				} else if (column.id === 'name') {
 					className += ' lifter-name';
 				}
-				if (currentAttempt) { 
+				if (currentAttempt) {
 					if (currentAttempt._appearance === lifterAppearance) {
 						className += ' current-lifter';
 						if (column.id.substr(attemptCellPrefix.length) === currentAttempt.attemptName) {
@@ -229,7 +227,7 @@ export default function({
 		<div>
 			<ReactTable
 				data={results}
-				columns={columns} 
+				columns={columns}
 				sortable={false}
 				resizable={false}
 				showPagination={false}
@@ -245,5 +243,5 @@ export default function({
 		</div>
 	)
 
-	
+
 }

@@ -34,7 +34,8 @@ class CompetitionRoute extends Component {
 			leaderboardType: 'final',
 			watchContinuousLifters: [],
 			loading: true,
-			dummyContainerHeight: 0
+			dummyContainerHeight: 0,
+			hasFinishedResults: true
 		};
 
 		this.liftsInOrder = ['Squat 1', 'Squat 2', 'Squat 3', 'Bench 1', 'Bench 2', 'Bench 3',
@@ -54,10 +55,10 @@ class CompetitionRoute extends Component {
 
 	componentDidUpdate = (prevProps, prevState) => {
 		if (prevState.competition !== this.state.competition ||
-			prevState.division !== this.state.division || 
+			prevState.division !== this.state.division ||
 			prevState.weightClass !== this.state.weightClass) {
 			const addToHistory = !!prevState.division && !!prevState.weightClass;
-			
+
 			this.getCompData(this.state.competition, this.state.division, this.state.weightClass);
 		 	Serializer.updateUrlParams(this.props.history, this.props.location,
 		 		{weightClass: this.state.weightClass, division: this.state.division}, addToHistory);
@@ -137,7 +138,7 @@ class CompetitionRoute extends Component {
 				weightClass: weightClass,
 			};
 		}
-		
+
 
 		this.setState({loading: true});
 
@@ -151,6 +152,13 @@ class CompetitionRoute extends Component {
 				this.addFlightsToAttempts(this.sortedAttemptData);
 				this.setState({ lifterAppearances, loading: false});
 				this.receivedNewData(lifterAppearances);
+				if (lifterAppearances.length > 0) {
+					const hasFinishedResults = lifterAppearances[0].hasFinishedResults();
+					this.setState({ hasFinishedResults });
+					if (!hasFinishedResults) {
+						this.setState({ leaderboardType: 'final' });
+					}
+				}
 			});
 	}
 
@@ -202,7 +210,7 @@ class CompetitionRoute extends Component {
 
 		if (currentAttempt) {
 			if (currentAttempt !== this.state.currentAttempt) {
-				if (this.state.watchContinuousLifters.length) { 
+				if (this.state.watchContinuousLifters.length) {
 					this.incrementLifter(1);
 				} else {
 					this.updateCurrentAttempt(currentAttempt);
@@ -303,7 +311,7 @@ class CompetitionRoute extends Component {
 		const direction = numLiftsToMove >= 0 ? 1 : -1;
 
 		if (currentIdx === -1) return null;
-		
+
 		let newIdx = currentIdx + numLiftsToMove;
 
 		if (autoPlayingLifters.length) {
@@ -341,7 +349,7 @@ class CompetitionRoute extends Component {
 
 		seconds += 4;
 
-		const attemptData = this.sortedAttemptData[this.state.currentVideoId];  
+		const attemptData = this.sortedAttemptData[this.state.currentVideoId];
 		for (let i = 1; i < attemptData.length; i++) {
 			// debugger;
 			let attempt = attemptData[i];
@@ -354,7 +362,7 @@ class CompetitionRoute extends Component {
 		}
 
 		const lastLiftAttempt = attemptData[attemptData.length-1];
-		const lastFrameOfLifter = lastLiftAttempt.lightsTime ? 
+		const lastFrameOfLifter = lastLiftAttempt.lightsTime ?
 			lastLiftAttempt.lightsTime + 20 :
 			lastLiftAttempt.lastNameTime + 40; // TODO; this.framerate();
 
@@ -423,7 +431,7 @@ class CompetitionRoute extends Component {
 	// }
 
 	optionChange = (optType, val) => {
-		
+
 
 		this.setState({
 			[optType]: val,
@@ -489,7 +497,7 @@ class CompetitionRoute extends Component {
 		const currentLifter = this.state.currentAttempt._lifter;
 		const key = currentLifter.name + '_' + this.state.weightClass + '_' + this.state.division;
 		const attemptName = this.state.currentAttempt.attemptName;
-	
+
 		if (!this.edits.hasOwnProperty(key)) {
 			this.edits[key] = {};
 		}
@@ -498,12 +506,17 @@ class CompetitionRoute extends Component {
 			this.edits[key][attemptName] = {};
 		}
 
-		this.edits[key][attemptName][timeType] = +(seconds).toFixed(0);
-		if (timeType === 'firstNameTime' && !this.edits[key][attemptName]['lastNameTime']) {
-			this.edits[key][attemptName]['lastNameTime'] = +(seconds).toFixed(0);
-		}
+		if (timeType === 'weight') {
+			console.log('seconds', seconds)
+			this.edits[key][attemptName]['weight'] = parseFloat(seconds).toFixed(1)
 
-		console.log(JSON.stringify(this.edits));
+		} else {
+			this.edits[key][attemptName][timeType] = +(seconds).toFixed(0);
+			if (timeType === 'firstNameTime' && !this.edits[key][attemptName]['lastNameTime']) {
+				this.edits[key][attemptName]['lastNameTime'] = +(seconds).toFixed(0);
+			}
+		}
+		console.log(JSON.stringify(this.edits, null, '\t'));
 	}
 
 
@@ -528,12 +541,12 @@ class CompetitionRoute extends Component {
  	}
 
 	selectLiftAttempt = ({attempt, watchContinuous, boolStopVideo=false}) => {
-		
+
 		if (!attempt) {
 			this.updateCurrentAttempt(attempt);
 			return false;
 		}
-		
+
 		if (!attempt.hasFrame() && !this.state.editMode) return false;
 
 		this.setState({
@@ -587,64 +600,65 @@ class CompetitionRoute extends Component {
 		const weightClassSuffix = this.state.competition ? this.state.competition.options.weightClassSuffix : 'kg';
 	    return (
 			<div onClick={this.closeOptions}>
-		
+
 				{this.state.loading === false ?
 			  		<div>
-							<div ref='competitionHeader'>
-								<CompetitionHeader 
-									competition={this.state.competition} 
+							<div className='headerContainer'>
+								<CompetitionHeader
+									competition={this.state.competition}
 									division={this.state.division}
 									weightClass={this.state.weightClass}
-									boolShowOptions={true} 
+									boolShowOptions={true}
 									toggleOptions={this.toggleOptions}
 									optionsShown={this.state.optionsShown}
 									optionChange={this.optionChange}
 								/>
+								<CurrentLifterInfo
+						    		currentAttempt={this.state.currentAttempt}
+						    		selectLiftAttempt={this.selectLiftAttempt}
+						    		activeDivision={this.state.division}
+						    		activeWeightClass={this.state.weightClass}
+						    		weightClassSuffix={weightClassSuffix}
+						    		starAttempt={this.starCurrentAttempt}
+						    		starredAttempts={this.props.starredAttempts}
+						    		lifterRoute={false}
+						    />
 							</div>
-							<CurrentLifterInfo 
-					    		currentAttempt={this.state.currentAttempt}
-					    		selectLiftAttempt={this.selectLiftAttempt} 
-					    		activeDivision={this.state.division}
-					    		activeWeightClass={this.state.weightClass}
-					    		weightClassSuffix={weightClassSuffix}
-					    		starAttempt={this.starCurrentAttempt}
-					    		starredAttempts={this.props.starredAttempts}
-					    		lifterRoute={false}
-					    	/>
 						<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
 						</div>
 						<div className='pinOnScroll' ref='pinOnScroll'>
-						    <PlayerControls 
+						    <PlayerControls
 						    	className='dark-text'
-								currentAttempt={this.state.currentAttempt}
+									currentAttempt={this.state.currentAttempt}
 					    		sortedAttemptData={this.state.sortedAttemptData}
 					    		selectLiftAttempt={this.selectLiftAttempt}
-								incrementLiftersLift={this.incrementLiftersLift}
-								nextAttempt={this.nextAttempt(1)}
-								previousAttempt={this.nextAttempt(-1)}
-								advanceBySeconds={this.advanceBySeconds}
-								editMode={this.state.editMode}
-								>
-								<YoutubePlayer
-									attemptToBeSelected={this.state.attemptToBeSelected}
-									secondsToAdvance={this.state.secondsToAdvance}
-									boolStopVideo={this.state.boolStopVideo}
-									playerUpdated={this.playerUpdated}
-									recordTime={this.timeChange}
-									boolStopVideo={this.state.boolStopVideo}
+									incrementLiftersLift={this.incrementLiftersLift}
+									nextAttempt={this.nextAttempt(1)}
+									previousAttempt={this.nextAttempt(-1)}
+									advanceBySeconds={this.advanceBySeconds}
 									editMode={this.state.editMode}
-									showMessage={!this.state.loading}
-									recordEdit={this.recordEdit}
-									resetPlayer={this.state.resetPlayer}
-								/>
+								>
+									<YoutubePlayer
+										attemptToBeSelected={this.state.attemptToBeSelected}
+										secondsToAdvance={this.state.secondsToAdvance}
+										boolStopVideo={this.state.boolStopVideo}
+										playerUpdated={this.playerUpdated}
+										recordTime={this.timeChange}
+										boolStopVideo={this.state.boolStopVideo}
+										editMode={this.state.editMode}
+										showMessage={!this.state.loading}
+										recordEdit={this.recordEdit}
+										resetPlayer={this.state.resetPlayer}
+									/>
 						    </PlayerControls>
 						</div>
 						<div ref='continueToScroll'>
-					     	<Leaderboard 
+					     	<Leaderboard
 					     		loading={this.state.loading}
 					     		player={this.player}
 					     		liftsInOrder={this.liftsInOrder}
 					     		leaderboardType={this.state.leaderboardType}
+									hasFinishedResults={this.state.hasFinishedResults}
 					     		results={this.state.lifterAppearances}
 					     		tdClick={this.selectLiftAttempt}
 					     		lifterClick={this.lifterClick}
@@ -669,8 +683,8 @@ export default CompetitionRoute;
 
   // <Sidebar close={this.closeOptions} isOpen={this.state.optionsShown} style='right'>
 		// 	    	<div className='options-pane'>
-		// 				<OptionsContainer 
-		// 		        	activeOpts={ 
+		// 				<OptionsContainer
+		// 		        	activeOpts={
 		// 		        		{
 		// 		        			weightClass: this.state.weightClass,
 		// 		        			division: this.state.division,

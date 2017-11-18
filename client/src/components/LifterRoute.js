@@ -14,7 +14,7 @@ import { Helmet } from "react-helmet";
 import { CookiesProvider, withCookies, Cookies } from 'react-cookie';
 
 const liftsInOrder = ['Squat 1', 'Squat 2', 'Squat 3', 'Bench 1', 'Bench 2', 'Bench 3',
-			'Deadlift 1', 'Deadlift 2', 'Deadlift 3'];	
+			'Deadlift 1', 'Deadlift 2', 'Deadlift 3'];
 
 class LifterRoute extends Component {
 	constructor(props) {
@@ -49,7 +49,7 @@ class LifterRoute extends Component {
 		} else {
 			if (!this.pinTop) this.pinTop = 40;
 		}
-	} 
+	}
 	componentWillUnmount() {
 		// window.removeEventListener('scroll', this.handleScroll);
 	}
@@ -100,7 +100,7 @@ class LifterRoute extends Component {
 	selectFirstAttempt = (lifter) => {
 		if (!lifter.appearances.length) {
 			return false;
-		} 
+		}
 
 		lifter.appearances.sort((a, b) => {
 			return new Date(b._competition.dateForSorting) - new Date(a._competition.dateForSorting)
@@ -197,7 +197,7 @@ class LifterRoute extends Component {
 
 		// if (currentAttempt) {
 		// 	if (currentAttempt !== this.state.currentAttempt) {
-		// 		if (this.state.watchContinuousLifters.length) { 
+		// 		if (this.state.watchContinuousLifters.length) {
 		// 			this.incrementLifter(1);
 		// 		} else {
 		// 			this.updateCurrentAttempt(currentAttempt);
@@ -250,25 +250,27 @@ class LifterRoute extends Component {
 					<meta name='og:image' content={ogImageUrl} />
 				</Helmet>
 				<div>
-						<LifterHeader lifter={this.state.lifter} />
-						<CurrentLifterInfo 
-							currentAttempt={this.state.currentAttempt}
-							lifterRoute={true}
-							selectLiftAttempt={this.selectLiftAttempt}
-							starredAttempts={this.props.starredAttempts}
-							starAttempt={this.starCurrentAttempt}
-						/>
+						<div className='headerContainer'>
+							<LifterHeader lifter={this.state.lifter} />
+							<CurrentLifterInfo
+								currentAttempt={this.state.currentAttempt}
+								lifterRoute={true}
+								selectLiftAttempt={this.selectLiftAttempt}
+								starredAttempts={this.props.starredAttempts}
+								starAttempt={this.starCurrentAttempt}
+							/>
+						</div>
 					<div className='dummyContainer' ref='dummyContainer' style={{height: this.state.dummyContainerHeight}}>
 					</div>
 					<div className='pinOnScroll' ref='pinOnScroll'>
-	 					<PlayerControls 
+	 					<PlayerControls
 	 						className='dark-text'
 							currentAttempt={this.state.currentAttempt}
 				    		sortedAttemptData={this.state.sortedAttemptData}
 							incrementLifter={this.incrementLifter}
 							advanceBySeconds={this.advanceBySeconds}
 							selectLiftAttempt={this.selectLiftAttempt}
-							>				        
+							>
 							<YoutubePlayer
 					        	attemptToBeSelected={this.state.attemptToBeSelected}
 					        	secondsToAdvance={this.state.secondsToAdvance}
@@ -280,9 +282,9 @@ class LifterRoute extends Component {
 					        	stopAtEndOfAttempt={true}
 					        />
 					    </PlayerControls>
-					   
+
 					</div>
-					<LifterTable 
+					<LifterTable
 						appearances={this.state.lifter ? this.state.lifter.appearances : []}
 						tdClick={this.attemptClick}
 						competitionClick={this.competitionClick}
@@ -295,4 +297,3 @@ class LifterRoute extends Component {
 }
 
 export default LifterRoute;
-

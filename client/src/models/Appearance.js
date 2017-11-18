@@ -3,7 +3,7 @@ import Lifter from './Lifter';
 import { title } from '../utils/general';
 
 const liftsInOrder = ['Squat 1', 'Squat 2', 'Squat 3', 'Bench 1', 'Bench 2', 'Bench 3',
-			'Deadlift 1', 'Deadlift 2', 'Deadlift 3'];		
+			'Deadlift 1', 'Deadlift 2', 'Deadlift 3'];
 
 class Appearance {
 	constructor(appearanceJson, lifter) {
@@ -76,7 +76,7 @@ class Appearance {
 		});
 
 		return longDivisions.join(', ')
-		
+
 	}
 
 	nextAttemptWithFrameData(currentAttemptName, direction=1) {
@@ -84,11 +84,11 @@ class Appearance {
 		let i = curAttemptIdx + direction;
 		while (i < liftsInOrder.length && i >= 0) {
 			let nextAttempt = this.attempts[liftsInOrder[i]];
-			if (nextAttempt.hasFrame()) {
+			if (nextAttempt && nextAttempt.hasFrame()) {
 				return nextAttempt;
 			}
 			i += direction;
-		}	
+		}
 		return null;
 	}
 	// calculates best squat, bench, deadlift, as of attempt given
@@ -136,6 +136,30 @@ class Appearance {
 
 		bestLifts['total'] = disqualified ? 'DSQ' : total;
 		return bestLifts;
+	}
+
+	maxOfAttempts() {
+		const lifts = ['Squat', 'Bench', 'Deadlift'];
+		let total = 0;
+		for (let i = 0; i < lifts.length; i++) {
+			const lift = lifts[i];
+			for (let j = 3; j > 0; j--) {
+				const attempt = this.attempts[lift + ' ' + j];
+				if (attempt) {
+					if (+attempt.weight > 0) {
+						total += +attempt.weight;
+						break;
+					}
+				}
+			}
+		}
+
+		return total;
+	}
+
+	hasFinishedResults(division) {
+		if (!division) division = this.divisions[0];
+		return !!this.place(division);
 	}
 }
 

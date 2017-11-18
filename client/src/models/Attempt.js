@@ -4,7 +4,7 @@ import queryString from 'query-string';
 
 
 const liftsInOrder = ['Squat 1', 'Squat 2', 'Squat 3', 'Bench 1', 'Bench 2', 'Bench 3',
-			'Deadlift 1', 'Deadlift 2', 'Deadlift 3'];		
+			'Deadlift 1', 'Deadlift 2', 'Deadlift 3'];
 
 class Attempt {
 	constructor(attemptJson, appearance, liftsInOrder) {
@@ -47,13 +47,13 @@ class Attempt {
 			} else {
 				this.endOfAttempt = this.lightsTime + 30;
 			}
-		} 
+		}
 		if (!this.endOfAttempt) {
 			if (this.lastNameTime > 0) {
 				this.endOfAttempt = this.lastNameTime + 60;
 			}
 		}
-	
+
 	}
 
 	attemptIdx() {
@@ -65,7 +65,7 @@ class Attempt {
 	}
 
 	hasFrame() {
-		return this.weight !== 'X' && (!!this.firstNameTime || !!this.lastNameTime || !!this.lightsTime);
+		return this.weight !== 'X' && (!!this.firstNameTime || !!this.lastNameTime || !!this.lightsTime); //
 	}
 
 	prevAttempt() {
@@ -99,7 +99,7 @@ class Attempt {
 		if (!!this.lightsTime && (this.lightsTime - this.lastNameTime) < 40) { // todo framerate
 			frame = Math.max(this.lightsTime - 25, this.firstNameTime); //todo
 		} else if (!!this.firstNameTime) {
-			frame = Math.max(this.firstNameTime + 10, parseInt((this.firstNameTime + this.lastNameTime) / 2.0, 10));
+			frame = Math.max(this.firstNameTime, parseInt((this.firstNameTime + this.lastNameTime) / 2.0, 10));
 		} else {
 			return false;
 		}
@@ -129,8 +129,8 @@ class Attempt {
 		if (+this.weight < +asOfAttempt.weight) { return true; }
 		if (+this.weight > +asOfAttempt.weight) { return false; }
 
-		return falseIfSameAttempt ? 
-			(+this._appearance.lot < +asOfAttempt._appearance.lot) : 
+		return falseIfSameAttempt ?
+			(+this._appearance.lot < +asOfAttempt._appearance.lot) :
 			(+this._appearance.lot <= +asOfAttempt._appearance.lot);
 	}
 
@@ -142,7 +142,7 @@ class Attempt {
 		// check if uncompleted opener
 		if (this.attemptNumber === '1') {
 			return true;
-		} 
+		}
 
 
 		// check if previous lift has already occurred - in this case, show next submitted attempt
@@ -217,7 +217,7 @@ class Attempt {
 		const lbWeightString = Math.round(weightInPounds * 10) / 10 + ' lb';
 		return lbWeightString;
 	}
-	
-}	
+
+}
 
 export default Attempt

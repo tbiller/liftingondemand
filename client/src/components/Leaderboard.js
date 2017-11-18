@@ -5,7 +5,7 @@ import '../styles/components/Leaderboard.css';
 
 export default function({
 	player,
-	leaderboardType, 
+	leaderboardType,
 	optionClick,
 	results,
 	currentAttempt,
@@ -14,7 +14,8 @@ export default function({
 	clearAutoPlayingLifters,
 	autoPlayTopLifters,
 	division,
-	...tableProps 
+	hasFinishedResults,
+	...tableProps
 }) {
 	// if (currentLifter) {
 	// 	var currentAttempt = currentLifter.lifts[currentAttemptName];
@@ -38,7 +39,7 @@ export default function({
 			console.warn('leaderboardType not recognized');
 			return true;
 		}
-		
+
 	}
 
 	function weightToRankBy(lifterAppearance) {
@@ -48,7 +49,7 @@ export default function({
 		const liftAttempt = lifterAppearance.attempts[attemptName];
 		const currentAttemptIdx = liftAttempt.attemptIdx();
 
-		const lifterHasCompletedCurrentLift = currentAttempt ? 
+		const lifterHasCompletedCurrentLift = currentAttempt ?
 			liftAttempt.hasOccurredAsOf(currentAttempt, true) :
 			false;
 
@@ -58,7 +59,7 @@ export default function({
 			}
 			return +liftAttempt.weight;
 		} else {
-			// rank in front current lifters who have not yet completed lifting, 
+			// rank in front current lifters who have not yet completed lifting,
 			// then by next liftweight
 			let weightToReturn = 0;
 			const offset = -10000;
@@ -109,13 +110,20 @@ export default function({
 		}
 
 		if (leaderboardType === 'live') {
-			return unorderedResults.sort((lifterA, lifterB) => {
-				return sortLifters(lifterA, lifterB);
+			return unorderedResults.sort((appearanceA, appearanceB) => {
+				return sortLifters(appearanceA, appearanceB);
 			});
 		} else {
-			return unorderedResults.sort((lifterA, lifterB) => {
-				return sortResultStrings(lifterA.place(division), lifterB.place(division))
-			});
+			if (hasFinishedResults) {
+				return unorderedResults.sort((appearanceA, appearanceB) => {
+					return sortResultStrings(appearanceA.place(division), appearanceB.place(division))
+				});
+			} else {
+				return unorderedResults.sort((appearanceA, appearanceB) => {
+					console.log(appearanceA);
+					return appearanceB.maxOfAttempts() - appearanceA.maxOfAttempts();
+				});
+			}
 		}
 	}
 
@@ -123,19 +131,22 @@ export default function({
 		<div className='leaderboard'>
 			<div className='leaderboard-header'>
 				<div className='leaderboard-title'>Leaderboard</div>
-				
-				
+
+
 				<div className='options'>
 					<Option value='final' displayValue='Final Results' optType='leaderboardType' activeValue={leaderboardType} optionClick={optionClick}/>
-					<Option value='live' displayValue='In the Moment' optType='leaderboardType' activeValue={leaderboardType} optionClick={optionClick}/>
+					{ hasFinishedResults &&
+						<Option value='live' displayValue='In the Moment' optType='leaderboardType' activeValue={leaderboardType} optionClick={optionClick}/>
+					}
 				</div>
 			</div>
-			<ResultsTable {...tableProps} 
-				shouldShowResult={shouldShowResult} 
+			<ResultsTable {...tableProps}
+				shouldShowResult={shouldShowResult}
 				currentAttempt={currentAttempt}
 				leaderboardType={leaderboardType}
 				autoPlayingLifters={autoPlayingLifters}
 				division={division}
+				hasFinishedResults={hasFinishedResults}
 				results={orderedResults()}
 			/>
 		</div>

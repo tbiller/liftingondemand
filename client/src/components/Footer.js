@@ -6,7 +6,7 @@ export default function() {
 		<div className='footer'>
 			<div>&copy; 2017 Trevor Biller. All rights reserved.</div>
 			<div>Videos &copy; <a target='_blank' href='http://www.powerlifting-ipf.com/'>IPF</a>, 
-				&nbsp;<a target='_blank' href='http://www.usapowerlifting.com/'>USAPL</a>, or their respective owners.
+				&nbsp;<a target='_blank' href='http://www.usapowerlifting.com/'>USAPL</a>, or their rightful owners.
 			</div>
 		</div>
 	);
