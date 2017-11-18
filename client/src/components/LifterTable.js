@@ -20,7 +20,7 @@ export default function({
 	const columns = [
 		{Header: 'Date', id: 'date', minWidth: 60, accessor: (d) => new Date(d._competition.dateForSorting).toLocaleString('en-US', dateOptions), show: !showCompressed},
 		{Header: 'Competition Name', id: 'compName', accessor: (d) => formatName(d._competition.name), minWidth: 120},
-		{Header: 'Bwt.', id: 'bodyweight', accessor: (d) => d.bodyweight ? +(d.bodyweight).toFixed(2) : '', minWidth: 40, show: !showCompressed},
+		{Header: 'Bwt.', id: 'bodyweight', accessor: (d) => d.bodyweight ? parseFloat(d.bodyweight).toFixed(2) : '', minWidth: 40, show: !showCompressed},
 		{Header: 'Pl.', id: 'place', accessor: (d) => d.place() /*=== '-' ? '-' : +d.place*/, minWidth: 25, show: !showCompressed},
 		{Header: 'Div.', id: 'division', accessor: (d) => d.division(), minWidth: 40, show: !showCompressed},
 		{Header: formatAttemptHeader('SQ #1'), className: 'border-left squat', headerClassName: 'border-left squat', accessor: 'attempts.Squat 1', minWidth: minAttemptWidth, Cell: attemptCell, show: shouldShow('Squat', 1)},
