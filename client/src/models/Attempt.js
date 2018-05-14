@@ -30,11 +30,6 @@ class Attempt {
 		this.records = attemptJson.records;
 		this.numStars = attemptJson.numStars || 0;
 
-		// if (this.lastNameTime && this.firstNameTime) {
-		// 	if (this.lastNameTime - this.firstNameTime > 120) {
-		// 		this.firstNameTime = this.lastNameTime - 120;
-		// 	}
-		// }
 
 		if (this.lightsTime && this.lightsTime < this.firstNameTime) {
 			this.lightsTime = null;

@@ -25,7 +25,6 @@ class App extends Component {
 		} 
 
 		this.state = {
-			// activeCompetitionId: '',
 			menuOpen: false,
 			competitions: [],
 			lifters: [],
@@ -73,14 +72,7 @@ class App extends Component {
 	closeMenu = () => {
 		this.toggleMenu(false);
 	}
-
-	// contentClick = (e) => {
-	// 	// if (this.state.menuOpen) {
-	// 	// 	this.closeMenu();
-	// 	// 	e.stopPropagation();
-	// 	// }
-	// }
-
+	
 	getData = (data) => {
 		this.setState(data);
 	}
