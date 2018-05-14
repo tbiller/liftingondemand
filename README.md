@@ -1,5 +1,6 @@
-# liftingondemand
-Lifting On Demand
-v 0.2.6
+# Lifting On Demand
+v0.2.6
 
-Lifting On Demand tries to make powerlifting competitions easier to watch and rewatch.
+Lifting On Demand makes powerlifting competitions easier to watch and rewatch.
+
+Check it out at http://www.liftingondemand.com
